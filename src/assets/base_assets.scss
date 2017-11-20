@@ -1,0 +1,39 @@
+@import '../containers/App/style';
+@import '../components/Login/style';
+
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css');
+@import url('https://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table-all.min.css');
+
+/**
+ * Media Query Constants
+ */
+$screen-xs: 768px;
+$screen-sm: 992px;
+$screen-md: 1200px;
+$screen-lg: 1200px;
+
+/**
+ * Fonts
+ */
+$BaseFont: 'Lato', sans-serif;
+
+/**
+ * Colors
+ */
+$BackgroundGray: #EDF1F5;
+$BorderGray:#E0E6ED;
+
+// Standard CSS Defaults
+
+h1, h2, h3, h4, h5, input, button {
+    font-family: $BaseFont;
+}
+  
+  // Base CSS
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color:#f8fafc;
+}

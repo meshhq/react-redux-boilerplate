@@ -1,0 +1,39 @@
+.login-container-row {
+    padding-top: 8em;
+    padding-bottom: 10em;
+}
+
+.login-header-col {
+    padding-bottom: 2em;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.login-content-col {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 1px rgba(0,0,0,.09), 0 2px 5px rgba(0,0,0,.03);
+    padding: 3em 4em 2em 4em;
+
+    .form-control {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+    
+    .input-group-addon {
+        background-color: white;
+        color: #adadad;
+    }
+
+    .button-group {
+        margin-top: 3em;
+
+        button {
+            padding-top: 0.75em;
+            padding-bottom: 0.75em;
+            width: 100%;
+        }
+    }   
+}
