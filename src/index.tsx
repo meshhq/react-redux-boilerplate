@@ -13,11 +13,19 @@ import { loadState } from "./store/localStorage"
 const persistedState = loadState()
 const appStore = configureStore(persistedState)
 
-ReactDOM.render(
-    <Provider store={appStore}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById("app")
-);
+
+const render = () => {   
+    ReactDOM.render(
+        <Provider store={appStore}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>,
+        document.getElementById("app")
+    );
+}
+render()
+// Webpack Hot Module Replacement API
+if (module.hot) {
+    module.hot.accept('./containers/App', render)
+}

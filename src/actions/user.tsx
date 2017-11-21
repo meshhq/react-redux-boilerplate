@@ -22,7 +22,7 @@ export const AUTHENTICATED_USER = "AUTHENTICATED_USER"
 const registerUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
     const userPayload = {"email": email, "password": password }
     return POST("/register", userPayload).then((response: Response) => {
-        dispatch(this.registeredUser(response))
+        dispatch(registeredUser(response))
     }).catch((err) => Promise.reject(err))
 }
 
@@ -61,7 +61,7 @@ interface RegisteredUserAction extends Action {
 const authenticateUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
     const userPayload = {"email": email, "password": password }
     return POST("/login", userPayload).then((response: Response) => {
-        dispatch(this.authenticatedUser(response))
+        dispatch(authenticatedUser(response))
     }).catch((err) => Promise.reject(err))
 }
 

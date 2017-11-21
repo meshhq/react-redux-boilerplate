@@ -41,6 +41,7 @@ class LoginViewComponent extends React.Component<Props, any> {
     this.state = {
       email: "",
       password: "",
+      confirmation: "",
     }
   }
 
@@ -58,16 +59,22 @@ class LoginViewComponent extends React.Component<Props, any> {
   private submitLogin = (event?: any) => {
     const email = this.state.email
     const password = this.state.password
+    const confirmation = this.state.confirmation
+    if (password !== confirmation) {
+      alert("Your passwords must match.")
+      return
+    }
+
     if (!email || email === "" || !password || password === "") {
       alert("You must provide both a username and password")
       return
     }
-    this.props.userActions.authenticateUser(email, password)
+    this.props.userActions.registerUser(email, password)
   }
 
   private loginFormContent = () => {
     return (
-      <Form horizontal onSubmit={this.submitLogin}>
+      <Form horizontal>
         <EmailForm 
           name="email"
           value={this.state.email}
@@ -80,11 +87,16 @@ class LoginViewComponent extends React.Component<Props, any> {
           placeholder="Password"
           onChange={this.handleFormChange}
         />
+        <PasswordForm
+          name="confirmation"
+          value={this.state.confirmation}
+          placeholder="Confirm"
+          onChange={this.handleFormChange}
+        />
         <FormGroup controlId="button" className="button-group">
           <Col>
             <Button 
               bsStyle="primary" 
-              type="submit" 
               className="login-button" 
               onClick={this.submitLogin}>
               {"Sign In"}
