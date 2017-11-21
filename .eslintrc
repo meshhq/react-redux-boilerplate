@@ -1,0 +1,93 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parser": "babel-eslint",
+    "globals": {
+      "jQuery": true,
+      "$": true,
+      "window": true,
+      "document": true,
+      // This is included by babel
+      "Promise": true
+    },
+    "plugins": [
+      "react"
+    ],
+    "env": {
+      "commonjs": true,
+      "node": true,
+      "browser": true,
+      "jest": true
+    },
+    "settings": {
+      "react": {
+        "createClass": "createClass", // Regex for Component Factory to use, default to "createClass"
+        "pragma": "React",  // Pragma to use, default to "React"
+        "version": "15.0" // React version, default to the latest React stable release
+      }
+    },
+     "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      // General JS / ES6
+      "semi": 0,
+      "no-var": 2,
+      "quotes": [2, "single"],
+      "comma-dangle": [2, "never"],
+      "arrow-body-style": [1, "as-needed"],
+      "generator-star-spacing": [2, "before"], // enforce the spacing around the * in generator functions (off by default)
+      "object-curly-spacing": [2, "always"],
+      "strict": 0,
+      "jsx-quotes": [0, "prefer-single"],
+  
+      //
+      // Strict Mode
+      //
+      // These rules relate to using strict mode.
+      //
+  
+      // JSX Rules
+      "react/display-name": [1, { "ignoreTranspilerName": true }],
+      "react/forbid-prop-types": 0,
+      "react/jsx-boolean-value": [1, "always"],
+      "react/jsx-closing-bracket-location": 1,
+      "react/jsx-curly-spacing": 1,
+      "react/jsx-equals-spacing": 1,
+      "react/jsx-indent-props": [2],
+      "react/jsx-indent": [0],
+      "react/jsx-key": 1,
+      "react/jsx-max-props-per-line": [1, { "maximum": 5 }],
+      "react/jsx-no-bind": 1,
+      "react/jsx-no-duplicate-props": 1,
+      "react/jsx-no-literals": 1,
+      "react/jsx-no-undef": 1,
+      "react/jsx-pascal-case": 1,
+      "react/jsx-uses-react": 1,
+      "react/jsx-uses-vars": 1,
+      "react/no-danger": 1,
+      "react/no-deprecated": 1,
+      "react/no-did-mount-set-state": 1,
+      "react/no-did-update-set-state": 1,
+      "react/no-direct-mutation-state": 1,
+      "react/no-is-mounted": 1,
+      "react/no-multi-comp": [1, { "ignoreStateless": true }],
+      "react/no-set-state": 0,
+      "react/no-string-refs": 1,
+      "react/no-unknown-property": 1,
+      "react/prefer-es6-class": 1,
+      "react/prop-types": 1,
+      "react/react-in-jsx-scope": 1,
+      "react/require-extension": 1,
+      "react/self-closing-comp": 1,
+      "react/sort-prop-types": 1,
+      "react/sort-comp": 1,
+      "react/wrap-multilines": 1,
+  
+      "react/jsx-handler-names": [2, {
+        "eventHandlerPrefix": "_handle",
+        "eventHandlerPropPrefix": "_handle"
+      }]
+    }
+  }

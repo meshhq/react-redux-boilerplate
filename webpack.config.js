@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
     entry: "./src/index.tsx",
 
@@ -9,12 +11,21 @@ module.exports = {
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
+    devServer: {
+        contentBase: './dist',
+        hot: true
+    },
 
     // Compile all files with these extensions.
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
+
+    plugins: [
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ],
 
     // Module Loaders
     module: {
@@ -41,6 +52,10 @@ module.exports = {
                     loader: "sass-loader" // compiles Sass to CSS
                 }]
             }
+            // {
+            //     test: /\.tsx?$/,
+            //     loaders: ['react-hot-loader/webpack', 'ts-loader'] // (or awesome-typescript-loader)
+            // }
 
         ],
         loaders: [
