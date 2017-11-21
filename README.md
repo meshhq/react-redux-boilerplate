@@ -49,7 +49,6 @@ This project is built using the Mesh's standard React/Redux project structure. I
 
 | Path                  | Type              | Contains                                                            
 | ----------------------|-------------------|---------------------------------------------------------------------------|
-| `dist`            	| Directory         | Transpiled source code generated via [Webpack](https://webpack.js.org/).  |
 | `src`                 | Directory         | TypeScript source code files for the application.                         |
 | `.eslintignore`       | ASCII text        | Tells eslint which files/directories to ignore.                           |
 | `.eslintrc`           | ASCII text        | Configuration file for [ESLint](https://eslint.org/)                      |
