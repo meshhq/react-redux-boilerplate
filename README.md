@@ -1,12 +1,16 @@
 # Typescript React Redux Boilerplate
 
-This repository contains the source code for a React/Redux boilerplate application written in Typescript. 
+This repository contains the source code for a React Redux boilerplate application written in Typescript. 
 
 ## Rationale 
 
-Setting up and configuring a new JavaScript application built with modern frameworks demands a significant amount of [time and cognitive overhead](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f). While the combination of `react`, `redux`, `tyepescript` and `webpack` provide a wonderful stack for writing modern front end applicaitons, even experienced developers can struggle when getting started with a new application. 
+Setting up and configuring a new JavaScript application built with modern frameworks demands a significant amount of [time and cognitive overhead](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f). 
 
-The goal of this project is simple: **to provide developers with a pre-configured, standardized application template that allows them to start writing feature code immediately**. 
+While the combination of `react`, `redux`, `tyepescript` and `webpack` provide a wonderful stack for writing modern front end applicaitons, even experienced developers can struggle when getting started with a new application. 
+
+## Objective
+
+The objective of this project is simple: **to provide developers with a pre-configured, standardized application template that allows them to start writing feature code immediately**. 
 
 This project will save developers time and headache when getting started with a new project. It will also provide them with a project strucutre and configuration that can be used across all of their applications. 
 
