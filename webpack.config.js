@@ -12,8 +12,9 @@ module.exports = {
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
     devServer: {
-        contentBase: './dist',
-        hot: true
+        contentBase: './',
+        hot: true,
+        port: 3000
     },
 
     // Compile all files with these extensions.

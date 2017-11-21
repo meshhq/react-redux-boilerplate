@@ -102,7 +102,7 @@ class LoginViewComponent extends React.Component<Props, any> {
 
           <Row className="login-header-row">
             <Col className="login-header-col">
-              <h1>Meshsdfsdlh Boilerplate</h1>
+              <h1>Mesh Boilerplate</h1>
             </Col>
           </Row>
 

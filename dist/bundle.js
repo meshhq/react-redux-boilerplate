@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3cbb6884dd9cf11b45de"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b9a2d8d888dad9117060"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -733,10 +733,9 @@
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(undefined);
 // imports
 exports.push([module.i, "@import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);", ""]);
-exports.push([module.i, "@import url(https://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table-all.min.css);", ""]);
 
 // module
-exports.push([module.i, ".application-root {\n  background-color: #f8fafc; }\n\n.login-container-row {\n  padding-top: 8em;\n  padding-bottom: 10em; }\n\n.login-header-col {\n  padding-bottom: 2em; }\n  .login-header-col h1 {\n    text-align: center; }\n\n.login-content-col {\n  background-color: white;\n  border-radius: 4px;\n  box-shadow: 0 0 1px rgba(0, 0, 0, 0.09), 0 2px 5px rgba(0, 0, 0, 0.03);\n  padding: 3em 4em 2em 4em; }\n  .login-content-col .form-control {\n    padding-top: 1.5em;\n    padding-bottom: 1.5em; }\n  .login-content-col .input-group-addon {\n    background-color: white;\n    color: #adadad; }\n  .login-content-col .button-group {\n    margin-top: 3em; }\n    .login-content-col .button-group button {\n      padding-top: 0.75em;\n      padding-bottom: 0.75em;\n      width: 100%; }\n\n/**\n * Media Query Constants\n */\n/**\n * Fonts\n */\n/**\n * Colors\n */\nh1, h2, h3, h4, h5, input, button {\n  font-family: \"Lato\", sans-serif; }\n\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #f8fafc; }\n", ""]);
+exports.push([module.i, "/**\n* Media Query Constants\n*/\n/**\n* Fonts\n*/\n/**\n* Colors\n*/\nh1, h2, h3, h4, h5, input, button {\n  font-family: \"Lato\", sans-serif; }\n\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #f8fafc; }\n\n.application-root {\n  background-color: #f8fafc; }\n\n.login-container-row {\n  padding-top: 8em;\n  padding-bottom: 10em; }\n\n.login-header-col {\n  padding-bottom: 2em; }\n  .login-header-col h1 {\n    text-align: center; }\n\n.login-content-col {\n  background-color: white;\n  border-radius: 4px;\n  box-shadow: 0 0 1px rgba(0, 0, 0, 0.09), 0 2px 5px rgba(0, 0, 0, 0.03);\n  padding: 3em 4em 2em 4em; }\n  .login-content-col .form-control {\n    padding-top: 1.5em;\n    padding-bottom: 1.5em; }\n  .login-content-col .input-group-addon {\n    background-color: white;\n    color: #adadad; }\n  .login-content-col .button-group {\n    margin-top: 3em; }\n    .login-content-col .button-group button {\n      padding-top: 0.75em;\n      padding-bottom: 0.75em;\n      width: 100%; }\n", ""]);
 
 // exports
 

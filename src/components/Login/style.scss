@@ -14,7 +14,7 @@
 .login-content-col {
     background-color: white;
     border-radius: 4px;
-    box-shadow: 0 0 1px rgba(0,0,0,.09), 0 2px 5px rgba(0,0,0,.03);
+    box-shadow: $MeshShadow;
     padding: 3em 4em 2em 4em;
 
     .form-control {
@@ -24,7 +24,7 @@
     
     .input-group-addon {
         background-color: white;
-        color: #adadad;
+        color: $MeshIconColor;
     }
 
     .button-group {
