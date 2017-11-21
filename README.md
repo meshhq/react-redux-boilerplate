@@ -36,7 +36,7 @@ This application intentionally contains minimal functionality, as it is meant to
 
 ## Project Structure
 
-This project is built using the Mesh reccomended Typescript project structure. It is organized as detailed in the table below:
+This project is built using the Mesh's standard React/Redux project structure. It is organized as detailed in the table below:
 
 | Path                  | Type              | Contains                                                            
 | ----------------------|-------------------|---------------------------------------------------------------|
