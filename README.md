@@ -12,7 +12,7 @@ While the combination of `React`, `Redux`, `Typescript` and `Webpack` provide a 
 
 The objective of this project is simple: **to provide developers with a pre-configured, standardized application template that allows them to start writing feature code immediately**. 
 
-This project will save developers time and headache when getting started with a new project. It will also provide them with a project strucutre and configuration that can be used across all of their applications. 
+This project will save developers time and headache when getting started with a new project. It will also provide them with a project strucutre and configuration that can be used across all of their future applications. 
 
 ## Tooling
 
