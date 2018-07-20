@@ -1,10 +1,10 @@
 import { Reducer, AnyAction } from 'redux';
 
-export interface UserState { }
+export interface IUserState { }
 
-const defaultState: UserState = {}
+const defaultState: IUserState = {}
 
-function user(state = defaultState, action: AnyAction): UserState {
+function user(state = defaultState, action: AnyAction): IUserState {
 	switch (action.type) {
 		default:
 			return state

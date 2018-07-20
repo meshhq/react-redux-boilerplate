@@ -3,14 +3,14 @@ import {
 	FormGroup, InputGroup, Glyphicon, FormControl
 } from 'react-bootstrap'
 
-export interface PasswordFormOptions {
+export interface IPasswordFormOptions {
 	name: string
 	value: string
 	placeholder: string
 	onChange: React.FormEventHandler<FormControl>
 }
 
-const PasswordForm = (options: PasswordFormOptions) => {
+const PasswordForm = (options: IPasswordFormOptions) => {
 	return (
 		<FormGroup controlId={options.name}>
 			<InputGroup>

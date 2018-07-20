@@ -16,26 +16,33 @@ import {
 } from 'react-bootstrap'
 
 // State
-import { UserState } from '../../reducers/user'
+import { IUserState } from '../../reducers/user'
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
-
-// State added to props after connect.
-interface ConnectedState {
-	userState: UserState
-}
 
 // Actions
 import { UserActions, UserDispatch } from '../../actions/user'
 
+// State added to props after connect.
+interface IConnectedState {
+	userState: IUserState
+}
+
 // Actions added to props after connect.
-interface ConnectedActions {
+interface IConnectedActions {
 	userActions: UserDispatch
 }
 
-type Props = ConnectedActions & ConnectedState
+interface IComponentState {
+	confirmation: string
+	email: string
+	password: string
+}
 
-class LoginViewComponent extends React.Component<Props, any> {
+type Props = IConnectedActions & IConnectedState
+type State = IComponentState
+
+class LoginViewComponent extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {
@@ -70,14 +77,14 @@ class LoginViewComponent extends React.Component<Props, any> {
 	// Login Form
 	// ---------------------------------
 
-	private handleFormChange = (event: any) => {
-		const target = event.target
+	private handleFormChange = (event: React.FormEvent<FormControl> & React.ChangeEvent<HTMLInputElement>) => {
+		const target = event.currentTarget
 		this.setState({
 			[target.name]: target.value,
-		})
+		} as Pick<IComponentState, 'confirmation' | 'email' | 'password'>)
 	}
 
-	private submitLogin = (event?: any) => {
+	private submitLogin = async (event?: React.FormEvent<FormControl>) => {
 		const email = this.state.email
 		const password = this.state.password
 		const confirmation = this.state.confirmation
@@ -90,7 +97,12 @@ class LoginViewComponent extends React.Component<Props, any> {
 			alert('You must provide both a username and password')
 			return
 		}
-		this.props.userActions.registerUser(email, password)
+
+		try {
+			await this.props.userActions.registerUser(email, password)
+		} catch (e) {
+			alert(`Error registering user: ${e}`)
+		}
 	}
 
 	private loginFormContent = () => {
@@ -129,9 +141,9 @@ class LoginViewComponent extends React.Component<Props, any> {
 	}
 }
 
-const mapStateToProps = (state: any, ownProps: any) => {
+const mapStateToProps = (state: IConnectedState) => {
 	return {
-		userState: state.user,
+		userState: state.userState,
 	}
 }
 
@@ -141,4 +153,4 @@ const mapDispatchToProps = (dispatch: Dispatch<UserDispatch>) => {
 	}
 }
 
-export const LoginComponent: React.ComponentClass<any> = connect(mapStateToProps, mapDispatchToProps)(LoginViewComponent)
+export const LoginComponent = connect(mapStateToProps, mapDispatchToProps)(LoginViewComponent)

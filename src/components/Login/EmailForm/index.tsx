@@ -3,14 +3,14 @@ import {
 	FormGroup, InputGroup, Glyphicon, FormControl
 } from 'react-bootstrap'
 
-export interface EmailFormOptions {
+export interface IEmailFormOptions {
 	name: string
 	value: string
 	placeholder: string
 	onChange: React.FormEventHandler<FormControl>
 }
 
-const EmailForm = (options: EmailFormOptions) => {
+const EmailForm = (options: IEmailFormOptions) => {
 	return (
 		<FormGroup controlId={options.name}>
 			<InputGroup>
