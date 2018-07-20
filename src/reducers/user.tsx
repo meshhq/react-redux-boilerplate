@@ -1,4 +1,4 @@
-import { Reducer, AnyAction } from 'redux';
+import { Reducer, AnyAction } from 'redux'
 
 export interface IUserState { }
 
