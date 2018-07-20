@@ -1,14 +1,14 @@
-import { ActionCreatorsMapObject, ActionCreator, Dispatch, Action } from "redux"
-import * as URI from "urijs"
+import { ActionCreatorsMapObject, ActionCreator, Dispatch, Action } from 'redux'
+import * as URI from 'urijs'
 
 // API Helpers
-import { POST } from "../helpers/api"
+import { POST } from '../helpers/api'
 
-export const REGISTERING_USER = "REGISTERING_USER"
-export const REGISTERED_USER = "REGISTERED_USER"
+export const REGISTERING_USER = 'REGISTERING_USER'
+export const REGISTERED_USER = 'REGISTERED_USER'
 
-export const AUTHENTICATING_USER = "AUTHENTICATING_USER"
-export const AUTHENTICATED_USER = "AUTHENTICATED_USER"
+export const AUTHENTICATING_USER = 'AUTHENTICATING_USER'
+export const AUTHENTICATED_USER = 'AUTHENTICATED_USER'
 
 // -----------------------------------------------------------------------------
 // User Registration
@@ -20,8 +20,8 @@ export const AUTHENTICATED_USER = "AUTHENTICATED_USER"
  * @param password The password supplied in the registration form.
  */
 const registerUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
-    const userPayload = {"email": email, "password": password }
-    return POST("/register", userPayload).then((response: Response) => {
+    const userPayload = {'email': email, 'password': password }
+    return POST('/register', userPayload).then((response: Response) => {
         dispatch(registeredUser(response))
     }).catch((err) => Promise.reject(err))
 }
@@ -59,8 +59,8 @@ interface RegisteredUserAction extends Action {
  * @param password The password supplied in the login form.
  */
 const authenticateUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
-    const userPayload = {"email": email, "password": password }
-    return POST("/login", userPayload).then((response: Response) => {
+    const userPayload = {'email': email, 'password': password }
+    return POST('/login', userPayload).then((response: Response) => {
         dispatch(authenticatedUser(response))
     }).catch((err) => Promise.reject(err))
 }

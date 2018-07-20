@@ -11,16 +11,16 @@ import { saveState as saveToLocalStorage } from './localStorage'
  * @return      {Object}
  */
 export default function configureStore(initialState: any) {
-    // Adding thunk
-    let middleware = applyMiddleware(thunk)
+	// Adding thunk
+	const middleware = applyMiddleware(thunk)
 
-    // Creating our store
-    const store = createStore(rootReducer, initialState, middleware)
+	// Creating our store
+	const store = createStore(rootReducer, initialState, middleware)
 
-    // Add Subscribers to store
-    addSubscribersToStore(store)
+	// Add Subscribers to store
+	addSubscribersToStore(store)
 
-    return store
+	return store
 }
 
 /**
@@ -29,13 +29,13 @@ export default function configureStore(initialState: any) {
  * @param       {object}            store
  */
 function addSubscribersToStore(store: any) {
-    // Only save updates to the session and report
-    // and limit saves to once per second
-    store.subscribe(throttle(() => {
-        // Persist State to Local Storage
-        saveToLocalStorage({
-            user: store.getState().user,
-            session: store.getState().session,
-        })
-    }, 1000))
+	// Only save updates to the session and report
+	// and limit saves to once per second
+	store.subscribe(throttle(() => {
+		// Persist State to Local Storage
+		saveToLocalStorage({
+			session: store.getState().session,
+			user: store.getState().user,
+		})
+	}, 1000))
 }

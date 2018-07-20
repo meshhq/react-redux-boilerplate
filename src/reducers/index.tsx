@@ -1,9 +1,9 @@
-import { combineReducers } from "redux"
+import { combineReducers } from 'redux'
 
-import user from "./user"
+import user from './user'
 
 const app = combineReducers({
-    user,
+	user,
 })
 
 export default app
