@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, Store } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 import { throttle } from 'underscore'
@@ -28,7 +28,7 @@ export default function configureStore(initialState: any) {
  * @description Takes a store and adds subscribers to the store
  * @param       {object}            store
  */
-function addSubscribersToStore(store: any) {
+function addSubscribersToStore(store: Store<any>) {
 	// Only save updates to the session and report
 	// and limit saves to once per second
 	store.subscribe(throttle(() => {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { connect, Dispatch } from 'react-redux'
 import {
 	Col,
 	Row,
@@ -36,7 +36,7 @@ interface ConnectedActions {
 type Props = ConnectedActions & ConnectedState
 
 class LoginViewComponent extends React.Component<Props, any> {
-	constructor(props: any) {
+	constructor(props: Props) {
 		super(props)
 		this.state = {
 			confirmation: '',
@@ -135,7 +135,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<UserDispatch>) => {
 	return {
 		userActions: bindActionCreators(UserActions, dispatch),
 	}

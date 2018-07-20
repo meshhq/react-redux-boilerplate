@@ -7,7 +7,7 @@ export interface PasswordFormOptions {
 	name: string
 	value: string
 	placeholder: string
-	onChange: any
+	onChange: React.FormEventHandler<FormControl>
 }
 
 const PasswordForm = (options: PasswordFormOptions) => {

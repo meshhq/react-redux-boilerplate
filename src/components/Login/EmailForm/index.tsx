@@ -7,7 +7,7 @@ export interface EmailFormOptions {
 	name: string
 	value: string
 	placeholder: string
-	onChange: any
+	onChange: React.FormEventHandler<FormControl>
 }
 
 const EmailForm = (options: EmailFormOptions) => {
