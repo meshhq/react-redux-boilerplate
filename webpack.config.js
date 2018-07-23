@@ -13,7 +13,7 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
-    // Enable sourcemaps for debugging webpack's output.
+    // Enable sourcemaps for debugging Webpack's output.
     devtool: "source-map",
     devServer: {
         contentBase: "./dist",

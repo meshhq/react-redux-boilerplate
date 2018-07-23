@@ -1,39 +1,37 @@
 .login-container-row {
-    padding-top: 8em;
-    padding-bottom: 10em;
+	padding-top: 8em;
+	padding-bottom: 10em;
 }
 
 .login-header-col {
-    padding-bottom: 2em;
-
-    h1 {
-        text-align: center;
-    }
+	padding-bottom: 2em;
+	h1 {
+		text-align: center;
+	}
 }
 
 .login-content-col {
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: $MeshShadow;
-    padding: 3em 4em 2em 4em;
-
-    .form-control {
-        padding-top: 1.5em;
-        padding-bottom: 1.5em;
-    }
-    
-    .input-group-addon {
-        background-color: white;
-        color: $MeshIconColor;
-    }
-
-    .button-group {
-        margin-top: 3em;
-
-        button {
-            padding-top: 0.75em;
-            padding-bottom: 0.75em;
-            width: 100%;
-        }
-    }   
+	background-color: white;
+	border-radius: 4px;
+	box-shadow: $MeshShadow;
+	padding: 3em 4em 2em 4em;
+	
+	.form-control {
+		padding-top: 1.5em;
+		padding-bottom: 1.5em;
+	}
+	
+	.input-group-addon {
+		background-color: white;
+		color: $MeshIconColor;
+	}
+	
+	.button-group {
+		margin-top: 3em;
+		button {
+			padding-top: 0.75em;
+			padding-bottom: 0.75em;
+			width: 100%;
+		}
+	}
 }

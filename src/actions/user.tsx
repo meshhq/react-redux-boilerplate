@@ -1,14 +1,14 @@
-import { ActionCreatorsMapObject, ActionCreator, Dispatch, Action } from "redux"
-import * as URI from "urijs"
+import { ActionCreatorsMapObject, ActionCreator, Dispatch, Action } from 'redux'
+import * as URI from 'urijs'
 
 // API Helpers
-import { POST } from "../helpers/api"
+import { POST } from '../helpers/api'
 
-export const REGISTERING_USER = "REGISTERING_USER"
-export const REGISTERED_USER = "REGISTERED_USER"
+export const REGISTERING_USER = 'REGISTERING_USER'
+export const REGISTERED_USER = 'REGISTERED_USER'
 
-export const AUTHENTICATING_USER = "AUTHENTICATING_USER"
-export const AUTHENTICATED_USER = "AUTHENTICATED_USER"
+export const AUTHENTICATING_USER = 'AUTHENTICATING_USER'
+export const AUTHENTICATED_USER = 'AUTHENTICATED_USER'
 
 // -----------------------------------------------------------------------------
 // User Registration
@@ -19,11 +19,11 @@ export const AUTHENTICATED_USER = "AUTHENTICATED_USER"
  * @param email The email supplied in the registration form.
  * @param password The password supplied in the registration form.
  */
-const registerUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
-    const userPayload = {"email": email, "password": password }
-    return POST("/register", userPayload).then((response: Response) => {
-        dispatch(registeredUser(response))
-    }).catch((err) => Promise.reject(err))
+const registerUser = (email: string, password: string) => (dispatch: Dispatch<IRegisteredUserAction>) => {
+	const userPayload = { email, password }
+	return POST('/register', userPayload).then((response: Response) => {
+		dispatch(registeredUser(response))
+	}).catch((err) => Promise.reject(err))
 }
 
 /**
@@ -31,22 +31,22 @@ const registerUser = (email: string, password: string) => (dispatch: Dispatch<an
  * @param response The response from the register API call.
  * @return The `RegisteredUserAction` instance.
  */
-const registeredUser = (response: any): RegisteredUserAction => {
-    const action: RegisteredUserAction = {
-        receivedAt: Date.now(),
-        type: REGISTERED_USER,
-        users: response,
-    }
-    return action
+const registeredUser = (response: Response): IRegisteredUserAction => {
+	const action: IRegisteredUserAction = {
+		receivedAt: Date.now(),
+		type: REGISTERED_USER,
+		users: response,
+	}
+	return action
 }
 
 /**
  * RegisteredUserAction is dispatched after a user has been registered.
  */
-interface RegisteredUserAction extends Action {
-    type: string,
-    users: any,
-    receivedAt: number
+interface IRegisteredUserAction extends Action {
+	type: string,
+	users: any,
+	receivedAt: number
 }
 
 // -----------------------------------------------------------------------------
@@ -58,11 +58,11 @@ interface RegisteredUserAction extends Action {
  * @param email The email supplied in the login form.
  * @param password The password supplied in the login form.
  */
-const authenticateUser = (email: string, password: string) => (dispatch: Dispatch<any>) => {
-    const userPayload = {"email": email, "password": password }
-    return POST("/login", userPayload).then((response: Response) => {
-        dispatch(authenticatedUser(response))
-    }).catch((err) => Promise.reject(err))
+const authenticateUser = (email: string, password: string) => (dispatch: Dispatch<IAuthenticatedUserAction>) => {
+	const userPayload = { email, password }
+	return POST('/login', userPayload).then((response: Response) => {
+		dispatch(authenticatedUser(response))
+	}).catch((err) => Promise.reject(err))
 }
 
 /**
@@ -70,37 +70,37 @@ const authenticateUser = (email: string, password: string) => (dispatch: Dispatc
  * @param response The response from the login API call.
  * @return The `RegisteredUserAction` instance.
  */
-const authenticatedUser = (response: any): AuthenticatedUserAction => {
-    const action: AuthenticatedUserAction = {
-        receivedAt: Date.now(),
-        type: AUTHENTICATED_USER,
-        users: response,
-    }
-    return action
+const authenticatedUser = (response: Response): IAuthenticatedUserAction => {
+	const action: IAuthenticatedUserAction = {
+		receivedAt: Date.now(),
+		type: AUTHENTICATED_USER,
+		users: response,
+	}
+	return action
 }
 
 /**
  * AuthenticatedUserAction is dispatched after a user has been authenticated.
  */
-interface AuthenticatedUserAction extends Action {
-    type: string,
-    users: any,
-    receivedAt: number
+interface IAuthenticatedUserAction extends Action {
+	type: string,
+	users: any,
+	receivedAt: number
 }
 
 /**
  * Defines the interface for our UserAction object.
  */
 export interface UserDispatch extends ActionCreatorsMapObject {
-    registerUser (email: string, password: string): any
-    registeredUser (response: any): RegisteredUserAction
-    authenticateUser (email: string, password: string): any
-    authenticatedUser (response: any): AuthenticatedUserAction
+	registerUser(email: string, password: string): (dispatch: Dispatch<IRegisteredUserAction>) => Promise<void>
+	registeredUser(response: Response): IRegisteredUserAction
+	authenticateUser(email: string, password: string): (dispatch: Dispatch<IAuthenticatedUserAction>) => Promise<void>
+	authenticatedUser(response: Response): IAuthenticatedUserAction
 }
-  
+
 export const UserActions: UserDispatch = {
-    registerUser,
-    registeredUser,
-    authenticateUser,
-    authenticatedUser,
+	authenticateUser,
+	authenticatedUser,
+	registerUser,
+	registeredUser,
 }

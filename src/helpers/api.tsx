@@ -1,7 +1,7 @@
-import * as URI from "urijs"
-import * as CreateHttpError from "http-errors"
+import * as URI from 'urijs'
+import * as CreateHttpError from 'http-errors'
 
-const HOST = "http://localhost:8080"
+const HOST = 'http://localhost:8080'
 
 /**
  * INTERFACE METHODS
@@ -13,9 +13,9 @@ const HOST = "http://localhost:8080"
  * @param path An optional set of parameters to include in the request.
  */
 export function GET(path: string, params: any) {
-  const url = URLWithPath(path, params)
-  const options = baseRequest("GET", url)
-  return performFetch(url, options)
+	const url = URLWithPath(path, params)
+	const options = baseRequest('GET', url)
+	return performFetch(url, options)
 }
 
 /**
@@ -24,10 +24,10 @@ export function GET(path: string, params: any) {
  * @param path An optional set of parameters to include in the request.
  */
 export function PUT(path: string, params: any) {
-    const url = URLWithPath(path, "")
-    const options = baseRequest("PUT", url, params)
-    return performFetch(url, options)
-  }
+	const url = URLWithPath(path, '')
+	const options = baseRequest('PUT', url, params)
+	return performFetch(url, options)
+}
 
 /**
  * POSTS a resource for the provided path and params.
@@ -35,9 +35,9 @@ export function PUT(path: string, params: any) {
  * @param path An optional set of parameters to include in the request.
  */
 export function POST(path: string, body: any) {
-  const url = URLWithPath(path, "")
-  const options = baseRequest("POST", url, body)
-  return performFetch(url, options)
+	const url = URLWithPath(path, '')
+	const options = baseRequest('POST', url, body)
+	return performFetch(url, options)
 }
 
 /**
@@ -46,31 +46,31 @@ export function POST(path: string, body: any) {
  * @param path An optional set of parameters to include in the request.
  */
 export function DELETE(path: string, params: any) {
-  const url = URLWithPath(path, params)
-  const options = baseRequest("DELETE", url)
-  return performFetch(url, options)
+	const url = URLWithPath(path, params)
+	const options = baseRequest('DELETE', url)
+	return performFetch(url, options)
 }
 
 /**
  * Performs the Fetch for the given request
  * @param  {[type]} request Base Request
- * @return {[type]}         Result Proimise
+ * @return {[type]}         Result Promise
  */
 function performFetch(url: string, options: RequestInit) {
-  console.log("URL", url)
-  console.log("Options", options)
-  return fetch(url, options).then((response: Response) => {
-    console.log("Response", response)
-    if (response.status === 204) {
-      return null
-    } else {
-      return Promise.resolve(response)
-    }
-  }).catch((error) => {
-    console.log(error)
-    const errorToThrow = error as CreateHttpError.HttpError
-    throw errorToThrow
-  })
+	console.log('URL', url)
+	console.log('Options', options)
+	return fetch(url, options).then((response: Response) => {
+		console.log('Response', response)
+		if (response.status === 204) {
+			return null
+		} else {
+			return Promise.resolve(response)
+		}
+	}).catch((error) => {
+		console.log(error)
+		const errorToThrow = error as CreateHttpError.HttpError
+		throw errorToThrow
+	})
 }
 
 /**
@@ -81,14 +81,14 @@ function performFetch(url: string, options: RequestInit) {
  * @return {Request}       Formatted Request
  */
 function baseRequest(method: string, url: string, body?: any): RequestInit {
-    const headersForRequest = defaultHeaders()
-    const init = {
-      method: method,
-      headers: headersForRequest,
-      cors: true,
-      body: JSON.stringify(body)
-    }
-    return init
+	const headersForRequest = defaultHeaders()
+	const init = {
+		body: JSON.stringify(body),
+		cors: true,
+		headers: headersForRequest,
+		method: method,
+	}
+	return init
 }
 
 /**
@@ -96,9 +96,9 @@ function baseRequest(method: string, url: string, body?: any): RequestInit {
  * @return {Headers} Default Headers
  */
 function defaultHeaders() {
-	const header = new Headers();
+	const header = new Headers()
 	header.set('Accept', 'application/json')
-    header.set('Content-Type', 'application/json')
+	header.set('Content-Type', 'application/json')
 	header.set('X-Web-Source', 'meshboilerplate')
 	return header
 }
@@ -109,14 +109,14 @@ function defaultHeaders() {
  * @return {String}        URI for the path
  */
 function URLWithPath(path: string, queryParams: any) {
-  const uri = new URI(HOST)
-  uri.pathname(path)
+	const uri = new URI(HOST)
+	uri.pathname(path)
 
-  // Append Query Params
-  for (const key in queryParams) {
-    if (queryParams.hasOwnProperty(key)) {
-      uri.setSearch(key, queryParams[key])
-    }
-  }
-  return uri.toString()
+	// Append Query Params
+	for (const key in queryParams) {
+		if (queryParams.hasOwnProperty(key)) {
+			uri.setSearch(key, queryParams[key])
+		}
+	}
+	return uri.toString()
 }

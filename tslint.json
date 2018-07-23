@@ -3,7 +3,7 @@
     "defaultSeverity": "warning",
     "rules": {
 		"trailing-comma": [false, {"multiline": "never", "singleline": "never"}],
-		"indent": [true, "tabs"],
+		"indent": [true, "tabs", 2],
 		"interface-name": [false, "never-prefix"],
         "object-literal-shorthand": false,
 		"no-duplicate-variable": true,
