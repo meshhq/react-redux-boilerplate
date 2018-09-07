@@ -4,19 +4,19 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
-        "./src/index.tsx"
+        './src/index.tsx'
     ],
 
     // Tell webpack where to put its output.
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/dist"
+        filename: 'bundle.js',
+        path: __dirname + '/dist'
     },
 
     // Enable sourcemaps for debugging Webpack's output.
-    devtool: "source-map",
+    devtool: 'source-map',
     devServer: {
-        contentBase: "./dist",
+        contentBase: './dist',
         inline: true,
         historyApiFallback: true,
         hot: true,
@@ -26,7 +26,7 @@ module.exports = {
     // Compile all files with these extensions.
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [" ", ".ts", ".tsx", ".js", ".json"]
+        extensions: [' ', '.ts', '.tsx', '.js', '.json']
     },
 
     plugins: [
@@ -37,7 +37,7 @@ module.exports = {
             template: './src/index.html',
             files: {
               css: ['style.css'],
-              js: [ "bundle.js"],
+              js: ['bundle.js'],
             }
           }),
     ],
@@ -49,25 +49,25 @@ module.exports = {
             { 
                 test: /\.tsx?$/, 
                 loader: [
-                    "react-hot-loader/webpack",
-                    "awesome-typescript-loader" 
+                    'react-hot-loader/webpack',
+                    'awesome-typescript-loader' 
                 ]
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { 
-                enforce: "pre", 
+                enforce: 'pre', 
                 test: /\.js$/, 
-                loader: "source-map-loader" },
+                loader: 'source-map-loader' },
 
             {
                 test: /\.scss$/,
                 use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
+                    loader: 'style-loader' // creates style nodes from JS strings
                 }, {
-                    loader: "css-loader" // translates CSS into CommonJS
+                    loader: 'css-loader' // translates CSS into CommonJS
                 }, {
-                    loader: "sass-loader" // compiles Sass to CSS
+                    loader: 'sass-loader' // compiles Sass to CSS
                 }]
             }
         ],
@@ -75,13 +75,13 @@ module.exports = {
             // Compile SCSS files
             {
                 test: /\.scss$/,
-                loaders: ["style-loader", "sass-loader", "css-loader"],
-                exclude: ["node_modules"]
+                loaders: ['style-loader', 'sass-loader', 'css-loader'],
+                exclude: ['node_modules']
             },
             {
                 test: /\.tsx$/,
                 loader: 'awesome-typescript-loader',
-                exclude: ["node_modules"],
+                exclude: ['node_modules'],
                 query: {
                   tsconfig: './tsconfig.json',
                   useTranspileModule: true,

@@ -20,6 +20,7 @@ This project will save developers time and headache when getting started with a 
 * [Redux](https://redux.js.org/) - A predictable state container for `JavaScript` apps. It helps developers manage state throughout their applications. 
 * [Webpack](https://webpack.js.org/) - A static module bundler for modern `JavaScript` applications. Its main purpose is to bundle `JavaScript` files for use in a browser. When webpack processes your application, it recursively builds a dependency graph that includes every module your application needs, then packages all of those modules into one or more bundles.
 * [TypeScript](https://www.typescriptlang.org/) - A strongly typed superset of `JavaScript`, that compiles to plain `JavaScript`. Types enable `JavaScript` developers to use highly-productive development tools and practices like static checking and code refactoring.
+* [Jest](https://www.https://jestjs.io/) - A `JavaScript` testing framework that includes powerful mocking capabilities.
 
 ## Getting Started
 
@@ -53,6 +54,7 @@ This project is built using Mesh's standard `React` `Redux` project structure. I
 
 | Path                  | Type              | Contains                                                            
 | ----------------------|-------------------|---------------------------------------------------------------------------|
+| `__tests__`           | Directory         | Tests for application code go here.                                       |
 | `src`                 | Directory         | `TypeScript` source code files for the application.                       |
 | `.eslintignore`       | ASCII text        | Tells [ESLint](https://eslint.org/) which files/directories to ignore.    |
 | `.eslintrc`           | ASCII text        | Configuration file for [ESLint](https://eslint.org/).                     |
