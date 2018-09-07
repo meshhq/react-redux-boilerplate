@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
 
-import user from './user'
+import user, { IUserState } from './user'
+
+export interface IRootReducerState {
+	user: IUserState,
+}
 
 const app = combineReducers({
 	user,

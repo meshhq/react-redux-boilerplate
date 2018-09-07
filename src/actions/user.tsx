@@ -1,5 +1,4 @@
-import { ActionCreatorsMapObject, ActionCreator, Dispatch, Action } from 'redux'
-import * as URI from 'urijs'
+import { ActionCreatorsMapObject, Dispatch, Action } from 'redux'
 
 // API Helpers
 import { POST } from '../helpers/api'
@@ -9,6 +8,11 @@ export const REGISTERED_USER = 'REGISTERED_USER'
 
 export const AUTHENTICATING_USER = 'AUTHENTICATING_USER'
 export const AUTHENTICATED_USER = 'AUTHENTICATED_USER'
+
+export const LOGIN_USER = 'LOGIN_USER'
+export const LOGIN_USER_COMPLETE = 'LOGIN_USER_COMPLETE'
+
+export const CLEAR_USER = 'CLEAR_USER'
 
 // -----------------------------------------------------------------------------
 // User Registration
@@ -35,7 +39,7 @@ const registeredUser = (response: Response): IRegisteredUserAction => {
 	const action: IRegisteredUserAction = {
 		receivedAt: Date.now(),
 		type: REGISTERED_USER,
-		users: response,
+		user: response,
 	}
 	return action
 }
@@ -43,10 +47,28 @@ const registeredUser = (response: Response): IRegisteredUserAction => {
 /**
  * RegisteredUserAction is dispatched after a user has been registered.
  */
-interface IRegisteredUserAction extends Action {
+export interface IRegisteredUserAction extends Action {
 	type: string,
-	users: any,
+	user: any,
 	receivedAt: number
+}
+
+// -----------------------------------------------------------------------------
+// Authenticate User
+// -----------------------------------------------------------------------------
+
+/**
+ * Called when the user has been successfully authenticated
+ */
+const authenticateUser = () => (dispatch: Dispatch<Action>) => {
+		dispatch(authenticatedUser())
+}
+
+const authenticatedUser = (): Action => {
+	const action: Action = {
+		type: AUTHENTICATED_USER,
+	}
+	return action
 }
 
 // -----------------------------------------------------------------------------
@@ -58,10 +80,10 @@ interface IRegisteredUserAction extends Action {
  * @param email The email supplied in the login form.
  * @param password The password supplied in the login form.
  */
-const authenticateUser = (email: string, password: string) => (dispatch: Dispatch<IAuthenticatedUserAction>) => {
+const loginUser = (email: string, password: string) => (dispatch: Dispatch<ILoginUserAction>) => {
 	const userPayload = { email, password }
 	return POST('/login', userPayload).then((response: Response) => {
-		dispatch(authenticatedUser(response))
+		dispatch(loginUserComplete(response))
 	}).catch((err) => Promise.reject(err))
 }
 
@@ -70,37 +92,60 @@ const authenticateUser = (email: string, password: string) => (dispatch: Dispatc
  * @param response The response from the login API call.
  * @return The `RegisteredUserAction` instance.
  */
-const authenticatedUser = (response: Response): IAuthenticatedUserAction => {
-	const action: IAuthenticatedUserAction = {
+const loginUserComplete = (response: Response): ILoginUserAction => {
+	const action: ILoginUserAction = {
 		receivedAt: Date.now(),
-		type: AUTHENTICATED_USER,
-		users: response,
+		type: LOGIN_USER_COMPLETE,
+		user: response,
 	}
 	return action
 }
 
 /**
- * AuthenticatedUserAction is dispatched after a user has been authenticated.
+ * ILoginUserAction is dispatched after a user has been logged in.
  */
-interface IAuthenticatedUserAction extends Action {
+export interface ILoginUserAction extends Action {
 	type: string,
-	users: any,
+	user: any,
 	receivedAt: number
+}
+
+// -----------------------------------------------------------------------------
+// Clear User
+// -----------------------------------------------------------------------------
+
+const clearUser = () => (dispatch: Dispatch<Action>) => {
+	dispatch(clearedUser())
+}
+
+const clearedUser = (): Action => {
+	const action = {
+		type: CLEAR_USER,
+	}
+	return action
 }
 
 /**
  * Defines the interface for our UserAction object.
  */
 export interface UserDispatch extends ActionCreatorsMapObject {
+	authenticateUser(): (dispatch: Dispatch<Action>) => void
+	authenticatedUser(): Action
+	clearUser(): (dispatch: Dispatch<Action>) => void
+	clearedUser(): Action
+	loginUser(email: string, password: string): (dispatch: Dispatch<ILoginUserAction>) => Promise<void>
+	loginUserComplete(response: Response): ILoginUserAction
 	registerUser(email: string, password: string): (dispatch: Dispatch<IRegisteredUserAction>) => Promise<void>
 	registeredUser(response: Response): IRegisteredUserAction
-	authenticateUser(email: string, password: string): (dispatch: Dispatch<IAuthenticatedUserAction>) => Promise<void>
-	authenticatedUser(response: Response): IAuthenticatedUserAction
 }
 
 export const UserActions: UserDispatch = {
 	authenticateUser,
 	authenticatedUser,
+	clearUser,
+	clearedUser,
+	loginUser,
+	loginUserComplete,
 	registerUser,
 	registeredUser,
 }

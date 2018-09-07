@@ -5,20 +5,18 @@ import {
 	Col,
 	Row,
 	Button,
-	Table,
-	Modal,
-	Glyphicon,
 	Form,
 	FormGroup,
-	ControlLabel,
 	FormControl,
-	InputGroup
 } from 'react-bootstrap'
 
-// State
-import { IUserState } from '../../reducers/user'
+// Components
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
+
+// State
+import { IRootReducerState } from '../../reducers'
+import { IUserState } from '../../reducers/user'
 
 // Actions
 import { UserActions, UserDispatch } from '../../actions/user'
@@ -141,9 +139,9 @@ class LoginViewComponent extends React.Component<Props, State> {
 	}
 }
 
-const mapStateToProps = (state: IConnectedState) => {
+const mapStateToProps = (state: IRootReducerState) => {
 	return {
-		userState: state.userState,
+		userState: state.user,
 	}
 }
 
