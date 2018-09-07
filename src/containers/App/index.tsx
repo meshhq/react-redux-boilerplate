@@ -1,16 +1,27 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'react-bootstrap'
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 
+// Components
 import { LoginComponent } from '../../components/Login'
+
+// State
+import { IRootReducerState } from '../../reducers'
+import { IUserState } from '../../reducers/user'
+
+interface IConnectedProps {
+	userState: IUserState
+}
+
+type Props = IConnectedProps
 
 /**
  * AppComponent is the root component for our application.
  */
-class AppComponent extends React.Component<any, any> {
+class AppComponent extends React.Component<Props> {
 
-	constructor(props: any) {
+	constructor(props: Props) {
 		super(props)
 	}
 
@@ -32,8 +43,10 @@ class AppComponent extends React.Component<any, any> {
 	}
 }
 
-const mapStateToProps = (state: any, ownProps: any) => {
-	return {}
+const mapStateToProps = (state: IRootReducerState) => {
+	return {
+		userState: state.user,
+	}
 }
 
 export const App: React.ComponentClass<any> = withRouter(connect(mapStateToProps)(AppComponent))
