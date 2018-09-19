@@ -5,17 +5,21 @@ import { bindActionCreators, Dispatch } from 'redux'
 
 // Actions
 import { UserActions, UserDispatch } from '../actions/user'
+import { OrganizationActions, OrganizationDispatch } from '../actions/organization'
 
 // State
 import { IRootReducerState } from '../reducers'
 import { IUserState } from '../reducers/user'
+import { IOrganizationState } from '../reducers/organization'
 
 interface IConnectedState {
-	userState: IUserState
+	userState: IUserState,
+	organizationState: IOrganizationState,
 }
 
 interface IConnectedActions {
-	userActions: UserDispatch
+	userActions: UserDispatch,
+	organizationActions: OrganizationDispatch,
 }
 
 interface IRouterProps {
@@ -77,12 +81,14 @@ const LogoutRedirectRouteComponent = ({ component, ...rest }: CustomRouteProps) 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
 		userState: state.user,
+		organizationState: state.organization,
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 	return {
-		userActions: bindActionCreators(UserActions, dispatch)
+		userActions: bindActionCreators(UserActions, dispatch),
+		organizationActions: bindActionCreators(OrganizationActions, dispatch),
 	}
 }
 
