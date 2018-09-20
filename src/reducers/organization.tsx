@@ -1,43 +1,43 @@
 import { AnyAction } from 'redux'
 import {
-	ILoginUserAction,
-	IRegisteredUserAction,
-	AUTHENTICATED_USER,
-	CLEAR_USER,
-	LOGIN_USER_COMPLETE,
-	REGISTERED_USER,
+	FETCHED_ORGANIZATIONS,
+	CREATED_ORGANIZATION,
+	DELETE_ORGANIZATION,
+	UPDATE_ORGANIZATION
 } from '../actions/organization'
 
+export interface IOrganization {
+	id?: number
+	name: string
+}
+
 export interface IOrganizationState {
-	name: string,
-	id?: number, // ask if should be optional
+	organization: IOrganization
+	organizations: IOrganization[]
 }
 
 const defaultState: IOrganizationState = {
-	name: '',
+	organization: null,
+	organizations: []
 }
 
 function organization(state = defaultState, action: AnyAction): IOrganizationState {
 	let typedAction
 	switch (action.type) {
-		case CREATE_ORGANIZATION:
+		case FETCHED_ORGANIZATIONS:
+			return {
+				...state,
+				organizations: action.organizations
+			}
+		case CREATED_ORGANIZATION:
+			typedAction = action as ICreatedOrganizationAction
 			return Object.assign({}, state, {
-				isLoggedIn: true,
+				organization: typedAction.organization
 			})
 		case UPDATE_ORGANIZATION:
 			return Object.assign({}, state, defaultState)
 		case DELETE_ORGANIZATION:
-			typedAction = action as ILoginUserAction
-			return Object.assign({}, state, {
-				isLoggedIn: true,
-				user: typedAction.user,
-			})
-		case REGISTERED_USER:
-			typedAction = action as IRegisteredUserAction
-			return Object.assign({}, state, {
-				isLoggedIn: true,
-				user: typedAction.user,
-			})
+			return {}
 		default:
 			return state
 	}

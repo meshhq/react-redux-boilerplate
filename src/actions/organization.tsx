@@ -1,21 +1,46 @@
 import { ActionCreatorsMapObject, Dispatch, Action } from 'redux'
+import { IOrganization } from '../reducers/organization'
 
 // API Helpers
 import { POST } from '../helpers/api'
 import { PUT } from '../helpers/api'
 import { GET } from '../helpers/api'
 import { DELETE } from '../helpers/api'
+import organization from '../reducers/organization';
 
-export const REGISTERING_USER = 'REGISTERING_USER'
-export const REGISTERED_USER = 'REGISTERED_USER'
+export const FETCHED_ORGANIZATIONS = 'FETCH_ORGANIZATIONS'
+export const CREATE_ORGANIZATION = 'CREATE_ORGANIZATION'
+export const CREATED_ORGANIZATION = 'CREATED_ORGANIZATION'
 
-export const AUTHENTICATING_USER = 'AUTHENTICATING_USER'
-export const AUTHENTICATED_USER = 'AUTHENTICATED_USER'
+export const UPDATE_ORGANIZATION = 'UPDATE_ORGANIZATION'
+export const UPDATED_ORGANIZATION = 'UPDATED_ORGANIZATION'
 
-export const LOGIN_USER = 'LOGIN_USER'
-export const LOGIN_USER_COMPLETE = 'LOGIN_USER_COMPLETE'
+export const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION'
 
-export const CLEAR_USER = 'CLEAR_USER'
+// -----------------------------------------------------------------------------
+// Get all Organizations
+// -----------------------------------------------------------------------------
+
+export interface IFetchedOrganizationsAction extends Action {
+	type: string,
+	organizations: IOrganization[],
+	receivedAt: number
+}
+
+const fetchOrganizations = () => (dispatch: Dispatch<Action>) => {
+	return GET('/organizations', {}).then((organizations: IOrganization[]) => {
+		dispatch(fetchedOrganizations(organizations))
+	}).catch((err) => Promise.reject(err))
+}
+
+const fetchedOrganizations = (organizations: IOrganization[]): Action => {
+	const action: IFetchedOrganizationsAction = {
+		organizations: organizations,
+		receivedAt: Date.now(),
+		type: FETCHED_ORGANIZATIONS,
+	}
+	return action
+}
 
 /*
 GET /organizations
@@ -31,11 +56,6 @@ PUT /organizations/{organization_id}
 DELETE /organizations/{organization_id}
 */
 
-/*
-feature/TAN-5-add-organization-actions
-bugfix/TAN-5-add-organization-actions
-*/
-
 // -----------------------------------------------------------------------------
 // Create Organization
 // -----------------------------------------------------------------------------
@@ -45,38 +65,36 @@ bugfix/TAN-5-add-organization-actions
  * @param name The name supplied in the organization form.
  * @param id Auto-assigned id number.
  */
-const createOrganization = (name: string, id: number) => (dispatch: Dispatch<IRegisteredUserAction>) => {
-	const organizationPayload = { name, id }
+const createOrganization = (name: string, id: number) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
+	const organizationPayload = { id, name }
 	return POST('/organizations', organizationPayload).then((response: Response) => {
 		dispatch(createdOrganization(response))
 	}).catch((err) => Promise.reject(err))
 }
 
 /**
- * Builds a `RegisteredUserAction` upon successful registration.
+ * Builds a `CreatedOrganizationAction` upon successful creation.
  * @param response The response from the register API call.
- * @return The `RegisteredUserAction` instance.
+ * @return The `CreatedOrganizationAction` instance.
  */
-const createdOrganization = (response: Response): IRegisteredUserAction => {
-	const action: IRegisteredUserAction = {
-		receivedAt: Date.now(),
-		type: REGISTERED_USER,
-		user: response,
+const createdOrganization = (response: Response): ICreatedOrganizationAction => {
+	const action: ICreatedOrganizationAction = {
+			organization: response,
+			type: CREATED_ORGANIZATION,
 	}
 	return action
 }
 
 /**
- * RegisteredUserAction is dispatched after a user has been registered.
+ * ICreatedOrganizationAction is dispatched after organization has been created.
  */
-export interface IRegisteredUserAction extends Action {
+export interface ICreatedOrganizationAction extends Action {
 	type: string,
-	user: any,
-	receivedAt: number
+	organization: any,
 }
 
 // -----------------------------------------------------------------------------
-// Authenticate User
+// Updated Organization
 // -----------------------------------------------------------------------------
 
 /**
@@ -108,66 +126,15 @@ const loginUser = (email: string, password: string) => (dispatch: Dispatch<ILogi
 		dispatch(loginUserComplete(response))
 	}).catch((err) => Promise.reject(err))
 }
-
 /**
- * Builds an `AuthenticatedUserAction` upon successful login.
- * @param response The response from the login API call.
- * @return The `RegisteredUserAction` instance.
+ * Defines the interface for our OrganizationAction object.
  */
-const loginUserComplete = (response: Response): ILoginUserAction => {
-	const action: ILoginUserAction = {
-		receivedAt: Date.now(),
-		type: LOGIN_USER_COMPLETE,
-		user: response,
-	}
-	return action
+export interface OrganizationDispatch extends ActionCreatorsMapObject {
+	createOrganization(name: string, id: number): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
+	createdOrganization(response: Response): ICreatedOrganizationAction
 }
 
-/**
- * ILoginUserAction is dispatched after a user has been logged in.
- */
-export interface ILoginUserAction extends Action {
-	type: string,
-	user: any,
-	receivedAt: number
-}
-
-// -----------------------------------------------------------------------------
-// Clear User
-// -----------------------------------------------------------------------------
-
-const clearUser = () => (dispatch: Dispatch<Action>) => {
-	dispatch(clearedUser())
-}
-
-const clearedUser = (): Action => {
-	const action = {
-		type: CLEAR_USER,
-	}
-	return action
-}
-
-/**
- * Defines the interface for our UserAction object.
- */
-export interface UserDispatch extends ActionCreatorsMapObject {
-	authenticateUser(): (dispatch: Dispatch<Action>) => void
-	authenticatedUser(): Action
-	clearUser(): (dispatch: Dispatch<Action>) => void
-	clearedUser(): Action
-	loginUser(email: string, password: string): (dispatch: Dispatch<ILoginUserAction>) => Promise<void>
-	loginUserComplete(response: Response): ILoginUserAction
-	registerUser(email: string, password: string): (dispatch: Dispatch<IRegisteredUserAction>) => Promise<void>
-	registeredUser(response: Response): IRegisteredUserAction
-}
-
-export const UserActions: UserDispatch = {
-	authenticateUser,
-	authenticatedUser,
-	clearUser,
-	clearedUser,
-	loginUser,
-	loginUserComplete,
-	registerUser,
-	registeredUser,
+export const OrganizationActions: OrganizationDispatch = {
+		createOrganization,
+		createdOrganization,
 }
