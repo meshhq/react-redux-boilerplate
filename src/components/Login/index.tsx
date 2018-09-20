@@ -17,22 +17,18 @@ import PasswordForm from './PasswordForm'
 // State
 import { IRootReducerState } from '../../reducers'
 import { IUserState } from '../../reducers/user'
-import organization, { IOrganizationState } from '../../reducers/organization'
 
 // Actions
 import { UserActions, UserDispatch } from '../../actions/user'
-import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
 
 // State added to props after connect.
 interface IConnectedState {
 	userState: IUserState,
-	organizationState: IOrganozationState,
 }
 
 // Actions added to props after connect.
 interface IConnectedActions {
 	userActions: UserDispatch,
-	organizationActions: OrganizationDispatch,
 }
 
 interface IComponentState {
@@ -146,14 +142,12 @@ class LoginViewComponent extends React.Component<Props, State> {
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
 		userState: state.user,
-		organizationState: state.organization,
 	}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UserDispatch>, Dispatch<OrganizationDispatch>) => {
+const mapDispatchToProps = (dispatch: Dispatch<UserDispatch>) => {
 	return {
 		userActions: bindActionCreators(UserActions, dispatch),
-		organizationActions: bindActionCreators(OrganizationActions, dispatch),
 	}
 }
 

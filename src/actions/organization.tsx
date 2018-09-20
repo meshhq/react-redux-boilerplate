@@ -6,33 +6,30 @@ import { POST } from '../helpers/api'
 import { PUT } from '../helpers/api'
 import { GET } from '../helpers/api'
 import { DELETE } from '../helpers/api'
-import organization from '../reducers/organization';
 
 export const FETCHED_ORGANIZATIONS = 'FETCH_ORGANIZATIONS'
 export const CREATE_ORGANIZATION = 'CREATE_ORGANIZATION'
 export const CREATED_ORGANIZATION = 'CREATED_ORGANIZATION'
 
-export const UPDATE_ORGANIZATION = 'UPDATE_ORGANIZATION'
-export const UPDATED_ORGANIZATION = 'UPDATED_ORGANIZATION'
-
 export const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION'
+export const DELETED_ORGANIZATION = 'DELETE_ORGANIZATION'
 
 // -----------------------------------------------------------------------------
 // Get all Organizations
 // -----------------------------------------------------------------------------
-
-export interface IFetchedOrganizationsAction extends Action {
-	type: string,
-	organizations: IOrganization[],
-	receivedAt: number
-}
-
+/**
+ * Gets all organizations via a call to the `/organizations` API.
+ */
 const fetchOrganizations = () => (dispatch: Dispatch<Action>) => {
 	return GET('/organizations', {}).then((organizations: IOrganization[]) => {
 		dispatch(fetchedOrganizations(organizations))
 	}).catch((err) => Promise.reject(err))
 }
-
+/**
+ * Builds a `IFetchedOrganizationsAction ` upon successful fetch.
+ * @param organizations The response from the organizations API call.
+ * @return The `FetchedOrganizationsAction` instance.
+ */
 const fetchedOrganizations = (organizations: IOrganization[]): Action => {
 	const action: IFetchedOrganizationsAction = {
 		organizations: organizations,
@@ -41,100 +38,90 @@ const fetchedOrganizations = (organizations: IOrganization[]): Action => {
 	}
 	return action
 }
-
-/*
-GET /organizations
-GET /organizations/{organization_id}
-POST /organizations
-{
-    name: 'org name'
-}
-PUT /organizations/{organization_id}
-{
-    name: 'org name'
-}
-DELETE /organizations/{organization_id}
-*/
-
-// -----------------------------------------------------------------------------
-// Create Organization
-// -----------------------------------------------------------------------------
-
 /**
- * Creates a new organization via a call to the `/register` API.
+ * IFetchedOrganizationsAction is dispatched after organizations are fethed.
+ */
+export interface IFetchedOrganizationsAction extends Action {
+	type: string,
+	organizations: IOrganization[],
+	receivedAt: number
+}
+// -----------------------------------------------------------------------------
+// Create or update organization depending on button type
+// -----------------------------------------------------------------------------
+/**
+ * Creates a new organization via a call to the `/organizations` API.
  * @param name The name supplied in the organization form.
  * @param id Auto-assigned id number.
  */
-const createOrganization = (name: string, id: number) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
+const createOrganization = ( id: number, name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => { 
+	// since this handles edit and create, could be named better.
 	const organizationPayload = { id, name }
-	return POST('/organizations', organizationPayload).then((response: Response) => {
-		dispatch(createdOrganization(response))
+	const func = this.state.buttonType === 'edit' ? PUT : POST
+	// assuming we have edit buttonType
+	return func('/organizations', organizationPayload).then((organization: IOrganization) => {
+		dispatch(createdOrganization(organization))
 	}).catch((err) => Promise.reject(err))
 }
-
 /**
  * Builds a `CreatedOrganizationAction` upon successful creation.
- * @param response The response from the register API call.
+ * @param organization The response from the register API call.
  * @return The `CreatedOrganizationAction` instance.
  */
-const createdOrganization = (response: Response): ICreatedOrganizationAction => {
+const createdOrganization = (organization: IOrganization): ICreatedOrganizationAction => {
 	const action: ICreatedOrganizationAction = {
-			organization: response,
-			type: CREATED_ORGANIZATION,
+		organization: organization,
+		receivedAt: Date.now(),
+		type: CREATED_ORGANIZATION,
 	}
 	return action
 }
-
 /**
  * ICreatedOrganizationAction is dispatched after organization has been created.
  */
 export interface ICreatedOrganizationAction extends Action {
 	type: string,
-	organization: any,
+	organization: IOrganization,
+	receivedAt: number
+}
+// -----------------------------------------------------------------------------
+// Delete organization
+// -----------------------------------------------------------------------------
+const deleteOrganization( organization: IOrganization ) => (dispatch: Dispatch<Action>) => {
+	return DELETE('/organization/', organization.id).then((organizations: IOrganization[]) => {
+		dispatch(deletedOrganization(organizations))
+	}).catch((err) => Promise.reject(err))
 }
 
-// -----------------------------------------------------------------------------
-// Updated Organization
-// -----------------------------------------------------------------------------
-
-/**
- * Called when the user has been successfully authenticated
- */
-const authenticateUser = () => (dispatch: Dispatch<Action>) => {
-		dispatch(authenticatedUser())
-}
-
-const authenticatedUser = (): Action => {
-	const action: Action = {
-		type: AUTHENTICATED_USER,
+const deletedOrganization = (organizations: IOrganization[]): Action => {
+	const action: IDeletedOrganizationAction = { 
+		// I'm confused. I want this to serve as "successful delete object" that updates organizations state reflectting deletion of organization
+		organizations: organizations,
+		receivedAt: Date.now(),
+		type: DELETED_ORGANIZATION,
 	}
 	return action
 }
-
-// -----------------------------------------------------------------------------
-// User Login
-// -----------------------------------------------------------------------------
-
 /**
- * Logs in an existing user via a call to the `/login` API.
- * @param email The email supplied in the login form.
- * @param password The password supplied in the login form.
+ * IDeletedOrganizationAction is dispatched after organization has been created.
  */
-const loginUser = (email: string, password: string) => (dispatch: Dispatch<ILoginUserAction>) => {
-	const userPayload = { email, password }
-	return POST('/login', userPayload).then((response: Response) => {
-		dispatch(loginUserComplete(response))
-	}).catch((err) => Promise.reject(err))
+export interface IDeletedOrganizationAction extends Action {
+	type: string,
+	organizations: IOrganization[],
+	receivedAt: number
 }
 /**
  * Defines the interface for our OrganizationAction object.
  */
 export interface OrganizationDispatch extends ActionCreatorsMapObject {
-	createOrganization(name: string, id: number): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
-	createdOrganization(response: Response): ICreatedOrganizationAction
+	createOrganization(id: number, name: string ): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
+	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
+	deleteOrganization(organizations: IOrganization[]): IDeletedOrganizationAction
 }
 
 export const OrganizationActions: OrganizationDispatch = {
 		createOrganization,
 		createdOrganization,
+		deleteOrganization,
+		deletedOrganization
 }
