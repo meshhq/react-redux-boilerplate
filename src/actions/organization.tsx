@@ -161,6 +161,8 @@ export interface IDeletedOrganizationAction extends Action {
  * Defines the interface for our OrganizationAction object.
  */
 export interface OrganizationDispatch extends ActionCreatorsMapObject {
+	fetchOrganizations(): (dispatch: Dispatch<IFetchedOrganizationsAction>) => Promise<void>
+	fetchedOrganizations(organizations: IOrganization[]): IFetchedOrganizationsAction
 	createOrganization( id: number, name: string ): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
 	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
 	deleteOrganization(organization: IOrganization): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
@@ -174,6 +176,8 @@ export const OrganizationActions: OrganizationDispatch = {
 		createdOrganization,
 		deleteOrganization,
 		deletedOrganization,
+		fetchOrganizations,
+		fetchedOrganizations,
 		updateOrganization,
 		updatedOrganization,
 }
