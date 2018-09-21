@@ -3,12 +3,12 @@ import { Action, AnyAction } from 'redux'
 
 import OrganizationReducer, { IOrganizationState } from '../../src/reducers/organization'
 import {
-    IDeletedOrganizationAction,
-    FETCHED_ORGANIZATIONS,
-    CREATED_ORGANIZATION,
-    UPDATED_ORGANIZATION,
-    DELETED_ORGANIZATION,
-    IUpdatedOrganizationAction,
+		IDeletedOrganizationAction,
+		FETCHED_ORGANIZATIONS,
+		CREATED_ORGANIZATION,
+		UPDATED_ORGANIZATION,
+		DELETED_ORGANIZATION,
+		IUpdatedOrganizationAction,
 } from '../../src/actions/organization'
 
 describe('Organization Reducer', () => {
@@ -64,7 +64,7 @@ describe('Organization Reducer', () => {
 	})
 
 	it('should handle DELETED_ORGANIZATION.', () => {
-		const expectedState: IOrganizationState= {
+		const expectedState: IOrganizationState = {
 			organization: null,
 			organizations: [],
 		}
