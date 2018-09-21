@@ -59,7 +59,7 @@ describe('Organization Actions', () => {
 				const testAction = OrganizationActions.updatedOrganization(testResponse)
 				const expectedAction: IUpdatedOrganizationAction = {
 					organization: testResponse,
-                    receivedAt: testDate,
+										receivedAt: testDate,
 					type: UPDATED_ORGANIZATION
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -128,7 +128,7 @@ describe('Organization Actions', () => {
 		})
 
 		describe('deleteOrganization()', () => {
-            it('should update organization store to exclude deleted organization', async () => {
+						it('should update organization store to exclude deleted organization', async () => {
 			// Mock the API Response 
 			const testResponse = {
 				name: 'test_Organization'
@@ -146,6 +146,7 @@ describe('Organization Actions', () => {
 			await store.dispatch(OrganizationActions.deleteOrganization(organization))
 			expect(store.getActions()).to.have.lengthOf(1)
 			expect(store.getActions()).to.deep.equal(expectedActions)
+		  })
+				})
 		})
-	})
 })
