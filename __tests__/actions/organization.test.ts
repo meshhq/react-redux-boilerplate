@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import configureMockStore, { MockStoreEnhanced, MockStoreCreator } from 'redux-mock-store';
+import configureMockStore, { MockStoreEnhanced, MockStoreCreator } from 'redux-mock-store'
 import thunk, { ThunkDispatch } from 'redux-thunk'
 import { Action, Middleware, AnyAction } from 'redux'
 
@@ -24,7 +24,7 @@ Date.now = jest.fn(() => testDate)
 // Mock the API functions
 jest.mock('../../src/helpers/api')
 import * as mockedAPI from '../../src/helpers/api'
-import organization from '../../src/reducers/organization';
+import organization from '../../src/reducers/organization'
 
 // Set up the Mocked Redux Store
 const middlewares: Middleware[] = [ thunk ]
@@ -129,7 +129,7 @@ describe('Organization Actions', () => {
 
 		describe('deleteOrganization()', () => {
 						it('should update organization store to exclude deleted organization', async () => {
-			// Mock the API Response 
+			// Mock the API Response
 			const testResponse = {
 				name: 'test_Organization'
 			}
@@ -146,7 +146,7 @@ describe('Organization Actions', () => {
 			await store.dispatch(OrganizationActions.deleteOrganization(organization))
 			expect(store.getActions()).to.have.lengthOf(1)
 			expect(store.getActions()).to.deep.equal(expectedActions)
-		  })
+		})
 				})
 		})
 })
