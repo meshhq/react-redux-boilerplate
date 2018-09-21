@@ -23,7 +23,7 @@ export const DELETED_ORGANIZATION  = 'DELETED_ORGANIZATION'
 const fetchOrganizations = () => (dispatch: Dispatch<Action>) => {
 	return api.GET('/organizations', {}).then((organizations: IOrganization[]) => {
 		dispatch(fetchedOrganizations(organizations))
-	}).catch((err) => Promise.reject(err))
+	}).catch((err: Error) => Promise.reject(err))
 }
 /**
  * Builds an `IFetchedOrganizationsAction ` upon successful fetch.
@@ -62,7 +62,7 @@ const createOrganization = ( id: number, name: string ) => (dispatch: Dispatch<I
 	// assuming we have edit buttonType
 	return api.POST('/organizations', organizationPayload).then((organization: IOrganization) => {
 		dispatch(createdOrganization(organization))
-	}).catch((err) => Promise.reject(err))
+	}).catch((err: Error) => Promise.reject(err))
 }
 /**
  * Builds a `CreatedOrganizationAction` upon successful creation.
@@ -99,7 +99,7 @@ const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrgan
 	const organizationPayload = { name }
 	return api.PUT('/organizations', organizationPayload).then((organization: IOrganization) => {
 		dispatch(updatedOrganization(organization))
-	}).catch((err) => Promise.reject(err))
+	}).catch((err: Error) => Promise.reject(err))
 }
 /**
  * Builds an `UpdatedOrganizationAction` upon successful creation.
@@ -136,7 +136,7 @@ export interface IUpdatedOrganizationAction extends Action {
 const deleteOrganization = ( organization: IOrganization ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
 	return api.DELETE('/organization/', organization.id).then((org: IOrganization) => {
 		dispatch(deletedOrganization(org))
-	}).catch((err) => Promise.reject(err))
+	}).catch((err: Error) => Promise.reject(err))
 }
 
 const deletedOrganization = ( organization: IOrganization ): IDeletedOrganizationAction => {
