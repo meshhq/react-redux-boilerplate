@@ -62,7 +62,6 @@ export interface IFetchedOrganizationsAction extends Action {
  */
 const createOrganization = ( id: number, name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
 	const organizationPayload = { id, name }
-	// assuming we have edit buttonType
 	return api.POST('/organizations', organizationPayload).then((organization: IOrganization) => {
 		dispatch(createdOrganization(organization))
 	}).catch((err: Error) => Promise.reject(err))

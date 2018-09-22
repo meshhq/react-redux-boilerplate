@@ -5,13 +5,17 @@ import { Action, Middleware, AnyAction } from 'redux'
 
 import {
 		OrganizationActions,
-	IDeletedOrganizationAction,
-	IUpdatedOrganizationAction,
-	FETCHED_ORGANIZATIONS,
-	CREATED_ORGANIZATION,
-	DELETED_ORGANIZATION,
-	UPDATED_ORGANIZATION,
+		ICreatedOrganizationAction,
+		IFetchedOrganizationsAction,
+		IDeletedOrganizationAction,
+		IUpdatedOrganizationAction,
+		FETCHED_ORGANIZATIONS,
+		CREATED_ORGANIZATION,
+		DELETED_ORGANIZATION,
+		UPDATED_ORGANIZATION,
 } from '../../src/actions/organization'
+
+import { IOrganization} from '../../src/reducers/organization'
 
 // ----------------------
 // Mocks
@@ -35,8 +39,11 @@ describe('Organization Actions', () => {
 	describe('Action Creators', () => {
 		describe('fetchedOrganizations()', () => {
 			it('should create an action to fetch organizations', () => {
-				const testAction = OrganizationActions.fetchedOrganizations(organization)
-				const expectedAction: Action = {
+				const testOrganizations = []
+				const testAction = OrganizationActions.fetchedOrganizations(testOrganizations)
+				const expectedAction: IFetchedOrganizationsAction = {
+					organizations: testOrganizations,
+					receivedAt: testDate,
 					type: FETCHED_ORGANIZATIONS,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -45,8 +52,11 @@ describe('Organization Actions', () => {
 
 		describe('createdOrganization()', () => {
 			it('should create an action to indicate organization has been created.', () => {
-				const testAction = OrganizationActions.createdOrganization()
-				const expectedAction: Action = {
+				const org = {} as IOrganization
+				const testAction = OrganizationActions.createdOrganization(org)
+				const expectedAction: ICreatedOrganizationAction = {
+					organization: org,
+					receivedAt: testDate,
 					type: CREATED_ORGANIZATION,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -55,7 +65,7 @@ describe('Organization Actions', () => {
 
 		describe('updatedOrganization()', () => {
 			it('should create an action to indicate that orhganization has been updated', () => {
-				const testResponse = {} as Response
+				const testResponse = {} as IOrganization
 				const testAction = OrganizationActions.updatedOrganization(testResponse)
 				const expectedAction: IUpdatedOrganizationAction = {
 					organization: testResponse,
@@ -68,7 +78,7 @@ describe('Organization Actions', () => {
 
 		describe('deletedOrganization ()', () => {
 			it('should create an action to indicate that the Organization was deleted.', () => {
-				const testResponse = {} as Response
+				const testResponse = {} as IOrganization
 				const testAction = OrganizationActions.deletedOrganization(testResponse)
 				const expectedAction: IDeletedOrganizationAction = {
 					organization: testResponse,
@@ -82,26 +92,40 @@ describe('Organization Actions', () => {
 
 	describe('Async Action Creators', () => {
 		describe('fetchOrganizations()', () => {
-			it('should fetch organizations in the Redux store.', () => {
-				const expectedActions = [{
-					type: FETCHED_ORGANIZATIONS,
+			it('should fetch organizations in the Redux store.', async() => {
+							// Mock the API Response
+							const testResponse = [{id: 1, name: 'name'}]
+							// @ts-ignore this function will be available when Jest mocks the file
+							mockedAPI.__setMockResponses(testResponse)
+						 const expectedActions = [{
+						 organizations: testResponse,
+						 receivedAt: testDate,
+						 type: FETCHED_ORGANIZATIONS,
 				}]
-				const store = mockStore({ Organization: {} })
-				store.dispatch<any>(OrganizationActions.fetchOrganizations())
-				expect(store.getActions()).to.have.lengthOf(1)
-				expect(store.getActions()).to.deep.equal(expectedActions)
+							const store = mockStore({ organizations: [] })
+							await store.dispatch<any>(OrganizationActions.fetchOrganizations())
+							expect(store.getActions()).to.have.lengthOf(1)
+							expect(store.getActions()).to.deep.equal(expectedActions)
 			})
 		})
 
 		describe('createOrganization()', () => {
-			it('should create the organization in the Redux store.', () => {
-				const expectedActions = [{
-					type: CREATED_ORGANIZATION,
-				}]
-				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-				store.dispatch(OrganizationActions.createdOrganization(organization))
-				expect(store.getActions()).to.have.lengthOf(1)
-				expect(store.getActions()).to.deep.equal(expectedActions)
+			it('should create the organization in the Redux store.', async () => {
+								// Mock the API Response
+								const testResponse = {
+									name: 'test_organization',
+								}
+								// @ts-ignore this function will be available when Jest mocks the file
+								mockedAPI.__setMockResponses(testResponse)
+								const expectedActions = [{
+									organization: testResponse,
+									receivedAt: testDate,
+									type: CREATED_ORGANIZATION,
+								}]
+								const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
+								await store.dispatch(OrganizationActions.createOrganization(1, 'test'))
+								expect(store.getActions()).to.have.lengthOf(1)
+								expect(store.getActions()).to.deep.equal(expectedActions)
 			})
 		})
 

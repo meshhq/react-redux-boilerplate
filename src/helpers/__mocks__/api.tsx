@@ -31,3 +31,31 @@ export function POST(path: string, params: any) {
 		return resolve(response)
 	})
 }
+
+export function PUT(path: string, params: any) {
+	let rejectRequest = false
+	const response = mockResponses as any
+
+	rejectRequest = (response && response.error)
+
+	return new Promise((resolve, reject) => {
+		if (rejectRequest) {
+			return reject(response)
+		}
+		return resolve(response)
+	})
+}
+
+export function DELETE(path: string, params: any) {
+	let rejectRequest = false
+	const response = mockResponses as any
+
+	rejectRequest = (response && response.error)
+
+	return new Promise((resolve, reject) => {
+		if (rejectRequest) {
+			return reject(response)
+		}
+		return resolve(response)
+	})
+}
