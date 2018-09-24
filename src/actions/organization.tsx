@@ -109,7 +109,7 @@ const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrgan
  * @return The `UpdatedOrganizationAction` instance.
  */
 const updatedOrganization = (organization: IOrganization): IUpdatedOrganizationAction => {
-	const action: ICreatedOrganizationAction = {
+	const action: IUpdatedOrganizationAction = {
 		organization: organization,
 		receivedAt: Date.now(),
 		type: UPDATED_ORGANIZATION,

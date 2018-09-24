@@ -52,7 +52,7 @@ describe('Organization Actions', () => {
 
 		describe('createdOrganization()', () => {
 			it('should create an action to indicate organization has been created.', () => {
-				const org = {} as IOrganization
+				const org = { name: 'testName' }
 				const testAction = OrganizationActions.createdOrganization(org)
 				const expectedAction: ICreatedOrganizationAction = {
 					organization: org,
@@ -65,7 +65,7 @@ describe('Organization Actions', () => {
 
 		describe('updatedOrganization()', () => {
 			it('should create an action to indicate that orhganization has been updated', () => {
-				const testResponse = {} as IOrganization
+				const testResponse = { name: 'changedName' }
 				const testAction = OrganizationActions.updatedOrganization(testResponse)
 				const expectedAction: IUpdatedOrganizationAction = {
 					organization: testResponse,
@@ -92,7 +92,7 @@ describe('Organization Actions', () => {
 
 	describe('Async Action Creators', () => {
 		describe('fetchOrganizations()', () => {
-			it('should fetch organizations in the Redux store.', async() => {
+			it('should fetch organizations in the Redux store.', async () => {
 							// Mock the API Response
 							const testResponse = [{id: 1, name: 'name'}]
 							// @ts-ignore this function will be available when Jest mocks the file

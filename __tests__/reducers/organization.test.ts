@@ -3,18 +3,22 @@ import { Action, AnyAction } from 'redux'
 
 import OrganizationReducer, { IOrganizationState } from '../../src/reducers/organization'
 import {
+		ICreatedOrganizationAction,
 		IDeletedOrganizationAction,
+		IFetchedOrganizationsAction,
+		IUpdatedOrganizationAction,
 		FETCHED_ORGANIZATIONS,
 		CREATED_ORGANIZATION,
 		UPDATED_ORGANIZATION,
 		DELETED_ORGANIZATION,
-		IUpdatedOrganizationAction,
 } from '../../src/actions/organization'
+
+import { IOrganization} from '../../src/reducers/organization'
 
 describe('Organization Reducer', () => {
 	it('should return the initial state.', () => {
 		const expectedState: IOrganizationState = {
-						organization: null,
+			organization: null,
 			organizations: [],
 		}
 
@@ -28,7 +32,9 @@ describe('Organization Reducer', () => {
 			organizations: [],
 		}
 
-		const testAction: Action = {
+		const testAction: IFetchedOrganizationsAction = {
+			organizations: [],
+			receivedAt: Date.now(),
 			type: FETCHED_ORGANIZATIONS,
 		}
 		const actualState = OrganizationReducer(undefined, testAction)
@@ -37,12 +43,14 @@ describe('Organization Reducer', () => {
 
 	it('should handle CREATED_ORGANIZATIONS.', () => {
 		const expectedState: IOrganizationState = {
-			organization: null,
+			organization: {} as IOrganization,
 			organizations: [],
 		}
 
-		const testAction: Action = {
-			type: CREATED_ORGANIZATION
+		const testAction: ICreatedOrganizationAction = {
+			organization: {} as IOrganization,
+			receivedAt: Date.now(),
+			type: CREATED_ORGANIZATION,
 		}
 		const actualState = OrganizationReducer(undefined, testAction)
 		expect(expectedState).to.deep.equal(actualState)
@@ -50,12 +58,12 @@ describe('Organization Reducer', () => {
 
 	it('should handle UPDATED_ORGANIZATION.', () => {
 		const expectedState: IOrganizationState = {
-			organization: null,
+			organization: {} as IOrganization,
 			organizations: [],
 		}
 
 		const testAction: IUpdatedOrganizationAction = {
-			organization: { name: 'testName' },
+			organization: {} as IOrganization,
 			receivedAt: Date.now(),
 			type: UPDATED_ORGANIZATION,
 		}
