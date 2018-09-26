@@ -3,17 +3,7 @@ import configureMockStore, { MockStoreEnhanced, MockStoreCreator } from 'redux-m
 import thunk, { ThunkDispatch } from 'redux-thunk'
 import { Action, Middleware, AnyAction } from 'redux'
 
-import {
-		OrganizationActions,
-		ICreatedOrganizationAction,
-		IFetchedOrganizationsAction,
-		IDeletedOrganizationAction,
-		IUpdatedOrganizationAction,
-		FETCHED_ORGANIZATIONS,
-		CREATED_ORGANIZATION,
-		DELETED_ORGANIZATION,
-		UPDATED_ORGANIZATION,
-} from '../../src/actions/organization'
+import * as orgActions from '../../src/actions/organization'
 
 import { IOrganization} from '../../src/reducers/organization'
 
@@ -40,11 +30,11 @@ describe('Organization Actions', () => {
 		describe('fetchedOrganizations()', () => {
 			it('should create an action to fetch organizations', () => {
 				const testOrganizations = []
-				const testAction = OrganizationActions.fetchedOrganizations(testOrganizations)
-				const expectedAction: IFetchedOrganizationsAction = {
+				const testAction = orgActions.OrganizationActions.fetchedOrganizations(testOrganizations)
+				const expectedAction: orgActions.IFetchedOrganizationsAction = {
 					organizations: testOrganizations,
 					receivedAt: testDate,
-					type: FETCHED_ORGANIZATIONS,
+					type: orgActions.FETCHED_ORGANIZATIONS,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -53,11 +43,11 @@ describe('Organization Actions', () => {
 		describe('createdOrganization()', () => {
 			it('should create an action to indicate organization has been created.', () => {
 				const org = { name: 'testName' }
-				const testAction = OrganizationActions.createdOrganization(org)
-				const expectedAction: ICreatedOrganizationAction = {
+				const testAction = orgActions.OrganizationActions.createdOrganization(org)
+				const expectedAction: orgActions.ICreatedOrganizationAction = {
 					organization: org,
 					receivedAt: testDate,
-					type: CREATED_ORGANIZATION,
+					type: orgActions.CREATED_ORGANIZATION,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -66,11 +56,11 @@ describe('Organization Actions', () => {
 		describe('updatedOrganization()', () => {
 			it('should create an action to indicate that orhganization has been updated', () => {
 				const testResponse = { name: 'changedName' }
-				const testAction = OrganizationActions.updatedOrganization(testResponse)
-				const expectedAction: IUpdatedOrganizationAction = {
+				const testAction = orgActions.OrganizationActions.updatedOrganization(testResponse)
+				const expectedAction: orgActions.IUpdatedOrganizationAction = {
 					organization: testResponse,
 										receivedAt: testDate,
-					type: UPDATED_ORGANIZATION
+					type: orgActions.UPDATED_ORGANIZATION
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -79,11 +69,11 @@ describe('Organization Actions', () => {
 		describe('deletedOrganization ()', () => {
 			it('should create an action to indicate that the Organization was deleted.', () => {
 				const testResponse = {} as IOrganization
-				const testAction = OrganizationActions.deletedOrganization(testResponse)
-				const expectedAction: IDeletedOrganizationAction = {
+				const testAction = orgActions.OrganizationActions.deletedOrganization(testResponse)
+				const expectedAction: orgActions.IDeletedOrganizationAction = {
 					organization: testResponse,
 					receivedAt: testDate,
-					type: DELETED_ORGANIZATION,
+					type: orgActions.DELETED_ORGANIZATION,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -100,10 +90,10 @@ describe('Organization Actions', () => {
 						 const expectedActions = [{
 						 organizations: testResponse,
 						 receivedAt: testDate,
-						 type: FETCHED_ORGANIZATIONS,
+						 type: orgActions.FETCHED_ORGANIZATIONS,
 				}]
 							const store = mockStore({ organizations: [] })
-							await store.dispatch<any>(OrganizationActions.fetchOrganizations())
+							await store.dispatch(orgActions.OrganizationActions.fetchOrganizations())
 							expect(store.getActions()).to.have.lengthOf(1)
 							expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -120,10 +110,10 @@ describe('Organization Actions', () => {
 								const expectedActions = [{
 									organization: testResponse,
 									receivedAt: testDate,
-									type: CREATED_ORGANIZATION,
+									type: orgActions.CREATED_ORGANIZATION,
 								}]
 								const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-								await store.dispatch(OrganizationActions.createOrganization(1, 'test'))
+								await store.dispatch(orgActions.OrganizationActions.createOrganization(1, 'test'))
 								expect(store.getActions()).to.have.lengthOf(1)
 								expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -141,11 +131,11 @@ describe('Organization Actions', () => {
 				const expectedActions = [{
 					organization: testResponse,
 					receivedAt: testDate,
-					type: UPDATED_ORGANIZATION,
+					type: orgActions.UPDATED_ORGANIZATION,
 				}]
 
 				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ Organization: {} })
-				await store.dispatch(OrganizationActions.updateOrganization('name'))
+				await store.dispatch(orgActions.OrganizationActions.updateOrganization('name'))
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -163,11 +153,11 @@ describe('Organization Actions', () => {
 			const expectedActions = [{
 				organization: testResponse,
 				receivedAt: testDate,
-				type: DELETED_ORGANIZATION,
+				type: orgActions.DELETED_ORGANIZATION,
 			}]
 
 			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-			await store.dispatch(OrganizationActions.deleteOrganization(organization))
+			await store.dispatch(orgActions.OrganizationActions.deleteOrganization(organization))
 			expect(store.getActions()).to.have.lengthOf(1)
 			expect(store.getActions()).to.deep.equal(expectedActions)
 		})

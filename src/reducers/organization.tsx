@@ -1,13 +1,5 @@
 import { AnyAction } from 'redux'
-import {
-	ICreatedOrganizationAction,
-	IDeletedOrganizationAction,
-	IUpdatedOrganizationAction,
-	FETCHED_ORGANIZATIONS,
-	CREATED_ORGANIZATION,
-	DELETED_ORGANIZATION,
-	UPDATED_ORGANIZATION,
-} from '../actions/organization'
+import * as orgAction from '../actions/organization'
 
 export interface IOrganization {
 	id?: number
@@ -27,25 +19,25 @@ const defaultState: IOrganizationState = {
 function organization(state = defaultState, action: AnyAction): IOrganizationState {
 	let typedAction: any
 	switch (action.type) {
-		case FETCHED_ORGANIZATIONS:
+		case orgAction.FETCHED_ORGANIZATIONS:
 			return {
 				...state,
 				organizations: action.organizations
 			}
-		case CREATED_ORGANIZATION:
-			typedAction = action as ICreatedOrganizationAction
+		case orgAction.CREATED_ORGANIZATION:
+			typedAction = action as orgAction.ICreatedOrganizationAction
 			return {
 				...state,
 				organization: typedAction.organization
 			}
-		case UPDATED_ORGANIZATION:
-			typedAction = action as IUpdatedOrganizationAction
+		case orgAction.UPDATED_ORGANIZATION:
+			typedAction = action as orgAction.IUpdatedOrganizationAction
 			return{
 				...state,
 				organization: typedAction.organization
 			}
-		case DELETED_ORGANIZATION:
-			typedAction = action as IDeletedOrganizationAction
+		case orgAction.DELETED_ORGANIZATION:
+			typedAction = action as orgAction.IDeletedOrganizationAction
 			const filteredOrganizations = state.organizations.filter((org) =>  {
 				return org.id !== typedAction.organization.id
 			})
