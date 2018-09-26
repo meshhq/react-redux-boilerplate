@@ -5,10 +5,12 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 
 // Components
 import { LoginComponent } from '../../components/Login'
+import { OrganizationComponent } from '../../components/Organization'
 
 // State
 import { IRootReducerState } from '../../reducers'
 import { IUserState } from '../../reducers/user'
+import { OrganizationActions } from '../../actions/organization';
 
 interface IConnectedProps {
 	userState: IUserState
@@ -33,7 +35,7 @@ class AppComponent extends React.Component<Props> {
 			<div className='application-root'>
 				<Grid className='application-container'>
 					<Switch>
-						<Route path={'/'} component={LoginComponent} />
+						<Route path={'/'} component={OrganizationComponent} />
 						<Route path={'/login'} component={LoginComponent} />
 						<Route path={'/register'} component={LoginComponent} />
 					</Switch>
