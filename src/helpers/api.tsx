@@ -59,7 +59,7 @@ export function DELETE(path: string, params: any) {
 function performFetch(url: string, options: RequestInit) {
 	console.log('URL', url)
 	console.log('Options', options)
-	return fetch(url, options).then((response: Response) => {
+	return fetch(url, options).then((response: any) => {
 		console.log('Response', response)
 		if (response.status === 204) {
 			return null

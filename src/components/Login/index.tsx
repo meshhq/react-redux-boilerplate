@@ -23,12 +23,12 @@ import { UserActions, UserDispatch } from '../../actions/user'
 
 // State added to props after connect.
 interface IConnectedState {
-	userState: IUserState
+	userState: IUserState,
 }
 
 // Actions added to props after connect.
 interface IConnectedActions {
-	userActions: UserDispatch
+	userActions: UserDispatch,
 }
 
 interface IComponentState {
