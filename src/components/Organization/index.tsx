@@ -10,7 +10,7 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import { IOrganizationState, IOrganization } from '../../reducers/organization'
+import organization, { IOrganizationState, IOrganization } from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
@@ -42,7 +42,7 @@ interface IConnectedActions {
 }
 
 interface IComponentState {
-	organizations: IOrganization[]
+	organizations: IOrganization[],
 }
 
 type Props = IConnectedActions & IConnectedState
@@ -58,6 +58,12 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 	public componentWillMount() {
 		this.props.organizationActions.fetchOrganizations()
+	}
+
+	public componentWillReceiveProps(nextProps: any) {
+		if (nextProps.newOrg) {
+			this.props.organizationState.organizations.unshift(nextProps.newPost)
+		}
 	}
 
 	public buildOrganizationTable = () => {
@@ -124,7 +130,8 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
-		organizationState: state.organization,
+		newOrg: state.organization.organization,
+		organizationState: state.organization.organizations,
 	}
 }
 
