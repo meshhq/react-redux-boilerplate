@@ -10,7 +10,6 @@ import { OrganizationComponent } from '../../components/Organization'
 // State
 import { IRootReducerState } from '../../reducers'
 import { IUserState } from '../../reducers/user'
-import { OrganizationActions } from '../../actions/organization';
 
 interface IConnectedProps {
 	userState: IUserState
