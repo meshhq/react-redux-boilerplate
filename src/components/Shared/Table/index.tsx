@@ -38,7 +38,6 @@ export default class TableComponent extends React.Component<TableProps, any> {
 							<thead>
 								<tr>
 									{this.buildTableHeaders()}
-									{/* <th className='create-button-cell'><button onClick={this.props.createButtonHandler}>{this.props.createButtonName}</button></th> */}
 								</tr>
 							</thead>
 							<tbody>
