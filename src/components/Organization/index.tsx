@@ -10,10 +10,26 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import { IOrganizationState, IOrganization } from '../../reducers/organization'
+import organization, { IOrganizationState, IOrganization } from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
+
+const fakeData = [
+	{name: 'name 1', orgID: 65, created: 1537996542, updated: 1537996542},
+	{name: 'name 2', orgID: 53, created: 1537996482, updated: 1537996482},
+	{name: 'name 3', orgID: 19, created: 1537996422, updated: 1537996422},
+	{name: 'name 5', orgID: 9, created: 1537996302, updated: 1537996302},
+	{name: 'name 6', orgID: 90, created: 1537996242, updated: 1537996242},
+	{name: 'name 7', orgID: 60, created: 1537996182, updated: 1537996182},
+	{name: 'name 8', orgID: 6, created: 1537996122, updated: 1537996122},
+	{name: 'name 9', orgID: 22, created: 1537996062, updated: 1537996062},
+	{name: 'name 10', orgID: 21, created: 1537996002, updated: 1537996002},
+	{name: 'name 11', orgID: 29, created: 1537995942, updated: 1537995942},
+	{name: 'name 12', orgID: 2, created: 1537995882, updated: 1537995882},
+	{name: 'name 13', orgID: 81, created: 1537995822, updated: 1537995822},
+	{name: 'name 15', orgID: 95, created: 1537995702, updated: 1537995702},
+]
 
 // State added to props after connect.
 interface IConnectedState {
@@ -26,31 +42,27 @@ interface IConnectedActions {
 }
 
 interface IComponentState {
-	organizations: IOrganization[]
+	organizations: IOrganization[],
 }
 
 type Props = IConnectedActions & IConnectedState
 type State = IComponentState
 
 class OrganizationViewComponent extends React.Component<Props, State> {
-	constructor(props: any) {
+	constructor(props: Props) {
 		super(props)
 		this.state = {
-			organizations: [
-				{name: 'name 1', orgID: 65, created: 1537996542, updated: 1537996542},
-				{name: 'name 2', orgID: 53, created: 1537996482, updated: 1537996482},
-				{name: 'name 3', orgID: 19, created: 1537996422, updated: 1537996422},
-				{name: 'name 5', orgID: 9, created: 1537996302, updated: 1537996302},
-				{name: 'name 6', orgID: 90, created: 1537996242, updated: 1537996242},
-				{name: 'name 7', orgID: 60, created: 1537996182, updated: 1537996182},
-				{name: 'name 8', orgID: 6, created: 1537996122, updated: 1537996122},
-				{name: 'name 9', orgID: 22, created: 1537996062, updated: 1537996062},
-				{name: 'name 10', orgID: 21, created: 1537996002, updated: 1537996002},
-				{name: 'name 11', orgID: 29, created: 1537995942, updated: 1537995942},
-				{name: 'name 12', orgID: 2, created: 1537995882, updated: 1537995882},
-				{name: 'name 13', orgID: 81, created: 1537995822, updated: 1537995822},
-				{name: 'name 15', orgID: 95, created: 1537995702, updated: 1537995702},
-			],
+			organizations: [],
+		}
+	}
+
+	public componentWillMount() {
+		this.props.organizationActions.fetchOrganizations()
+	}
+
+	public componentWillReceiveProps(nextProps: any) {
+		if (nextProps.newOrg) {
+			this.props.organizationState.organizations.unshift(nextProps.newPost)
 		}
 	}
 
@@ -83,12 +95,12 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 	public buildOrganizationRows = () => {
 		if (!this.state.organizations) { return null }
-		// handle pagination
+		// TODO: handle pagination
 		return this.state.organizations.map((org: any) => {
 			return(
-			<tr key={org.orgID}>
+			<tr key={org._id}>
 			{/* ID Cell */}
-			<td><div>{org.orgID}</div></td>
+			<td><div>{org._id}</div></td>
 			{/* Name Cell */}
 			<td><div>{org.name}</div></td>
 			{/* Created At Cell */}
@@ -118,7 +130,8 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
-		organizationState: state.organization,
+		newOrg: state.organization.organization,
+		organizationState: state.organization.organizations,
 	}
 }
 
