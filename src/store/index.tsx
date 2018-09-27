@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Store } from 'redux'
+import { createStore, applyMiddleware, Store, compose } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 import { throttle } from 'underscore'
@@ -13,9 +13,18 @@ import { saveState as saveToLocalStorage } from './localStorage'
 export default function configureStore(initialState: any) {
 	// Adding thunk
 	const middleware = applyMiddleware(thunk)
+	let composeEnhancers = compose
+
+	if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+		composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+	}
 
 	// Creating our store
-	const store = createStore(rootReducer, initialState, middleware)
+	const store = createStore(
+		rootReducer,
+		initialState,
+		composeEnhancers(middleware)
+	)
 
 	// Add Subscribers to store
 	addSubscribersToStore(store)
