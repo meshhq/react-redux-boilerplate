@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
 import {
 	Button,
+	Grid,
+	Row,
+	Col,
 } from 'react-bootstrap'
 
 // Components
@@ -31,6 +34,11 @@ type State = IOrganizationState
 class OrganizationViewComponent extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props)
+		this.handleOnClick = this.handleOnClick.bind(this)
+	}
+
+	public handleOnClick = () => {
+		console.log('hello')
 	}
 
 	public componentWillMount() {
@@ -92,8 +100,19 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 	public render() {
 		return (
-			<div className='table-component-container'>
-			{this.buildOrganizationTable()}
+			<div className=''>
+			<Grid>
+				<Row className=''>
+					<Col lg={12}>
+						<Button className='float-right' bsStyle='primary' onClick={this.handleOnClick}>New</Button>
+					</Col>
+				</Row>
+				<Row className='show-grid'>
+					<Col lg={12}>
+						{this.buildOrganizationTable()}
+					</Col>
+				</Row>
+			</Grid>
 			</div>
 		)
 	}
