@@ -23,10 +23,13 @@ export const DELETED_ORGANIZATION  = 'DELETED_ORGANIZATION'
 /**
  * Gets all organizations via a call to the `/organizations` API.
  */
-const fetchOrganizations = () => (dispatch: Dispatch<Action>) => {
-	return api.GET('/organizations', {}).then((organizations: IOrganization[]) => {
+const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction>) => {
+	return api.GET('/organizations', {})
+	.then((organizationsResponse: Response) => organizationsResponse.json())
+	.then((organizations: IOrganization[]) => {
 		dispatch(fetchedOrganizations(organizations))
-	}).catch((err: Error) => Promise.reject(err))
+	})
+	.catch((err: Error) => Promise.reject(err))
 }
 /**
  * Builds an `IFetchedOrganizationsAction ` upon successful fetch.

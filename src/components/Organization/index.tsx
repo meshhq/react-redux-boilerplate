@@ -10,7 +10,7 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import organization, { IOrganizationState, IOrganization } from '../../reducers/organization'
+import { IOrganizationState, IOrganization } from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
@@ -41,29 +41,20 @@ interface IConnectedActions {
 	organizationActions: OrganizationDispatch,
 }
 
-interface IComponentState {
-	organizations: IOrganization[],
-}
-
 type Props = IConnectedActions & IConnectedState
-type State = IComponentState
+type State = IOrganizationState
 
 class OrganizationViewComponent extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {
+			organization: null,
 			organizations: [],
 		}
 	}
 
 	public componentWillMount() {
 		this.props.organizationActions.fetchOrganizations()
-	}
-
-	public componentWillReceiveProps(nextProps: any) {
-		if (nextProps.newOrg) {
-			this.props.organizationState.organizations.unshift(nextProps.newPost)
-		}
 	}
 
 	public buildOrganizationTable = () => {
@@ -94,13 +85,13 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 	}
 
 	public buildOrganizationRows = () => {
-		if (!this.state.organizations) { return null }
+		if (!this.props.organizationState) { return null }
 		// TODO: handle pagination
-		return this.state.organizations.map((org: any) => {
+		return this.props.organizationState.organizations.map((org: any) => {
 			return(
-			<tr key={org._id}>
+			<tr key={org.id}>
 			{/* ID Cell */}
-			<td><div>{org._id}</div></td>
+			<td><div>{org.id}</div></td>
 			{/* Name Cell */}
 			<td><div>{org.name}</div></td>
 			{/* Created At Cell */}
@@ -130,8 +121,7 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
-		newOrg: state.organization.organization,
-		organizationState: state.organization.organizations,
+		organizationState: state.organization,
 	}
 }
 
