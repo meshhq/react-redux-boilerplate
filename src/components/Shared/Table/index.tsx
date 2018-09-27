@@ -33,10 +33,6 @@ export default class TableComponent extends React.Component<TableProps, any> {
 	public render() {
 		return (
 			<div className=''>
-				{/* <div hidden={!this.props.showPaging} className='paging-button-div'>
-					<div onClick={this.props.pageDownHandler}><i className="fas fa-caret-left"></i></div>
-					<div onClick={this.props.pageUpHandler}><i className="fas fa-caret-right"></i></div>
-				</div> */}
 				<div className='table-container'>
 					<Table className='table-content'>
 							<thead>

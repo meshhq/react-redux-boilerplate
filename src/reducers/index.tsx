@@ -9,8 +9,8 @@ export interface IRootReducerState {
 }
 
 const app = combineReducers({
-	user,
 	organization,
+	user,
 })
 
 export default app

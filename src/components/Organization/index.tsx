@@ -26,13 +26,13 @@ interface IConnectedActions {
 }
 
 interface IComponentState {
-	confirmation: string
+	organizations: IOrganization[]
 }
 
-type Props = IOrganization
-type State = IOrganizationState
+type Props = IConnectedActions & IConnectedState
+type State = IComponentState
 
-class OrganizationViewComponent extends React.Component<any, State> {
+class OrganizationViewComponent extends React.Component<Props, State> {
 	constructor(props: any) {
 		super(props)
 		this.state = {
@@ -116,7 +116,7 @@ class OrganizationViewComponent extends React.Component<any, State> {
 	}
 }
 
-const mapStateToProps = (state: IOrganizationState) => {
+const mapStateToProps = (state: IRootReducerState) => {
 	return {
 		organizationState: state.organization,
 	}
