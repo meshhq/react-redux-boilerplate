@@ -74,6 +74,9 @@ class OrganizationViewComponent extends React.Component<any, State> {
 				title: 'ID',
 			},
 			{
+				title: 'Name',
+			},
+			{
 				title: 'Created',
 			},
 			{
@@ -103,11 +106,11 @@ class OrganizationViewComponent extends React.Component<any, State> {
 			{/* Name Cell */}
 			<td><div>{org.name}</div></td>
 			{/* Created At Cell */}
-			<td><div>{org.crated}</div></td>
+			<td><div>{org.created}</div></td>
 			{/* Updates At Cell */}
 			<td><div>{org.updated}</div></td>
 			{/* Actions Cell */}
-			<td><div>{}</div></td>
+			<td><div>{<span><Button>EDIT</Button></span>}{<span><Button>DELETE</Button></span>}</div></td>
 			</tr>
 				)
 		})
