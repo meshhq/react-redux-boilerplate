@@ -24,7 +24,7 @@ class FormComponent extends React.Component<Props, any> {
 			super(props)
 			this.handleChange = this.handleChange.bind(this)
 			this.handleOnChange = this.handleOnChange.bind(this)
-			this.onSubmit = this.onSubmit.bind(this)
+			this.createNewOrg = this.createNewOrg.bind(this)
 			this.state = { name: '' }
 		}
 
@@ -36,7 +36,7 @@ class FormComponent extends React.Component<Props, any> {
 		this.setState({ name: e.target.value })
 	}
 
-	public onSubmit(e: any) {
+	public createNewOrg(e: any) {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
 	}
@@ -45,13 +45,11 @@ class FormComponent extends React.Component<Props, any> {
 		return (
 				<div>
 					<div>
-						<form onSubmit={this.onSubmit}>
 						<input
 							onChange={ (e) => this.handleOnChange(e) }
 						/>
-						</form>
 					</div>
-					<Button bsStyle='success' type='submit'>Create</Button>
+					<Button onClick={this.createNewOrg} bsStyle='success' type='submit'>Create</Button>
 					<div>
 						Name state is : { this.state.name } !
 					</div>
