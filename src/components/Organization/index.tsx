@@ -10,6 +10,7 @@ import {
 
 // Components
 import TableComponent from '../Shared/Table'
+import Modal from '../Shared/Modal/index'
 
 // State
 import { IRootReducerState } from '../../reducers'
@@ -29,16 +30,10 @@ interface IConnectedActions {
 }
 
 type Props = IConnectedActions & IConnectedState
-type State = IOrganizationState
 
-class OrganizationViewComponent extends React.Component<Props, State> {
+class OrganizationViewComponent extends React.Component<Props> {
 	constructor(props: Props) {
 		super(props)
-		this.handleOnClick = this.handleOnClick.bind(this)
-	}
-
-	public handleOnClick = () => {
-		console.log('hello')
 	}
 
 	public componentWillMount() {
@@ -104,7 +99,7 @@ class OrganizationViewComponent extends React.Component<Props, State> {
 			<Grid>
 				<Row className=''>
 					<Col lg={12}>
-						<Button className='float-right' bsStyle='primary' onClick={this.handleOnClick}>New</Button>
+					<Modal/>
 					</Col>
 				</Row>
 				<Row className='show-grid'>

@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect, Dispatch } from 'react-redux'
+import * as ReactModal from 'react-modal'
 import {
 	Col,
 	Row,
@@ -8,75 +7,43 @@ import {
 	Form,
 	FormGroup,
 	FormControl,
-	Modal,
 } from 'react-bootstrap'
-import { Props } from 'react'
 
-// State
-import { IRootReducerState } from '../../../reducers'
-import { IOrganizationState } from '../../../reducers/organization'
+ReactModal.setAppElement('#app')
 
-// Actions
-import { OrganizationActions, OrganizationDispatch } from '../../../actions/organization'
-
-class ModalViewComponent extends React.Component<any, any> {
-		constructor(props: any) {
-			super(props)
-
-			this.handleHide = this.handleHide.bind(this)
-			this.state = {
-				show: false
-			}
+export default class Modal extends React.Component<any, any> {
+	constructor () {
+		super()
+		this.state = {
+			showModal: false
 		}
-
-		public handleHide() {
-			this.setState({ show: false })
-		}
-		public render() {
-			return (
-				<div className='modal-container' style={{ height: 200 }}>
-					<Button
-						bsStyle='primary'
-						bsSize='large'
-						onClick={() => this.setState({ show: true })}
-					>
-						Launch contained modal
-					</Button>
-
-					<Modal
-						show={this.state.show}
-						onHide={this.handleHide}
-						container={this}
-						aria-labelledby='contained-modal-title'
-					>
-						<Modal.Header closeButton>
-							<Modal.Title id='contained-modal-title'>
-								Contained Modal
-							</Modal.Title>
-						</Modal.Header>
-						<Modal.Body>
-							Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id
-							ipsam, beatae, rem fuga id earum? Inventore et facilis obcaecati.
-						</Modal.Body>
-						<Modal.Footer>
-							<Button onClick={this.handleHide}>Close</Button>
-						</Modal.Footer>
-					</Modal>
-				</div>
-			)
-		}
+		this.handleOpenModal = this.handleOpenModal.bind(this)
+		this.handleCloseModal = this.handleCloseModal.bind(this)
 	}
 
-const mapStateToProps = (state: IRootReducerState) => {
-	return {
-		userState: state.user,
+	public handleOpenModal () {
+		this.setState({ showModal: true })
+	}
+
+	public handleCloseModal () {
+		this.setState({ showModal: false })
+	}
+
+	public modalState () {
+		const stateRef = this.state
+	 return stateRef.showModal
+	}
+
+	public render() {
+		return (
+			<div>
+				<Button className='float-right' bsStyle='primary' onClick={this.handleOpenModal}>New</Button>
+				<ReactModal
+					isOpen={this.modalState()}
+				>
+					<Button className='float-right' bsStyle='primary' onClick={this.handleCloseModal}>Close Modal</Button>
+				</ReactModal>
+			</div>
+		)
 	}
 }
-
-const mapDispatchToProps = (dispatch: Dispatch<OrganizationDispatch>) => {
-	return {
-		organizationActions: bindActionCreators(OrganizationActions, dispatch),
-	}
-}
-
-export const ModalComponent = connect(mapStateToProps, mapDispatchToProps)(ModalViewComponent)
