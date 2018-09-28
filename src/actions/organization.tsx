@@ -66,6 +66,7 @@ export interface IFetchedOrganizationsAction extends Action {
 const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
 	const organizationPayload = { name }
 	return api.POST('/organizations', organizationPayload)
+	console.log(organizationPayload)
 		.then((organization: IOrganization) => { dispatch(createdOrganization(organization))})
 		.catch((err: Error) => Promise.reject(err))
 }

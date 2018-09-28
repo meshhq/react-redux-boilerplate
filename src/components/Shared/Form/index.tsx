@@ -38,7 +38,7 @@ class FormComponent extends React.Component<Props, any> {
 
 	public onSubmit(e: any) {
 		e.preventDefault()
-		this.props.organizationActions.createOrganization(name)
+		this.props.organizationActions.createOrganization(this.state.name)
 	}
 
 	public render() {
@@ -53,7 +53,7 @@ class FormComponent extends React.Component<Props, any> {
 					</div>
 					<Button bsStyle='success' type='submit'>Create</Button>
 					<div>
-						Hello { this.state.name }!
+						Name state is : { this.state.name } !
 					</div>
 				</div>
 			)
