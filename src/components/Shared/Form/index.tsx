@@ -6,19 +6,15 @@ import {
 } from 'react-bootstrap'
 
 class FormComponent extends React.Component<any, any> {
-		constructor() {
-			super()
+		constructor(props: any ) {
+			super(props)
 			this.handleChange = this.handleChange.bind(this)
-			this.state = {
-				value: ''
-			}
+			this.handleOnChange = this.handleOnChange.bind(this)
+			this.state = { name: this.props.defaultName }
 		}
 
-		public getValidationState() {
-			const length = this.state.value.length
-			if (length > 1) { return 'success' }
-			else if (length > 0) { return 'error' }
-			return null
+		public handleOnChange(event: any): void {
+			this.setState({ name: event.target.value })
 		}
 
 		public handleChange(e: any) {
@@ -27,21 +23,16 @@ class FormComponent extends React.Component<any, any> {
 
 		public render() {
 			return (
-				<form>
-					<FormGroup
-						controlId='formBasicText'
-						validationState={this.getValidationState()}
-					>
-						<ControlLabel>Working example with validation</ControlLabel>
-						<FormControl
-							type='text'
-							value={this.state.value}
-							placeholder='Enter text'
-							onChange={this.handleChange}
+				<div>
+					<div>
+						<input
+							onChange={ (e) => this.handleOnChange(e) }
 						/>
-						<FormControl.Feedback />
-					</FormGroup>
-				</form>
+					</div>
+					<div>
+						Hello { this.state.name }!
+					</div>
+				</div>
 			)
 		}
 	}

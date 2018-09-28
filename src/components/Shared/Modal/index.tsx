@@ -3,6 +3,7 @@ import * as ReactModal from 'react-modal'
 import {
 	Button,
 } from 'react-bootstrap'
+import { Form } from '../Form'
 
 ReactModal.setAppElement('#app')
 
@@ -36,6 +37,7 @@ export default class Modal extends React.Component<any, any> {
 				<ReactModal
 					isOpen={this.modalState()}
 				>
+				<Form/>
 				<Button className='float-right' bsStyle='primary' onClick={this.handleCloseModal}>Close Modal</Button>
 				</ReactModal>
 			</div>
