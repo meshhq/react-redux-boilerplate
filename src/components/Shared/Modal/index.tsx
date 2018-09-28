@@ -1,12 +1,7 @@
 import * as React from 'react'
 import * as ReactModal from 'react-modal'
 import {
-	Col,
-	Row,
 	Button,
-	Form,
-	FormGroup,
-	FormControl,
 } from 'react-bootstrap'
 
 ReactModal.setAppElement('#app')
@@ -41,7 +36,7 @@ export default class Modal extends React.Component<any, any> {
 				<ReactModal
 					isOpen={this.modalState()}
 				>
-					<Button className='float-right' bsStyle='primary' onClick={this.handleCloseModal}>Close Modal</Button>
+				<Button className='float-right' bsStyle='primary' onClick={this.handleCloseModal}>Close Modal</Button>
 				</ReactModal>
 			</div>
 		)

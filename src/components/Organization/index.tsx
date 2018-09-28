@@ -10,7 +10,6 @@ import {
 
 // Components
 import TableComponent from '../Shared/Table'
-import Modal from '../Shared/Modal/index'
 
 // State
 import { IRootReducerState } from '../../reducers'
@@ -18,6 +17,7 @@ import { IOrganizationState, IOrganization } from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
+import Modal from '../Shared/Modal'
 
 // State added to props after connect.
 interface IConnectedState {
@@ -102,7 +102,7 @@ class OrganizationViewComponent extends React.Component<Props> {
 					<Modal/>
 					</Col>
 				</Row>
-				<Row className='show-grid'>
+				<Row className=''>
 					<Col lg={12}>
 						{this.buildOrganizationTable()}
 					</Col>
