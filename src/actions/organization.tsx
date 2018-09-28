@@ -63,11 +63,11 @@ export interface IFetchedOrganizationsAction extends Action {
  * @param id Auto-assigned id number.
  * @param name The name supplied in the organization form.
  */
-const createOrganization = ( id: number, name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
-	const organizationPayload = { id, name }
-	return api.POST('/organizations', organizationPayload).then((organization: IOrganization) => {
-		dispatch(createdOrganization(organization))
-	}).catch((err: Error) => Promise.reject(err))
+const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
+	const organizationPayload = { name }
+	return api.POST('/organizations', organizationPayload)
+		.then((organization: IOrganization) => { dispatch(createdOrganization(organization))})
+		.catch((err: Error) => Promise.reject(err))
 }
 /**
  * Builds a `CreatedOrganizationAction` upon successful creation.
@@ -168,7 +168,7 @@ export interface IDeletedOrganizationAction extends Action {
 export interface OrganizationDispatch extends ActionCreatorsMapObject {
 	fetchOrganizations(): (dispatch: Dispatch<IFetchedOrganizationsAction>) => Promise<void>
 	fetchedOrganizations(organizations: IOrganization[]): IFetchedOrganizationsAction
-	createOrganization( id: number, name: string ): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
+	createOrganization(name: string): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
 	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
 	deleteOrganization(organization: IOrganization): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
 	deletedOrganization(organization: IOrganization): IDeletedOrganizationAction
