@@ -13,11 +13,11 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import { IOrganizationState } from '../../reducers/organization'
+import { IOrganizationState, IOrganization } from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
-import Modal from '../Shared/Modal'
+import { Modal } from '../Shared/Modal'
 
 // State added to props after connect.
 interface IConnectedState {
@@ -38,12 +38,6 @@ class OrganizationViewComponent extends React.Component<Props> {
 
 	public componentWillMount() {
 		this.props.organizationActions.fetchOrganizations()
-	}
-
-	public componentWillReceiveProps(nextProps: any) {
-		if (nextProps.newOrg) {
-			this.props.organizationState.organizations.unshift(nextProps.newOrg)
-		}
 	}
 
 	public buildOrganizationTable = () => {

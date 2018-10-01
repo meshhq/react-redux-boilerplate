@@ -17,15 +17,18 @@ interface IConnectedActions {
 	organizationActions: OrganizationDispatch,
 }
 
-type Props = IConnectedActions & IConnectedState
+interface FormProps {
+	saveHandler: () => void
+}
+type Props = IConnectedActions & IConnectedState & FormProps
 
 class FormComponent extends React.Component<Props, any> {
-		constructor(props: Props ) {
-			super(props)
-			this.handleOnChange = this.handleOnChange.bind(this)
-			this.createNewOrg = this.createNewOrg.bind(this)
-			this.state = { name: '' }
-		}
+	constructor(props: Props) {
+		super(props)
+		this.handleOnChange = this.handleOnChange.bind(this)
+		this.createNewOrg = this.createNewOrg.bind(this)
+		this.state = { name: '' }
+	}
 
 	public initialState() {
 		return { name: '' }
@@ -39,34 +42,35 @@ class FormComponent extends React.Component<Props, any> {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
 		this.setState(this.initialState())
+		this.props.saveHandler()
 	}
 
 	public render() {
 		return (
+			<div>
 				<div>
-					<div>
-						<form>
+					<form>
 						<input
-						type='text'
-						value={this.state.name}
-						placeholder='Enter name'
-						onChange={this.handleOnChange}
+							type='text'
+							value={this.state.name}
+							placeholder='Enter name'
+							onChange={this.handleOnChange}
 						/>
-						</form>
-					</div>
-					<Button
+					</form>
+				</div>
+				<Button
 					onClick={this.createNewOrg}
 					bsStyle='success'
 					type='submit'>
 					Create
 					</Button>
-					<div>
-						Name state is : { this.state.name } !
+				<div>
+					Name state is : {this.state.name} !
 					</div>
-				</div>
-			)
-		}
+			</div>
+		)
 	}
+}
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
