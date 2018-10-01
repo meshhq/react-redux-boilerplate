@@ -22,34 +22,44 @@ type Props = IConnectedActions & IConnectedState
 class FormComponent extends React.Component<Props, any> {
 		constructor(props: Props ) {
 			super(props)
-			this.handleChange = this.handleChange.bind(this)
 			this.handleOnChange = this.handleOnChange.bind(this)
 			this.createNewOrg = this.createNewOrg.bind(this)
 			this.state = { name: '' }
 		}
 
-	public handleOnChange(event: any): void {
-		this.setState({ name: event.target.value })
+	public initialState() {
+		return { name: '' }
 	}
 
-	public handleChange(e: any) {
-		this.setState({ name: e.target.value })
+	public handleOnChange(event: any): void {
+		this.setState({ name: event.target.value })
 	}
 
 	public createNewOrg(e: any) {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
+		this.setState(this.initialState())
 	}
 
 	public render() {
 		return (
 				<div>
 					<div>
+						<form>
 						<input
-							onChange={ (e) => this.handleOnChange(e) }
+						type='text'
+						value={this.state.name}
+						placeholder='Enter name'
+						onChange={this.handleOnChange}
 						/>
+						</form>
 					</div>
-					<Button onClick={this.createNewOrg} bsStyle='success' type='submit'>Create</Button>
+					<Button
+					onClick={this.createNewOrg}
+					bsStyle='success'
+					type='submit'>
+					Create
+					</Button>
 					<div>
 						Name state is : { this.state.name } !
 					</div>
