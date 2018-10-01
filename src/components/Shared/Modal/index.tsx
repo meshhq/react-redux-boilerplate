@@ -5,20 +5,14 @@ import { connect, Dispatch } from 'react-redux'
 import {
 	Button,
 } from 'react-bootstrap'
+
+// Components
 import { Form } from '../Form'
 
 import { IRootReducerState } from '../../../reducers'
-import { IOrganizationState } from '../../../reducers/organization'
-import { OrganizationActions, OrganizationDispatch } from '../../../actions/organization'
+import { OrganizationActions } from '../../../actions/organization'
 
-interface IConnectedState {
-	organizationState: IOrganizationState,
-}
-
-interface IConnectedActions {
-	organizationActions: OrganizationDispatch,
-}
-
+// Hides application from screenreaders and other assistive technologies while the modal is open.
 ReactModal.setAppElement('#app')
 
 class ModalViewComponent extends React.Component<any, any> {
@@ -29,7 +23,7 @@ class ModalViewComponent extends React.Component<any, any> {
 		}
 	}
 
-	public handleSave = () => {
+	public hideModal = () => {
 		this.setState({ showModal: false })
 	}
 
@@ -41,7 +35,7 @@ class ModalViewComponent extends React.Component<any, any> {
 		this.setState({ showModal: false })
 	}
 
-	public modalState() {
+	public modalState = () => {
 		const stateRef = this.state
 		return stateRef.showModal
 	}
@@ -56,12 +50,12 @@ class ModalViewComponent extends React.Component<any, any> {
 					New
 				</Button>
 				<ReactModal isOpen={this.modalState()}>
-					<Form saveHandler={this.handleSave}/>
+					<Form dismissModal={this.hideModal}/>
 					<Button
 						className='float-right'
 						bsStyle='primary'
 						onClick={this.handleCloseModal}>
-						Close Modal
+						Close
 					</Button>
 				</ReactModal>
 			</div>

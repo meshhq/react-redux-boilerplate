@@ -27,7 +27,7 @@ function organization(state = defaultState, action: AnyAction): IOrganizationSta
 		case orgAction.CREATED_ORGANIZATION:
 			typedAction = action as orgAction.ICreatedOrganizationAction
 			const orgs = state.organizations
-			orgs.push(typedAction.organization)
+			orgs.unshift(typedAction.organization)
 			return {
 				...state,
 				organization: typedAction.organization,

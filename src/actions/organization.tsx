@@ -31,6 +31,7 @@ const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction
 	})
 	.catch((err: Error) => Promise.reject(err))
 }
+
 /**
  * Builds an `IFetchedOrganizationsAction ` upon successful fetch.
  * @param organizations The response from the organizations API call.
@@ -67,10 +68,10 @@ const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrgan
 	const organizationPayload = { name }
 	return api.POST('/organizations', organizationPayload)
 		.then((organizationResponse: Response) => organizationResponse.json())
-		.then((organization: IOrganization) => {
-			dispatch(createdOrganization(organization))}
-		).catch((err: Error) => Promise.reject(err))
+		.then((organization: IOrganization) => { dispatch(createdOrganization(organization))})
+		.catch((err: Error) => Promise.reject(err))
 }
+
 /**
  * Builds a `CreatedOrganizationAction` upon successful creation.
  * @param organization The response from the organizations API call.
@@ -108,6 +109,7 @@ const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrgan
 		dispatch(updatedOrganization(organization))
 	}).catch((err: Error) => Promise.reject(err))
 }
+
 /**
  * Builds an `UpdatedOrganizationAction` upon successful creation.
  * @param organization The response from the organizations API call.
