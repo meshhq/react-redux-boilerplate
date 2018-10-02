@@ -28,7 +28,10 @@ const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction
 	.then((organizations: IOrganization[]) => {
 		dispatch(fetchedOrganizations(organizations))
 	})
-	.catch((err: Error) => Promise.reject(err))
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during fetching organizations.', err)
+	})
 }
 
 /**

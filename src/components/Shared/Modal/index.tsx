@@ -15,6 +15,10 @@ import { OrganizationActions } from '../../../actions/organization'
 // Hides application from screenreaders and other assistive technologies while the modal is open.
 ReactModal.setAppElement('#app')
 
+// ---------------------------------
+//  Modal for New organization
+// ---------------------------------
+
 class ModalViewComponent extends React.Component<any, any> {
 	constructor() {
 		super()
@@ -23,6 +27,7 @@ class ModalViewComponent extends React.Component<any, any> {
 		}
 	}
 
+	// hides modal, used via dismissModal() in Form component
 	public hideModal = () => {
 		this.setState({ showModal: false })
 	}

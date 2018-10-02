@@ -23,6 +23,10 @@ interface FormProps {
 
 type Props = IConnectedActions & IConnectedState & FormProps
 
+// ---------------------------------
+//  Form for New and Edit
+// ---------------------------------
+
 class FormComponent extends React.Component<Props, any> {
 	constructor(props: Props) {
 		super(props)
@@ -33,10 +37,12 @@ class FormComponent extends React.Component<Props, any> {
 		return { name: '' }
 	}
 
+	// Grabs text from input field and updates name state
 	public handleOnChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.setState({ name: e.currentTarget.value })
 	}
 
+	// Creates new org on button click, dismisses modal and updates list showing recently added on top, see hideModal()
 	public createNewOrg = (e: React.MouseEvent<Button>) => {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
