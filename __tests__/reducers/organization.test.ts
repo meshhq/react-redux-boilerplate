@@ -1,10 +1,8 @@
 import { expect } from 'chai'
-import { Action, AnyAction } from 'redux'
+import {  AnyAction } from 'redux'
 
 import OrganizationReducer, { IOrganizationState } from '../../src/reducers/organization'
 import * as orgAction from '../../src/actions/organization'
-
-import { IOrganization} from '../../src/reducers/organization'
 
 describe('Organization Reducer', () => {
 	it('should return the initial state.', () => {
@@ -34,12 +32,12 @@ describe('Organization Reducer', () => {
 
 	it('should handle CREATED_ORGANIZATIONS.', () => {
 		const expectedState: IOrganizationState = {
-			organization: {} as IOrganization,
-			organizations: [],
+			organization: {name: 'testOrg'},
+			organizations: [{name: 'testOrg'}],
 		}
 
 		const testAction: orgAction.ICreatedOrganizationAction = {
-			organization: {} as IOrganization,
+			organization: {name: 'testOrg'},
 			receivedAt: Date.now(),
 			type: orgAction.CREATED_ORGANIZATION,
 		}
@@ -49,12 +47,12 @@ describe('Organization Reducer', () => {
 
 	it('should handle UPDATED_ORGANIZATION.', () => {
 		const expectedState: IOrganizationState = {
-			organization: {} as IOrganization,
-			organizations: [],
+			organization: {name: 'testOrg'},
+			organizations: [{name: 'testOrg'}],
 		}
 
 		const testAction: orgAction.IUpdatedOrganizationAction = {
-			organization: {} as IOrganization,
+			organization: {name: 'testOrg'},
 			receivedAt: Date.now(),
 			type: orgAction.UPDATED_ORGANIZATION,
 		}
@@ -69,7 +67,7 @@ describe('Organization Reducer', () => {
 		}
 
 		const testAction: orgAction.IDeletedOrganizationAction = {
-			organization: null,
+			organization: {name: 'testOrg'},
 			receivedAt: Date.now(),
 			type: orgAction.DELETED_ORGANIZATION,
 		}

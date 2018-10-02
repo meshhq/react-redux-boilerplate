@@ -1,12 +1,8 @@
 // External Dependencies
 import * as React from 'react'
-import { connect } from 'react-redux'
-
 import {
 	Table
 } from 'react-bootstrap'
-
-// Internal Dependencies
 
 // Interfaces
 export interface TableHeader {

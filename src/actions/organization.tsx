@@ -25,12 +25,13 @@ export const DELETED_ORGANIZATION  = 'DELETED_ORGANIZATION'
  */
 const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction>) => {
 	return api.GET('/organizations', {})
-	.then((organizationsResponse: Response) => organizationsResponse.json())
-	.then((organizations: IOrganization[]) => {
-		dispatch(fetchedOrganizations(organizations))
+	.then((organizations: IOrganization[]) => {dispatch(fetchedOrganizations(organizations))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during fetching organizations.', err)
 	})
-	.catch((err: Error) => Promise.reject(err))
 }
+
 /**
  * Builds an `IFetchedOrganizationsAction ` upon successful fetch.
  * @param organizations The response from the organizations API call.
@@ -63,12 +64,16 @@ export interface IFetchedOrganizationsAction extends Action {
  * @param id Auto-assigned id number.
  * @param name The name supplied in the organization form.
  */
-const createOrganization = ( id: number, name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
-	const organizationPayload = { id, name }
-	return api.POST('/organizations', organizationPayload).then((organization: IOrganization) => {
-		dispatch(createdOrganization(organization))
-	}).catch((err: Error) => Promise.reject(err))
+const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
+	const organizationPayload = { name }
+	return api.POST('/organizations', organizationPayload)
+		.then((organization: IOrganization) => {dispatch(createdOrganization(organization))})
+		.catch((err: Error) => {
+			// tslint:disable-next-line:no-console
+			console.log('Error during creating an organization.', err)
+		})
 }
+
 /**
  * Builds a `CreatedOrganizationAction` upon successful creation.
  * @param organization The response from the organizations API call.
@@ -102,10 +107,14 @@ export interface ICreatedOrganizationAction extends Action {
  */
 const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrganizationAction>) => {
 	const organizationPayload = { name }
-	return api.PUT('/organizations', organizationPayload).then((organization: IOrganization) => {
-		dispatch(updatedOrganization(organization))
-	}).catch((err: Error) => Promise.reject(err))
+	return api.PUT('/organizations', organizationPayload)
+	.then((organization: IOrganization) => { dispatch(updatedOrganization(organization))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during organization update.', err)
+	})
 }
+
 /**
  * Builds an `UpdatedOrganizationAction` upon successful creation.
  * @param organization The response from the organizations API call.
@@ -139,9 +148,12 @@ export interface IUpdatedOrganizationAction extends Action {
  * @param organization.id The id of the organization to be deleted.
  */
 const deleteOrganization = ( organization: IOrganization ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
-	return api.DELETE('/organization/', organization.id).then((org: IOrganization) => {
-		dispatch(deletedOrganization(org))
-	}).catch((err: Error) => Promise.reject(err))
+	return api.DELETE('/organization/', organization.id)
+	.then((org: IOrganization) => {dispatch(deletedOrganization(org))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during organization delete.', err)
+	})
 }
 
 const deletedOrganization = ( organization: IOrganization ): IDeletedOrganizationAction => {
@@ -168,7 +180,7 @@ export interface IDeletedOrganizationAction extends Action {
 export interface OrganizationDispatch extends ActionCreatorsMapObject {
 	fetchOrganizations(): (dispatch: Dispatch<IFetchedOrganizationsAction>) => Promise<void>
 	fetchedOrganizations(organizations: IOrganization[]): IFetchedOrganizationsAction
-	createOrganization( id: number, name: string ): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
+	createOrganization(name: string): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
 	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
 	deleteOrganization(organization: IOrganization): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
 	deletedOrganization(organization: IOrganization): IDeletedOrganizationAction
