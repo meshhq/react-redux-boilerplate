@@ -1,10 +1,8 @@
 import { expect } from 'chai'
-import { Action, AnyAction } from 'redux'
+import {  AnyAction } from 'redux'
 
 import OrganizationReducer, { IOrganizationState } from '../../src/reducers/organization'
 import * as orgAction from '../../src/actions/organization'
-
-import { IOrganization} from '../../src/reducers/organization'
 
 describe('Organization Reducer', () => {
 	it('should return the initial state.', () => {

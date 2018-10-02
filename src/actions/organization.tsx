@@ -67,7 +67,10 @@ const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrgan
 	const organizationPayload = { name }
 	return api.POST('/organizations', organizationPayload)
 		.then((organization: IOrganization) => {dispatch(createdOrganization(organization))})
-		.catch((err: Error) => Promise.reject(err))
+		.catch((err: Error) => {
+			// tslint:disable-next-line:no-console
+			console.log('Error during creating an organization.', err)
+		})
 }
 
 /**
@@ -103,9 +106,12 @@ export interface ICreatedOrganizationAction extends Action {
  */
 const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrganizationAction>) => {
 	const organizationPayload = { name }
-	return api.PUT('/organizations', organizationPayload).then((organization: IOrganization) => {
-		dispatch(updatedOrganization(organization))
-	}).catch((err: Error) => Promise.reject(err))
+	return api.PUT('/organizations', organizationPayload)
+	.then((organization: IOrganization) => { dispatch(updatedOrganization(organization))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during organization update.', err)
+	})
 }
 
 /**
@@ -141,9 +147,12 @@ export interface IUpdatedOrganizationAction extends Action {
  * @param organization.id The id of the organization to be deleted.
  */
 const deleteOrganization = ( organization: IOrganization ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
-	return api.DELETE('/organization/', organization.id).then((org: IOrganization) => {
-		dispatch(deletedOrganization(org))
-	}).catch((err: Error) => Promise.reject(err))
+	return api.DELETE('/organization/', organization.id)
+	.then((org: IOrganization) => {dispatch(deletedOrganization(org))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during organization delete.', err)
+	})
 }
 
 const deletedOrganization = ( organization: IOrganization ): IDeletedOrganizationAction => {
