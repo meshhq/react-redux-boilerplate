@@ -25,9 +25,7 @@ export const DELETED_ORGANIZATION  = 'DELETED_ORGANIZATION'
  */
 const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction>) => {
 	return api.GET('/organizations', {})
-	.then((organizations: IOrganization[]) => {
-		dispatch(fetchedOrganizations(organizations))
-	})
+	.then((organizations: IOrganization[]) => {dispatch(fetchedOrganizations(organizations))})
 	.catch((err: Error) => {
 		// tslint:disable-next-line:no-console
 		console.log('Error during fetching organizations.', err)
