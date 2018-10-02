@@ -33,11 +33,11 @@ class FormComponent extends React.Component<Props, any> {
 		return { name: '' }
 	}
 
-	public handleOnChange = (event: any) => {
-		this.setState({ name: event.target.value })
+	public handleOnChange = (e: React.FormEvent<HTMLInputElement>): void => {
+		this.setState({ name: e.currentTarget.value })
 	}
 
-	public createNewOrg = (e: any) => {
+	public createNewOrg = (e: React.MouseEvent<Button>) => {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
 		this.setState(this.initialState())
