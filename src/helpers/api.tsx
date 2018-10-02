@@ -61,7 +61,9 @@ function performFetch(url: string, options: RequestInit) {
 	console.log('URL', url)
 	// tslint:disable-next-line:no-console
 	console.log('Options', options)
-	return fetch(url, options).then((response: any) => {
+	return fetch(url, options)
+	.then((rawResponse: any) => rawResponse.json())
+	.then((response: any) => {
 		// tslint:disable-next-line:no-console
 		console.log('Response', response)
 		if (response.status === 204) {

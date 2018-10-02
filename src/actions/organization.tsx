@@ -25,7 +25,6 @@ export const DELETED_ORGANIZATION  = 'DELETED_ORGANIZATION'
  */
 const fetchOrganizations = () => (dispatch: Dispatch<IFetchedOrganizationsAction>) => {
 	return api.GET('/organizations', {})
-	.then((organizationsResponse: Response) => organizationsResponse.json())
 	.then((organizations: IOrganization[]) => {
 		dispatch(fetchedOrganizations(organizations))
 	})
@@ -67,8 +66,7 @@ export interface IFetchedOrganizationsAction extends Action {
 const createOrganization = ( name: string ) => (dispatch: Dispatch<ICreatedOrganizationAction>) => {
 	const organizationPayload = { name }
 	return api.POST('/organizations', organizationPayload)
-		.then((organizationResponse: Response) => organizationResponse.json())
-		.then((organization: IOrganization) => { dispatch(createdOrganization(organization))})
+		.then((organization: IOrganization) => {dispatch(createdOrganization(organization))})
 		.catch((err: Error) => Promise.reject(err))
 }
 
