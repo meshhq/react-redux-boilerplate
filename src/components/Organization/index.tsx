@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
+
 import {
 	Button,
 	Grid,
@@ -18,10 +19,12 @@ import { IOrganizationState, IOrganization } from '../../reducers/organization'
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
 import { Modal } from '../Shared/Modal'
+import { Form } from '../Shared/Form'
 
 // State added to props after connect.
 interface IConnectedState {
 	organizationState: IOrganizationState,
+	showModal: boolean
 }
 
 // Actions added to props after connect.
@@ -31,13 +34,25 @@ interface IConnectedActions {
 
 type Props = IConnectedActions & IConnectedState
 
-class OrganizationViewComponent extends React.Component<Props> {
+class OrganizationViewComponent extends React.Component<Props, IConnectedState> {
 	constructor(props: Props) {
 		super(props)
+		this.state = {
+			organizationState: null,
+			showModal: false
+		}
 	}
 
 	public componentWillMount() {
 		this.props.organizationActions.fetchOrganizations()
+	}
+
+	public launchEditModal = () => {
+		this.setState({showModal: true})
+	}
+
+	public handleCloseModal = () => {
+		this.setState({ showModal: false })
 	}
 
 	public buildOrganizationTable = () => {
@@ -68,6 +83,7 @@ class OrganizationViewComponent extends React.Component<Props> {
 	}
 
 	public buildOrganizationRows = () => {
+
 		if (!this.props.organizationState) { return null }
 		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
@@ -84,8 +100,8 @@ class OrganizationViewComponent extends React.Component<Props> {
 			{/* Actions Cell */}
 			<td>
 				<div>
-				{<span><Button bsStyle='primary'>EDIT</Button></span>}
-				{<span><Button bsStyle='danger'>DELETE</Button></span>}
+				<Button bsStyle='primary' type='submit' onClick={this.launchEditModal}>EDIT</Button>
+				<Button bsStyle='danger'>DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -93,13 +109,41 @@ class OrganizationViewComponent extends React.Component<Props> {
 		})
 	}
 
+	/**
+	 * UI Components
+	 */
+
+	 public launchModal = () => {
+		 if (!this.state.showModal) {
+			return
+		 }
+
+		 return (
+				<Modal
+					renderForm={this.showForm}
+				/>
+		 )
+	 }
+
+	 public showForm = () => {
+		return (
+			<Form
+			dismissModal={this.handleCloseModal}
+			/>
+		)
+	}
+
+	/**
+	 * Render
+	 */
+
 	public render() {
 		return (
 			<div className=''>
 			<Grid>
 				<Row className=''>
 					<Col lg={12}>
-					<Modal/>
+						{this.launchModal()}
 					</Col>
 				</Row>
 				<Row className=''>

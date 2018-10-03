@@ -10,58 +10,42 @@ import {
 import { Form } from '../Form'
 
 import { IRootReducerState } from '../../../reducers'
-import { OrganizationActions } from '../../../actions/organization'
+import { IOrganizationState } from '../../../reducers/organization'
+import { OrganizationActions, OrganizationDispatch } from '../../../actions/organization'
 
 // Hides application from screenreaders and other assistive technologies while the modal is open.
 ReactModal.setAppElement('#app')
+
+interface IConnectedState {
+	organizationState: IOrganizationState,
+}
+
+interface IConnectedActions {
+	organizationActions: OrganizationDispatch,
+}
+
+interface ModalProps {
+	renderForm: () => JSX.Element
+}
+
+type Props = IConnectedActions & IConnectedState & ModalProps
 
 // ---------------------------------
 //  Modal for New organization
 // ---------------------------------
 
-class ModalViewComponent extends React.Component<any, any> {
-	constructor() {
-		super()
-		this.state = {
-			showModal: false
-		}
-	}
-
-	// hides modal, used via dismissModal() in Form component
-	public hideModal = () => {
-		this.setState({ showModal: false })
-	}
-
-	public handleOpenModal = () => {
-		this.setState({ showModal: true })
-	}
-
-	public handleCloseModal = () => {
-		this.setState({ showModal: false })
-	}
-
-	public modalState = () => {
-		const stateRef = this.state
-		return stateRef.showModal
+class ModalViewComponent extends React.Component<Props, any> {
+	constructor(props: Props) {
+		super(props)
 	}
 
 	public render() {
 		return (
 			<div>
-				<Button
-					className='float-right'
-					bsStyle='primary'
-					onClick={this.handleOpenModal}>
-					New
-				</Button>
-				<ReactModal isOpen={this.modalState()}>
-					<Form dismissModal={this.hideModal}/>
-					<Button
-						className='float-right'
-						bsStyle='primary'
-						onClick={this.handleCloseModal}>
-						Close
-					</Button>
+				<ReactModal
+				isOpen={true}
+				>
+				{this.props.renderForm()}
 				</ReactModal>
 			</div>
 		)
