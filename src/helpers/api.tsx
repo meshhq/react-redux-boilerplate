@@ -62,10 +62,14 @@ function performFetch(url: string, options: RequestInit) {
 	// tslint:disable-next-line:no-console
 	console.log('Options', options)
 	return fetch(url, options)
-	.then((rawResponse: any) => rawResponse.json())
-	.then((response: any) => {
+	// .then((rawResponse: any) => rawResponse.json())
+	.then((rawResponse: any) => {
 		// tslint:disable-next-line:no-console
-		console.log('Response', response)
+		console.log('RAW RESPONSE : ', rawResponse)
+		return rawResponse.json()
+	}).then((response: any) => {
+		// tslint:disable-next-line:no-console
+		console.log('Parsed Response:', response)
 		if (response.status === 204) {
 			return null
 		} else {

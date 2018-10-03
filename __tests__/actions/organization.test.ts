@@ -113,7 +113,7 @@ describe('Organization Actions', () => {
 									type: orgActions.CREATED_ORGANIZATION,
 								}]
 								const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-								await store.dispatch(orgActions.OrganizationActions.createOrganization(1, 'test'))
+								await store.dispatch(orgActions.OrganizationActions.createOrganization('test'))
 								expect(store.getActions()).to.have.lengthOf(1)
 								expect(store.getActions()).to.deep.equal(expectedActions)
 			})

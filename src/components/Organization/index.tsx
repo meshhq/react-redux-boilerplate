@@ -25,6 +25,7 @@ import { Form } from '../Shared/Form'
 interface IConnectedState {
 	organizationState: IOrganizationState,
 	showModal: boolean
+	currentId: number
 }
 
 // Actions added to props after connect.
@@ -38,8 +39,9 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	constructor(props: Props) {
 		super(props)
 		this.state = {
+			currentId: null,
 			organizationState: null,
-			showModal: false
+			showModal: false,
 		}
 	}
 
@@ -47,11 +49,16 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.props.organizationActions.fetchOrganizations()
 	}
 
-	public launchEditModal = () => {
-		this.setState({showModal: true})
+	public openEditModal = (id: number) => {
+		// tslint:disable-next-line:no-console
+		console.log('id', id)
+		this.setState({
+			currentId: id,
+			showModal: true,
+		})
 	}
 
-	public handleCloseModal = () => {
+	public closeModal = () => {
 		this.setState({ showModal: false })
 	}
 
@@ -87,6 +94,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		if (!this.props.organizationState) { return null }
 		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
+			const orgID = org.id
 			return(
 			<tr key={org.id}>
 			{/* ID Cell */}
@@ -100,8 +108,8 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			{/* Actions Cell */}
 			<td>
 				<div>
-				<Button bsStyle='primary' type='submit' onClick={this.launchEditModal}>EDIT</Button>
-				<Button bsStyle='danger'>DELETE</Button>
+				<Button bsStyle='primary' type='submit' onClick={() => this.openEditModal(org.id)} >EDIT</Button>
+				<Button bsStyle='danger' type='submit'> DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -117,18 +125,18 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		 if (!this.state.showModal) {
 			return
 		 }
-
 		 return (
-				<Modal
-					renderForm={this.showForm}
-				/>
+			<Modal
+				renderForm={this.showForm}
+			/>
 		 )
 	 }
 
-	 public showForm = () => {
+	public showForm = () => {
 		return (
 			<Form
-			dismissModal={this.handleCloseModal}
+			dismissModal={this.closeModal}
+			orgID={this.state.currentId}
 			/>
 		)
 	}
@@ -136,8 +144,9 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	/**
 	 * Render
 	 */
-
 	public render() {
+		// tslint:disable-next-line:no-console
+		console.log('Copon state ; ', this.state)
 		return (
 			<div className=''>
 			<Grid>

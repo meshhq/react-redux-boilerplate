@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap'
 
 import { IRootReducerState } from '../../../reducers'
-import { IOrganizationState } from '../../../reducers/organization'
+import { IOrganizationState, IOrganization } from '../../../reducers/organization'
 import { OrganizationActions, OrganizationDispatch } from '../../../actions/organization'
 
 interface IConnectedState {
@@ -19,6 +19,7 @@ interface IConnectedActions {
 
 interface FormProps {
 	dismissModal: () => void
+	orgID?: number
 }
 
 type Props = IConnectedActions & IConnectedState & FormProps
@@ -30,27 +31,40 @@ type Props = IConnectedActions & IConnectedState & FormProps
 class FormComponent extends React.Component<Props, any> {
 	constructor(props: Props) {
 		super(props)
-		this.state = this.initialState()
+		this.state = {
+			inputValue: '',
+			name: ''
+		}
 	}
 
-	public initialState = () => {
-		return { name: '' }
+	public componentWillMount() {
+		// tslint:disable-next-line:no-console
+		console.log('component will mount', this.props)
 	}
-
 	// Grabs text from input field and updates name state
 	public handleOnChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.setState({ name: e.currentTarget.value })
 	}
 
-	// Creates new org on button click, dismisses modal and updates list showing recently added on top, see hideModal()
+	// Creates new org on button click, dismisses modal and updates list showing recently added on top
 	public createNewOrg = (e: React.MouseEvent<Button>) => {
 		e.preventDefault()
 		this.props.organizationActions.createOrganization(this.state.name)
-		this.setState(this.initialState())
+		this.setState({name: ''})
+		this.props.dismissModal()
+	}
+
+	public editOrg = () => {
+		// tslint:disable-next-line:no-console
+		console.log('props', this.props)
+		this.props.organizationActions.updateOrganization(this.props.orgID, this.state.name)
+		this.setState({name: ''})
 		this.props.dismissModal()
 	}
 
 	public render() {
+		// tslint:disable-next-line:no-console
+		console.log('form state', this.state)
 		return (
 			<div>
 				<div>
@@ -65,11 +79,11 @@ class FormComponent extends React.Component<Props, any> {
 					/>
 				</div>
 				<Button
-					onClick={this.createNewOrg}
+					onClick={this.editOrg}
 					bsStyle='success'
 					type='submit'
 				>
-				Create
+				Save
 				</Button>
 			</div>
 		)

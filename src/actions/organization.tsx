@@ -105,10 +105,10 @@ export interface ICreatedOrganizationAction extends Action {
  * Updates organization via a call to the `/organizations` API.
  * @param name  Name supplied in organization form.
  */
-const updateOrganization = ( name: string ) => (dispatch: Dispatch<IUpdatedOrganizationAction>) => {
+const updateOrganization = ( organizationID: number, name: string ) => (dispatch: Dispatch<IUpdatedOrganizationAction>) => {
 	const organizationPayload = { name }
-	return api.PUT('/organizations', organizationPayload)
-	.then((organization: IOrganization) => { dispatch(updatedOrganization(organization))})
+	return api.PUT(`/organizations/${organizationID}`, organizationPayload)
+	.then((org: IOrganization) => { dispatch(updatedOrganization(org))})
 	.catch((err: Error) => {
 		// tslint:disable-next-line:no-console
 		console.log('Error during organization update.', err)
@@ -148,7 +148,7 @@ export interface IUpdatedOrganizationAction extends Action {
  * @param organization.id The id of the organization to be deleted.
  */
 const deleteOrganization = ( organization: IOrganization ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
-	return api.DELETE('/organization/', organization.id)
+	return api.DELETE(`/organization/${organization.id}`, {})
 	.then((org: IOrganization) => {dispatch(deletedOrganization(org))})
 	.catch((err: Error) => {
 		// tslint:disable-next-line:no-console
@@ -184,7 +184,7 @@ export interface OrganizationDispatch extends ActionCreatorsMapObject {
 	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
 	deleteOrganization(organization: IOrganization): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
 	deletedOrganization(organization: IOrganization): IDeletedOrganizationAction
-	updateOrganization( name: string ): (dispatch: Dispatch<IUpdatedOrganizationAction>) => Promise<void>
+	updateOrganization( organizationID: number, name: string ): (dispatch: Dispatch<IUpdatedOrganizationAction>) => Promise<void>
 	updatedOrganization(organization: IOrganization): IUpdatedOrganizationAction
 }
 

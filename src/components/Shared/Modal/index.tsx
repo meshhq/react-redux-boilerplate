@@ -26,6 +26,7 @@ interface IConnectedActions {
 
 interface ModalProps {
 	renderForm: () => JSX.Element
+	renderWarning?: () => JSX.Element
 }
 
 type Props = IConnectedActions & IConnectedState & ModalProps
@@ -46,6 +47,7 @@ class ModalViewComponent extends React.Component<Props, any> {
 				isOpen={true}
 				>
 				{this.props.renderForm()}
+				{/* {this.props.renderWarning()} */}
 				</ReactModal>
 			</div>
 		)
