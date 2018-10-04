@@ -37,7 +37,9 @@ function organization(state = defaultState, action: AnyAction): IOrganizationSta
 			typedAction = action as orgAction.IUpdatedOrganizationAction
 			return{
 				...state,
-				organization: typedAction.organization
+				organizations: state.organizations.map((org) => {
+					return (org.id === typedAction.organization.id) ? typedAction.organization : org
+				})
 			}
 		case orgAction.DELETED_ORGANIZATION:
 			typedAction = action as orgAction.IDeletedOrganizationAction

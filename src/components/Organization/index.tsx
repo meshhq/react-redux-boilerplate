@@ -26,6 +26,7 @@ interface IConnectedState {
 	organizationState: IOrganizationState,
 	showModal: boolean
 	currentId: number
+	name: string
 }
 
 // Actions added to props after connect.
@@ -40,6 +41,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		super(props)
 		this.state = {
 			currentId: null,
+			name: null,
 			organizationState: null,
 			showModal: false,
 		}
@@ -49,7 +51,15 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.props.organizationActions.fetchOrganizations()
 	}
 
-	public openEditModal = (id: number) => {
+	// ---------------------------------------
+	// Event Handlers
+	// ---------------------------------------
+
+	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
+		this.setState({ name: e.currentTarget.value })
+	}
+
+	public updateCurrentOrgID = (id: number) => {
 		// tslint:disable-next-line:no-console
 		console.log('id', id)
 		this.setState({
@@ -61,6 +71,29 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	public closeModal = () => {
 		this.setState({ showModal: false })
 	}
+
+	// ---------------------------------------
+	// Actions
+	// ---------------------------------------
+
+	public createNewOrg = (e: React.MouseEvent<Button>) => {
+		e.preventDefault()
+		this.props.organizationActions.createOrganization(this.state.name)
+		this.setState({name: ''})
+		this.closeModal()
+	}
+
+	public editOrg = () => {
+		// tslint:disable-next-line:no-console
+		console.log('props', this.props)
+		this.props.organizationActions.updateOrganization(this.state.currentId, this.state.name)
+		this.setState({name: ''})
+		this.closeModal()
+	}
+
+	// ---------------------------------------
+	// Component Builders
+	// ---------------------------------------
 
 	public buildOrganizationTable = () => {
 		const tableHeaders = [
@@ -108,7 +141,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			{/* Actions Cell */}
 			<td>
 				<div>
-				<Button bsStyle='primary' type='submit' onClick={() => this.openEditModal(org.id)} >EDIT</Button>
+				<Button bsStyle='primary' type='submit' onClick={() => this.updateCurrentOrgID(org.id)} >EDIT</Button>
 				<Button bsStyle='danger' type='submit'> DELETE</Button>
 				</div>
 			</td>
@@ -136,7 +169,8 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		return (
 			<Form
 			dismissModal={this.closeModal}
-			orgID={this.state.currentId}
+			handleInputChange={this.handleInputChange}
+			editOrg={this.editOrg}
 			/>
 		)
 	}
