@@ -25,8 +25,10 @@ interface IConnectedActions {
 }
 
 interface ModalProps {
-	renderForm: () => JSX.Element
+	renderContent: () => JSX.Element
 	renderWarning?: () => JSX.Element
+	handleSave: () => void
+	handleCancel: () => void
 }
 
 type Props = IConnectedActions & IConnectedState & ModalProps
@@ -46,8 +48,21 @@ class ModalViewComponent extends React.Component<Props, any> {
 				<ReactModal
 				isOpen={true}
 				>
-				{this.props.renderForm()}
-				{/* {this.props.renderWarning()} */}
+				{this.props.renderContent()}
+				<Button
+					onClick={this.props.handleCancel}
+					bsStyle='success'
+					type='submit'
+				>
+				Cancel
+				</Button>
+				<Button
+					onClick={this.props.handleSave}
+					bsStyle='success'
+					type='submit'
+				>
+				Save
+				</Button>
 				</ReactModal>
 			</div>
 		)

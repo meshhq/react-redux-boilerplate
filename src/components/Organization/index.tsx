@@ -127,7 +127,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		if (!this.props.organizationState) { return null }
 		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
-			const orgID = org.id
+			const boundEditHandler = this.updateCurrentOrgID.bind(this, org.id)
 			return(
 			<tr key={org.id}>
 			{/* ID Cell */}
@@ -141,8 +141,8 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			{/* Actions Cell */}
 			<td>
 				<div>
-				<Button bsStyle='primary' type='submit' onClick={() => this.updateCurrentOrgID(org.id)} >EDIT</Button>
-				<Button bsStyle='danger' type='submit'> DELETE</Button>
+				<Button bsStyle='primary' type='submit' onClick={boundEditHandler}>EDIT</Button>
+				<Button bsStyle='danger' type='submit'>DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -160,7 +160,9 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		 }
 		 return (
 			<Modal
-				renderForm={this.showForm}
+				handleSave={this.editOrg}
+				handleCancel={this.closeModal}
+				renderContent={this.showForm}
 			/>
 		 )
 	 }
@@ -168,9 +170,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	public showForm = () => {
 		return (
 			<Form
-			dismissModal={this.closeModal}
-			handleInputChange={this.handleInputChange}
-			editOrg={this.editOrg}
+				handleInputChange={this.handleInputChange}
 			/>
 		)
 	}

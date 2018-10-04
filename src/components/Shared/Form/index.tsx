@@ -4,9 +4,7 @@ import {
 } from 'react-bootstrap'
 
 interface FormProps {
-	dismissModal: () => void
 	handleInputChange: (e: React.FormEvent<HTMLInputElement>) => void
-	editOrg: () => void
 }
 
 type Props = FormProps
@@ -36,13 +34,6 @@ class FormComponent extends React.Component<Props, any> {
 						onChange={this.props.handleInputChange}
 					/>
 				</div>
-				<Button
-					onClick={this.props.editOrg}
-					bsStyle='success'
-					type='submit'
-				>
-				Save
-				</Button>
 			</div>
 		)
 	}
