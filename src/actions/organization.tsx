@@ -145,20 +145,20 @@ export interface IUpdatedOrganizationAction extends Action {
 /**
  * Deletes organization via a call to the `/organization` API.
  * @param organization The organization to be deleted.
- * @param organization.id The id of the organization to be deleted.
+ * @param organizationID The id of the organization to be deleted.
  */
-const deleteOrganization = ( organization: IOrganization ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
-	return api.DELETE(`/organization/${organization.id}`, {})
-	.then((org: IOrganization) => {dispatch(deletedOrganization(org))})
+const deleteOrganization = ( organizationID: number ) => (dispatch: Dispatch<IDeletedOrganizationAction>) => {
+	return api.DELETE(`/organizations/${organizationID}`, {})
+	.then(() => {dispatch(deletedOrganization(organizationID))})
 	.catch((err: Error) => {
 		// tslint:disable-next-line:no-console
 		console.log('Error during organization delete.', err)
 	})
 }
 
-const deletedOrganization = ( organization: IOrganization ): IDeletedOrganizationAction => {
+const deletedOrganization = ( orgID: number ): IDeletedOrganizationAction => {
 	const action: IDeletedOrganizationAction = {
-		organization: organization,
+		orgID: orgID,
 		receivedAt: Date.now(),
 		type: DELETED_ORGANIZATION,
 	}
@@ -169,7 +169,7 @@ const deletedOrganization = ( organization: IOrganization ): IDeletedOrganizatio
  * IDeletedOrganizationAction is dispatched after organization has been deleted.
  */
 export interface IDeletedOrganizationAction extends Action {
-	organization: IOrganization,
+	orgID: number,
 	receivedAt: number
 	type: string,
 }
@@ -182,8 +182,8 @@ export interface OrganizationDispatch extends ActionCreatorsMapObject {
 	fetchedOrganizations(organizations: IOrganization[]): IFetchedOrganizationsAction
 	createOrganization(name: string): (dispatch: Dispatch<ICreatedOrganizationAction>) => Promise<void>
 	createdOrganization(organization: IOrganization): ICreatedOrganizationAction
-	deleteOrganization(organization: IOrganization): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
-	deletedOrganization(organization: IOrganization): IDeletedOrganizationAction
+	deleteOrganization(organizationID: number): (dispatch: Dispatch<IDeletedOrganizationAction>) => Promise<void>
+	deletedOrganization(orgID: number): IDeletedOrganizationAction
 	updateOrganization( organizationID: number, name: string ): (dispatch: Dispatch<IUpdatedOrganizationAction>) => Promise<void>
 	updatedOrganization(organization: IOrganization): IUpdatedOrganizationAction
 }

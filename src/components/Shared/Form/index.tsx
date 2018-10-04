@@ -20,8 +20,6 @@ class FormComponent extends React.Component<Props, any> {
 	}
 
 	public render() {
-		// tslint:disable-next-line:no-console
-		console.log('form state', this.state)
 		return (
 			<div>
 				<div>

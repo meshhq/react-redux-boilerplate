@@ -14,7 +14,7 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import { IOrganizationState, IOrganization } from '../../reducers/organization'
+import { IOrganizationState} from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
@@ -91,6 +91,11 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.closeModal()
 	}
 
+	public deleteOrg = () => {
+		this.props.organizationActions.deleteOrganization(this.state.currentId)
+		this.closeModal()
+	}
+
 	// ---------------------------------------
 	// Component Builders
 	// ---------------------------------------
@@ -128,6 +133,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
 			const boundEditHandler = this.updateCurrentOrgID.bind(this, org.id)
+			const boundDeleteHandler = this.updateCurrentOrgID.bind(this, org.id)
 			return(
 			<tr key={org.id}>
 			{/* ID Cell */}
@@ -142,7 +148,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			<td>
 				<div>
 				<Button bsStyle='primary' type='submit' onClick={boundEditHandler}>EDIT</Button>
-				<Button bsStyle='danger' type='submit'>DELETE</Button>
+				<Button bsStyle='danger' type='submit' onClick={boundDeleteHandler}>DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -160,7 +166,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		 }
 		 return (
 			<Modal
-				handleSave={this.editOrg}
+				handleSave={this.deleteOrg}
 				handleCancel={this.closeModal}
 				renderContent={this.showForm}
 			/>
@@ -179,8 +185,6 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	 * Render
 	 */
 	public render() {
-		// tslint:disable-next-line:no-console
-		console.log('Copon state ; ', this.state)
 		return (
 			<div className=''>
 			<Grid>

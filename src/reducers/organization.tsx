@@ -17,38 +17,38 @@ const defaultState: IOrganizationState = {
 }
 
 function organization(state = defaultState, action: AnyAction): IOrganizationState {
-	let typedAction: any
 	switch (action.type) {
 		case orgAction.FETCHED_ORGANIZATIONS:
-			return {
+		const fetchTypedAction = action as orgAction.IFetchedOrganizationsAction
+		return {
 				...state,
-				organizations: action.organizations
+				organizations: fetchTypedAction.organizations
 			}
 		case orgAction.CREATED_ORGANIZATION:
-			typedAction = action as orgAction.ICreatedOrganizationAction
+			const createTypedAction = action as orgAction.ICreatedOrganizationAction
 			const orgs = state.organizations
-			orgs.unshift(typedAction.organization)
+			orgs.unshift(createTypedAction.organization)
 			return {
 				...state,
-				organization: typedAction.organization,
+				organization: createTypedAction.organization,
 				organizations: orgs
 			}
 		case orgAction.UPDATED_ORGANIZATION:
-			typedAction = action as orgAction.IUpdatedOrganizationAction
+			const updateTypedAction = action as orgAction.IUpdatedOrganizationAction
 			return{
 				...state,
 				organizations: state.organizations.map((org) => {
-					return (org.id === typedAction.organization.id) ? typedAction.organization : org
+					return (org.id === updateTypedAction.organization.id) ? updateTypedAction.organization : org
 				})
 			}
 		case orgAction.DELETED_ORGANIZATION:
-			typedAction = action as orgAction.IDeletedOrganizationAction
-			const filteredOrganizations = state.organizations.filter((org) =>  {
-				return org.id !== typedAction.organization.id
+			const deleteTypedAction = action as orgAction.IDeletedOrganizationAction
+			const filteredOrgs = state.organizations.filter((org) =>  {
+				return org.id !== deleteTypedAction.orgID
 			})
 			return {
 				...state,
-				organizations: filteredOrganizations
+				organizations: filteredOrgs
 			}
 		default:
 			return state
