@@ -68,10 +68,10 @@ describe('Organization Actions', () => {
 
 		describe('deletedOrganization ()', () => {
 			it('should create an action to indicate that the Organization was deleted.', () => {
-				const testResponse = {} as IOrganization
-				const testAction = orgActions.OrganizationActions.deletedOrganization(testResponse)
+				const testResponse = 1
+				const testAction = orgActions.OrganizationActions.deletedOrganization(1)
 				const expectedAction: orgActions.IDeletedOrganizationAction = {
-					organization: testResponse,
+					orgID: testResponse,
 					receivedAt: testDate,
 					type: orgActions.DELETED_ORGANIZATION,
 				}
@@ -135,30 +135,27 @@ describe('Organization Actions', () => {
 				}]
 
 				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ Organization: {} })
-				await store.dispatch(orgActions.OrganizationActions.updateOrganization('name'))
+				await store.dispatch(orgActions.OrganizationActions.updateOrganization(1, 'name'))
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
 		})
 
 		describe('deleteOrganization()', () => {
-						it('should update organization store to exclude deleted organization', async () => {
+			it('should update organization store to exclude deleted organization', async () => {
 			// Mock the API Response
-			const testResponse = {
-				name: 'test_Organization'
-			}
+			const testResponse = 1
 			// @ts-ignore this function will be available when Jest mocks the file
 			mockedAPI.__setMockResponses(testResponse)
 
 			const expectedActions = [{
-				organization: testResponse,
+				orgID: testResponse,
 				receivedAt: testDate,
 				type: orgActions.DELETED_ORGANIZATION,
 			}]
 
-			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-			await store.dispatch(orgActions.OrganizationActions.deleteOrganization(organization))
-			expect(store.getActions()).to.have.lengthOf(1)
+			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ orgID: 1 })
+			await store.dispatch(orgActions.OrganizationActions.deleteOrganization(testResponse))
 			expect(store.getActions()).to.deep.equal(expectedActions)
 		})
 				})
