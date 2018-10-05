@@ -73,7 +73,7 @@ describe('Organization Reducer', () => {
 		}
 
 		const expectedState: IOrganizationState = {
-			organization: { id: 1, name: 'oldName' }, 
+			organization: { id: 1, name: 'oldName' },
 			organizations: []
 		}
 

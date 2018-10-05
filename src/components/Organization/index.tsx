@@ -175,29 +175,25 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 				handleInputChange={this.handleInputChange}
 			/>
 		)
-	}
-
-	// public launchNewOrgModal = () => {
-	// 	this.setState({
-	// 		showModal: true
-	// 	})
-	// }
+		}
 
 	/**
 	 * Render
 	 */
 	public render() {
 		return (
-			< div className = '' >
-			<Grid>
-				<Row className=''>
-					<Col lg={12}>
-					<Button className='float-right' bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
-					{this.launchModal()}
-					{this.buildOrganizationTable()}
-					</Col>
-				</Row>
-			</Grid>
+			<div className = 'organizations-container' >
+				<Button className='float-right' bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
+				<div className = 'organizations-table-container' >
+					<Grid>
+						<Row className='organizations-row-container'>
+							<Col lg={12}>
+								{this.launchModal()}
+								{this.buildOrganizationTable()}
+							</Col>
+						</Row>
+					</Grid>
+				</div>
 			</div >
 		)
 	}
