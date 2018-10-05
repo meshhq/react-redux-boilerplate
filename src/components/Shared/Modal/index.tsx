@@ -6,9 +6,6 @@ import {
 	Button,
 } from 'react-bootstrap'
 
-// Components
-import { Form } from '../Form'
-
 import { IRootReducerState } from '../../../reducers'
 import { IOrganizationState } from '../../../reducers/organization'
 import { OrganizationActions, OrganizationDispatch } from '../../../actions/organization'

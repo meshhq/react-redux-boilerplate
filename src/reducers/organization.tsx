@@ -37,6 +37,7 @@ function organization(state = defaultState, action: AnyAction): IOrganizationSta
 			const updateTypedAction = action as orgAction.IUpdatedOrganizationAction
 			return{
 				...state,
+				organization: updateTypedAction.organization,
 				organizations: state.organizations.map((org) => {
 					return (org.id === updateTypedAction.organization.id) ? updateTypedAction.organization : org
 				})
