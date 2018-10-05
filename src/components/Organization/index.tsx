@@ -192,7 +192,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			<Grid>
 				<Row className=''>
 					<Col lg={12}>
-					<Button bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
+					<Button className='float-right' bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
 					{this.launchModal()}
 					{this.buildOrganizationTable()}
 					</Col>
