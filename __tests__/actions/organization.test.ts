@@ -4,9 +4,6 @@ import thunk, { ThunkDispatch } from 'redux-thunk'
 import { Action, Middleware, AnyAction } from 'redux'
 
 import * as orgActions from '../../src/actions/organization'
-
-import { IOrganization} from '../../src/reducers/organization'
-
 // ----------------------
 // Mocks
 // ----------------------
@@ -54,12 +51,12 @@ describe('Organization Actions', () => {
 		})
 
 		describe('updatedOrganization()', () => {
-			it('should create an action to indicate that orhganization has been updated', () => {
+			it('should create an action to indicate that organization has been updated', () => {
 				const testResponse = { name: 'changedName' }
 				const testAction = orgActions.OrganizationActions.updatedOrganization(testResponse)
 				const expectedAction: orgActions.IUpdatedOrganizationAction = {
 					organization: testResponse,
-										receivedAt: testDate,
+					receivedAt: testDate,
 					type: orgActions.UPDATED_ORGANIZATION
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -68,10 +65,10 @@ describe('Organization Actions', () => {
 
 		describe('deletedOrganization ()', () => {
 			it('should create an action to indicate that the Organization was deleted.', () => {
-				const testResponse = {} as IOrganization
-				const testAction = orgActions.OrganizationActions.deletedOrganization(testResponse)
+				const testResponse = 1
+				const testAction = orgActions.OrganizationActions.deletedOrganization(1)
 				const expectedAction: orgActions.IDeletedOrganizationAction = {
-					organization: testResponse,
+					orgID: testResponse,
 					receivedAt: testDate,
 					type: orgActions.DELETED_ORGANIZATION,
 				}
@@ -113,7 +110,7 @@ describe('Organization Actions', () => {
 									type: orgActions.CREATED_ORGANIZATION,
 								}]
 								const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-								await store.dispatch(orgActions.OrganizationActions.createOrganization(1, 'test'))
+								await store.dispatch(orgActions.OrganizationActions.createOrganization('test'))
 								expect(store.getActions()).to.have.lengthOf(1)
 								expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -135,30 +132,27 @@ describe('Organization Actions', () => {
 				}]
 
 				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ Organization: {} })
-				await store.dispatch(orgActions.OrganizationActions.updateOrganization('name'))
+				await store.dispatch(orgActions.OrganizationActions.updateOrganization(1, 'name'))
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
 		})
 
 		describe('deleteOrganization()', () => {
-						it('should update organization store to exclude deleted organization', async () => {
+			it('should update organization store to exclude deleted organization', async () => {
 			// Mock the API Response
-			const testResponse = {
-				name: 'test_Organization'
-			}
+			const testResponse = 1
 			// @ts-ignore this function will be available when Jest mocks the file
 			mockedAPI.__setMockResponses(testResponse)
 
 			const expectedActions = [{
-				organization: testResponse,
+				orgID: testResponse,
 				receivedAt: testDate,
 				type: orgActions.DELETED_ORGANIZATION,
 			}]
 
-			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ organization: {} })
-			await store.dispatch(orgActions.OrganizationActions.deleteOrganization(organization))
-			expect(store.getActions()).to.have.lengthOf(1)
+			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ orgID: 1 })
+			await store.dispatch(orgActions.OrganizationActions.deleteOrganization(testResponse))
 			expect(store.getActions()).to.deep.equal(expectedActions)
 		})
 				})

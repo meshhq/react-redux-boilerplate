@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
+
 import {
 	Button,
 	Grid,
@@ -13,15 +14,18 @@ import TableComponent from '../Shared/Table'
 
 // State
 import { IRootReducerState } from '../../reducers'
-import { IOrganizationState, IOrganization } from '../../reducers/organization'
+import { IOrganizationState} from '../../reducers/organization'
 
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
 import { Modal } from '../Shared/Modal'
+import { Form } from '../Shared/Form'
 
 // State added to props after connect.
 interface IConnectedState {
 	organizationState: IOrganizationState,
+	showModal: boolean
+	currentId: number
 }
 
 // Actions added to props after connect.
@@ -31,14 +35,68 @@ interface IConnectedActions {
 
 type Props = IConnectedActions & IConnectedState
 
-class OrganizationViewComponent extends React.Component<Props> {
+class OrganizationViewComponent extends React.Component<Props, IConnectedState> {
+
+	public nameValue: string
+
 	constructor(props: Props) {
 		super(props)
+		this.state = {
+			currentId: null,
+			organizationState: null,
+			showModal: false,
+		}
 	}
 
 	public componentWillMount() {
 		this.props.organizationActions.fetchOrganizations()
 	}
+
+	// ---------------------------------------
+	// Event Handlers
+	// ---------------------------------------
+
+	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
+		this.nameValue = e.currentTarget.value
+	}
+
+	public setCurrentOrgID = (id: number) => {
+		this.setState({
+			currentId: id,
+			showModal: true,
+		})
+	}
+
+	public closeModal = () => {
+		this.setState({ showModal: false })
+	}
+
+	public openModal = () => {
+		this.setState({ showModal: true })
+	}
+
+	// ---------------------------------------
+	// Actions
+	// ---------------------------------------
+
+	public createNewOrg = () => {
+		this.props.organizationActions.createOrganization(this.nameValue)
+		this.closeModal()
+	}
+
+	public editOrg = () => {
+		this.props.organizationActions.updateOrganization(this.state.currentId, this.nameValue)
+		this.closeModal()
+	}
+
+	public deleteOrg = (orgID: number) => {
+		this.props.organizationActions.deleteOrganization(orgID)
+		this.closeModal()
+	}
+
+	// ---------------------------------------
+	// Component Builders
+	// ---------------------------------------
 
 	public buildOrganizationTable = () => {
 		const tableHeaders = [
@@ -68,9 +126,10 @@ class OrganizationViewComponent extends React.Component<Props> {
 	}
 
 	public buildOrganizationRows = () => {
+
 		if (!this.props.organizationState) { return null }
-		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
+			const boundEditHandler = this.setCurrentOrgID.bind(this, org.id)
 			return(
 			<tr key={org.id}>
 			{/* ID Cell */}
@@ -84,8 +143,8 @@ class OrganizationViewComponent extends React.Component<Props> {
 			{/* Actions Cell */}
 			<td>
 				<div>
-				{<span><Button bsStyle='primary'>EDIT</Button></span>}
-				{<span><Button bsStyle='danger'>DELETE</Button></span>}
+				<Button bsStyle='primary' type='submit' onClick={boundEditHandler}>EDIT</Button>
+				<Button bsStyle='danger' type='submit' onClick={() => this.deleteOrg(org.id)}>DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -93,22 +152,49 @@ class OrganizationViewComponent extends React.Component<Props> {
 		})
 	}
 
+	/**
+	 * UI Components
+	 */
+
+	public launchModal = () => {
+		 if (!this.state.showModal) {
+			return
+		 }
+		 return (
+			<Modal
+				handleSave={this.state.currentId ? this.editOrg : this.createNewOrg}
+				handleCancel={this.closeModal}
+				renderContent={this.showForm}
+			/>
+		 )
+	 }
+
+	public showForm = () => {
+		return (
+			<Form
+				handleInputChange={this.handleInputChange}
+			/>
+		)
+		}
+
+	/**
+	 * Render
+	 */
 	public render() {
 		return (
-			<div className=''>
-			<Grid>
-				<Row className=''>
-					<Col lg={12}>
-					<Modal/>
-					</Col>
-				</Row>
-				<Row className=''>
-					<Col lg={12}>
-						{this.buildOrganizationTable()}
-					</Col>
-				</Row>
-			</Grid>
-			</div>
+			<div className = 'organizations-container' >
+				<Button className='float-right' bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
+				<div className = 'organizations-table-container' >
+					<Grid>
+						<Row className='organizations-row-container'>
+							<Col lg={12}>
+								{this.launchModal()}
+								{this.buildOrganizationTable()}
+							</Col>
+						</Row>
+					</Grid>
+				</div>
+			</div >
 		)
 	}
 }

@@ -57,23 +57,16 @@ export function DELETE(path: string, params: any) {
  * @return {[type]}         Result Promise
  */
 function performFetch(url: string, options: RequestInit) {
-	// tslint:disable-next-line:no-console
-	console.log('URL', url)
-	// tslint:disable-next-line:no-console
-	console.log('Options', options)
 	return fetch(url, options)
-	.then((rawResponse: any) => rawResponse.json())
-	.then((response: any) => {
-		// tslint:disable-next-line:no-console
-		console.log('Response', response)
+	.then((rawResponse: any) => {
+		return rawResponse.json()
+	}).then((response: any) => {
 		if (response.status === 204) {
 			return null
 		} else {
 			return Promise.resolve(response)
 		}
 	}).catch((error) => {
-		// tslint:disable-next-line:no-console
-		console.log(error)
 		const errorToThrow = error as CreateHttpError.HttpError
 		throw errorToThrow
 	})

@@ -1,10 +1,11 @@
 import { expect } from 'chai'
 import {  AnyAction } from 'redux'
 
-import OrganizationReducer, { IOrganizationState } from '../../src/reducers/organization'
+import OrganizationReducer, { IOrganizationState, IOrganization } from '../../src/reducers/organization'
 import * as orgAction from '../../src/actions/organization'
 
 describe('Organization Reducer', () => {
+
 	it('should return the initial state.', () => {
 		const expectedState: IOrganizationState = {
 			organization: null,
@@ -46,32 +47,42 @@ describe('Organization Reducer', () => {
 	})
 
 	it('should handle UPDATED_ORGANIZATION.', () => {
+		const initialState = {
+			organization: { id: 1, name: 'oldName'},
+			organizations: [{ id: 1, name: 'oldName'}]
+		}
+
 		const expectedState: IOrganizationState = {
-			organization: {name: 'testOrg'},
-			organizations: [{name: 'testOrg'}],
+			organization: { id: 1, name: 'newnameOrg' },
+			organizations: [ { id: 1, name: 'newnameOrg' } ],
 		}
 
 		const testAction: orgAction.IUpdatedOrganizationAction = {
-			organization: {name: 'testOrg'},
+			organization: {id : 1 , name: 'newnameOrg'},
 			receivedAt: Date.now(),
 			type: orgAction.UPDATED_ORGANIZATION,
 		}
-		const actualState = OrganizationReducer(undefined, testAction)
+		const actualState = OrganizationReducer(initialState, testAction)
 		expect(expectedState).to.deep.equal(actualState)
 	})
 
 	it('should handle DELETED_ORGANIZATION.', () => {
+		const initialState = {
+			organization: { id: 1, name: 'oldName'},
+			organizations: [{ id: 1, name: 'oldName'}]
+		}
+
 		const expectedState: IOrganizationState = {
-			organization: null,
-			organizations: [],
+			organization: { id: 1, name: 'oldName' },
+			organizations: []
 		}
 
 		const testAction: orgAction.IDeletedOrganizationAction = {
-			organization: {name: 'testOrg'},
+			orgID: 1,
 			receivedAt: Date.now(),
 			type: orgAction.DELETED_ORGANIZATION,
 		}
-		const actualState = OrganizationReducer(undefined, testAction)
+		const actualState = OrganizationReducer(initialState, testAction)
 		expect(expectedState).to.deep.equal(actualState)
 	})
 })
