@@ -45,7 +45,8 @@ describe('Organization Reducer', () => {
 		expect(expectedState).to.deep.equal(actualState)
 	})
 
-	it('should handle UPDATED_ORGANIZATION.', async () => {
+	it('should handle UPDATED_ORGANIZATION.', () => {
+		console.log('HERE')
 		const expectedState: IOrganizationState = {
 			organization: null,
 			organizations: [],
@@ -57,22 +58,23 @@ describe('Organization Reducer', () => {
 			type: orgAction.UPDATED_ORGANIZATION,
 		}
 		const actualState = OrganizationReducer(undefined, testAction)
-		await expect(expectedState).to.deep.equal(actualState)
+		console.log('ac', actualState)
+		console.log('exp', expectedState)
+		expect(expectedState).to.deep.equal(actualState)
 	})
 
-	it('should handle DELETED_ORGANIZATION.', async () => {
+	it('should handle DELETED_ORGANIZATION.', () => {
 		const expectedState: IOrganizationState = {
 			organization: null,
 			organizations: [],
 
 		}
-
 		const testAction: orgAction.IDeletedOrganizationAction = {
 			orgID: 1,
 			receivedAt: Date.now(),
 			type: orgAction.DELETED_ORGANIZATION,
 		}
 		const actualState = OrganizationReducer(undefined, testAction)
-		await expect(expectedState).to.deep.equal(actualState)
+		expect(expectedState).to.deep.equal(actualState)
 	})
 })

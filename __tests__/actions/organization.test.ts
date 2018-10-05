@@ -51,12 +51,12 @@ describe('Organization Actions', () => {
 		})
 
 		describe('updatedOrganization()', () => {
-			it('should create an action to indicate that orhganization has been updated', () => {
+			it('should create an action to indicate that organization has been updated', () => {
 				const testResponse = { name: 'changedName' }
 				const testAction = orgActions.OrganizationActions.updatedOrganization(testResponse)
 				const expectedAction: orgActions.IUpdatedOrganizationAction = {
 					organization: testResponse,
-										receivedAt: testDate,
+					receivedAt: testDate,
 					type: orgActions.UPDATED_ORGANIZATION
 				}
 				expect(testAction).to.deep.equal(expectedAction)

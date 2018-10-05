@@ -60,7 +60,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.nameValue = e.currentTarget.value
 	}
 
-	public updateCurrentOrgID = (id: number) => {
+	public setCurrentOrgID = (id: number) => {
 		this.setState({
 			currentId: id,
 			showModal: true,
@@ -71,12 +71,15 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.setState({ showModal: false })
 	}
 
+	public openModal = () => {
+		this.setState({ showModal: true })
+	}
+
 	// ---------------------------------------
 	// Actions
 	// ---------------------------------------
 
-	public createNewOrg = (e: React.MouseEvent<Button>) => {
-		e.preventDefault()
+	public createNewOrg = () => {
 		this.props.organizationActions.createOrganization(this.nameValue)
 		this.closeModal()
 	}
@@ -86,8 +89,8 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		this.closeModal()
 	}
 
-	public deleteOrg = () => {
-		this.props.organizationActions.deleteOrganization(this.state.currentId)
+	public deleteOrg = (orgID: number) => {
+		this.props.organizationActions.deleteOrganization(orgID)
 		this.closeModal()
 	}
 
@@ -125,10 +128,8 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	public buildOrganizationRows = () => {
 
 		if (!this.props.organizationState) { return null }
-		// TODO: handle pagination
 		return this.props.organizationState.organizations.map((org: any) => {
-			const boundEditHandler = this.updateCurrentOrgID.bind(this, org.id)
-			const boundDeleteHandler = this.updateCurrentOrgID.bind(this, org.id)
+			const boundEditHandler = this.setCurrentOrgID.bind(this, org.id)
 			return(
 			<tr key={org.id}>
 			{/* ID Cell */}
@@ -143,7 +144,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 			<td>
 				<div>
 				<Button bsStyle='primary' type='submit' onClick={boundEditHandler}>EDIT</Button>
-				<Button bsStyle='danger' type='submit' onClick={boundDeleteHandler}>DELETE</Button>
+				<Button bsStyle='danger' type='submit' onClick={() => this.deleteOrg(org.id)}>DELETE</Button>
 				</div>
 			</td>
 			</tr>
@@ -155,13 +156,13 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	 * UI Components
 	 */
 
-	 public launchModal = () => {
+	public launchModal = () => {
 		 if (!this.state.showModal) {
 			return
 		 }
 		 return (
 			<Modal
-				handleSave={this.editOrg}
+				handleSave={this.state.currentId ? this.editOrg : this.createNewOrg}
 				handleCancel={this.closeModal}
 				renderContent={this.showForm}
 			/>
@@ -176,25 +177,28 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		)
 	}
 
+	// public launchNewOrgModal = () => {
+	// 	this.setState({
+	// 		showModal: true
+	// 	})
+	// }
+
 	/**
 	 * Render
 	 */
 	public render() {
 		return (
-			<div className=''>
+			< div className = '' >
 			<Grid>
 				<Row className=''>
 					<Col lg={12}>
-						{this.launchModal()}
-					</Col>
-				</Row>
-				<Row className=''>
-					<Col lg={12}>
-						{this.buildOrganizationTable()}
+					<Button bsStyle='primary' type='submit' onClick={this.openModal}>NEW</Button>
+					{this.launchModal()}
+					{this.buildOrganizationTable()}
 					</Col>
 				</Row>
 			</Grid>
-			</div>
+			</div >
 		)
 	}
 }
