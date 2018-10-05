@@ -28,6 +28,7 @@ class FormComponent extends React.Component<Props, any> {
 					</label>
 					<input
 						type='text'
+						name='name'
 						placeholder='Enter name'
 						onChange={this.props.handleInputChange}
 					/>

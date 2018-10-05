@@ -26,7 +26,6 @@ interface IConnectedState {
 	organizationState: IOrganizationState,
 	showModal: boolean
 	currentId: number
-	name: string
 }
 
 // Actions added to props after connect.
@@ -37,11 +36,13 @@ interface IConnectedActions {
 type Props = IConnectedActions & IConnectedState
 
 class OrganizationViewComponent extends React.Component<Props, IConnectedState> {
+
+	public nameValue: string
+
 	constructor(props: Props) {
 		super(props)
 		this.state = {
 			currentId: null,
-			name: null,
 			organizationState: null,
 			showModal: false,
 		}
@@ -56,12 +57,10 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 	// ---------------------------------------
 
 	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
-		this.setState({ name: e.currentTarget.value })
+		this.nameValue = e.currentTarget.value
 	}
 
 	public updateCurrentOrgID = (id: number) => {
-		// tslint:disable-next-line:no-console
-		console.log('id', id)
 		this.setState({
 			currentId: id,
 			showModal: true,
@@ -78,16 +77,12 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 
 	public createNewOrg = (e: React.MouseEvent<Button>) => {
 		e.preventDefault()
-		this.props.organizationActions.createOrganization(this.state.name)
-		this.setState({name: ''})
+		this.props.organizationActions.createOrganization(this.nameValue)
 		this.closeModal()
 	}
 
 	public editOrg = () => {
-		// tslint:disable-next-line:no-console
-		console.log('props', this.props)
-		this.props.organizationActions.updateOrganization(this.state.currentId, this.state.name)
-		this.setState({name: ''})
+		this.props.organizationActions.updateOrganization(this.state.currentId, this.nameValue)
 		this.closeModal()
 	}
 
@@ -166,7 +161,7 @@ class OrganizationViewComponent extends React.Component<Props, IConnectedState> 
 		 }
 		 return (
 			<Modal
-				handleSave={this.deleteOrg}
+				handleSave={this.editOrg}
 				handleCancel={this.closeModal}
 				renderContent={this.showForm}
 			/>

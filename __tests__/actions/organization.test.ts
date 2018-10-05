@@ -4,9 +4,6 @@ import thunk, { ThunkDispatch } from 'redux-thunk'
 import { Action, Middleware, AnyAction } from 'redux'
 
 import * as orgActions from '../../src/actions/organization'
-
-import { IOrganization} from '../../src/reducers/organization'
-
 // ----------------------
 // Mocks
 // ----------------------
