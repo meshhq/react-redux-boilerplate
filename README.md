@@ -67,7 +67,7 @@ This project is built using Mesh's standard `React` `Redux` project structure. I
 | `tsconfig.json`       | JSON text         | `TypeScript` configuration and compiler options.                          |
 | `tslint.json`         | JSON text         | Configuration file for [TSLint](https://github.com/palantir/tslint).      |
 | `webpack.config.js`   | JavaScript code   | Configuration file for [Webpack](https://webpack.js.org/).                |    
-
+| `.stylelintrc`        | ASCII text        | Configuration file for [StyleLint](https://stylelint.io/).                |
 
 
 
