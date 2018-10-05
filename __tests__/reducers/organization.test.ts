@@ -45,7 +45,7 @@ describe('Organization Reducer', () => {
 		expect(expectedState).to.deep.equal(actualState)
 	})
 
-	it.only('should handle UPDATED_ORGANIZATION.', async () => {
+	it('should handle UPDATED_ORGANIZATION.', async () => {
 		const expectedState: IOrganizationState = {
 			organization: null,
 			organizations: [],
