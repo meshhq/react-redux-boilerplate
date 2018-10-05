@@ -61,6 +61,7 @@
     "style-loader": "^0.19.0",
     "stylelint": "^9.6.0",
     "stylelint-config-standard": "^18.2.0",
+    "stylelint-order": "^1.0.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "ts-jest": "^23.1.4",
     "tslint": "^5.8.0",
