@@ -41,8 +41,10 @@ class ModalViewComponent extends React.Component<Props, any> {
 
 	public render() {
 		return (
-			<div>
+			<div id = 'modal-container'>
 				<ReactModal
+				className='modal-container'
+				overlayClassName='modal-overlay'
 				isOpen={true}
 				>
 				{this.props.renderContent()}

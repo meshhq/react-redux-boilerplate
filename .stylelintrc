@@ -1,0 +1,16 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "max-empty-lines": 4,
+    "string-quotes": "single",
+    "color-hex-length": "long",
+    "font-family-name-quotes": null,
+    "number-leading-zero": "never",
+    "max-nesting-depth": 2,
+    "unit-no-unknown": true,
+    "shorthand-property-no-redundant-values": true,
+    "selector-type-no-unknown": true,
+    "function-comma-newline-after": null,
+    "selector-list-comma-newline-after": null,
+  }
+}

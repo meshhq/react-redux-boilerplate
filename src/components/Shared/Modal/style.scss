@@ -1,0 +1,45 @@
+.modal-container {
+    position: absolute;
+    padding: 1.5em;
+    border: 1px solid #e9ecef;
+    border-radius: 3px;
+    font-size: 0.9375rem;
+    background-color: rgba(0, 40, 100, 0.3);
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+}
+
+
+.modal-overlay {
+    background-color: rgba(248, 249, 250, 1);
+    border: 1px solid rgba(0, 40, 100, 0.12);
+    bottom: 10px;
+    border-radius: 3px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    max-width: 745px;
+    max-height: 400px;
+    margin: 5% auto;
+}
+
+.form-fieldset {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 1rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+.form-text {
+    display: block;
+    margin-top: 0.25rem;
+}
+
