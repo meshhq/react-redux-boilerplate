@@ -1,11 +1,9 @@
 .modal-container {
-    background-color: rgba(0, 40, 100, 0.3);
-    border: 1px solid #e9ecef;
     border-radius: 3px;
     bottom: 40px;
     font-size: 0.9375rem;
     left: 40px;
-    padding: 1.5em;
+    padding: 1em;
     position: absolute;
     right: 40px;
     top: 40px;
@@ -19,27 +17,14 @@
     bottom: 10px;
     left: 10px;
     margin: 5% auto;
-    max-height: 400px;
+    max-height: 300px;
     max-width: 745px;
     position: fixed;
     right: 10px;
     top: 10px;
 }
 
-.form-fieldset {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 3px;
-    margin-bottom: 1rem;
-    padding: 1rem;
+.button-container {
+    display: flex;
+    justify-content: space-between;
 }
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-text {
-    display: block;
-    margin-top: 0.25rem;
-}
-

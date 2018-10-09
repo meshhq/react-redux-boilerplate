@@ -58,7 +58,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	// ---------------------------------------
 
 	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
-		this.nameValue = e.currentTarget.value
+		this.nameValue = e.currentTarget.value.trim()
 	}
 
 	public handleNewClick = (): void => {
@@ -100,6 +100,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	}
 
 	public editOrg = () => {
+		// this.nameValue = this.props.organizationState.organization.name
 		this.props.organizationActions.updateOrganization(this.state.currentOrgId, this.nameValue)
 		this.closeModal()
 	}

@@ -49,20 +49,22 @@ class ModalViewComponent extends React.Component<Props, any> {
 				isOpen={this.props.showModal}
 				>
 				{this.props.renderContent}
+				<div className='button-container'>
 				<Button
+					className='btn btn-secondary'
 					onClick={this.props.handleCancel}
-					bsStyle='success'
 					type='submit'
 				>
 				Cancel
 				</Button>
 				<Button
+					className='btn btn-success'
 					onClick={this.props.handleSave}
-					bsStyle='success'
 					type='submit'
 				>
-				Save
+				Submit
 				</Button>
+				</div>
 				</ReactModal>
 			</div>
 		)
