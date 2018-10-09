@@ -80,7 +80,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 
 	public handleDeleteClick = (organization: IOrganization): void => {
 		this.setState({
-			modalContent: 'Are you sure you want to delete?',
+			modalContent: this.showDeleteWarning(),
 			onModalSave: () => this.deleteOrg(organization.id),
 			showModal: true
 		})
@@ -186,7 +186,15 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 				renderContent={this.state.modalContent}
 			/>
 		)
-	 }
+	}
+
+	public showDeleteWarning = () => {
+		return(
+			<div className='delete-warning'>
+				{`Are you sure you want to delete this organization ?`}
+			</div>
+		)
+	}
 
 	/**
 	 * Render
