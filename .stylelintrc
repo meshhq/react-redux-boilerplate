@@ -1,7 +1,7 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": ["stylelint-config-standard"],
   "plugins": [
-        "stylelint-order"
+        "stylelint-order",
     ],
   "rules": {
     "max-empty-lines": 4,
