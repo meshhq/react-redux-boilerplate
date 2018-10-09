@@ -22,14 +22,14 @@ $MeshShadow: 0 0 1px rgba(0, 0, 0, .09), 0 2px 5px rgba(0, 0, 0, .03);
 
 // Standard CSS Defaults 
 h1, h2, h3, h4, h5, input, button {
-  font-family: $BaseFont;
+	font-family: $BaseFont;
 }
 
 // Base CSS
 html,
 body {
-  background-color: #f8fafc;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+	background-color: #f8fafc;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
