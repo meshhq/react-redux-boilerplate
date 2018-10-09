@@ -100,7 +100,6 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	}
 
 	public editOrg = () => {
-		// this.nameValue = this.props.organizationState.organization.name
 		this.props.organizationActions.updateOrganization(this.state.currentOrgId, this.nameValue)
 		this.closeModal()
 	}
