@@ -1,7 +1,7 @@
 // External Dependencies
 import * as React from 'react'
 import {
-	Table
+	Table, Row, Col
 } from 'react-bootstrap'
 
 // Interfaces
@@ -30,6 +30,11 @@ export default class TableComponent extends React.Component<TableProps, any> {
 		return (
 			<div className='table-responsive'>
 				<div className='table-container'>
+				<Row>
+					<Col className='table-header' lg={12}>
+						{ 'Organizations' }
+					</Col>
+				</Row>
 					<Table className='table-content'>
 							<thead>
 								<tr>

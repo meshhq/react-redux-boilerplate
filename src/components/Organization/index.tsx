@@ -7,6 +7,11 @@ import {
 	Grid,
 	Row,
 	Col,
+	Navbar,
+	Nav,
+	NavItem,
+	NavDropdown,
+	MenuItem,
 } from 'react-bootstrap'
 
 // Components
@@ -149,15 +154,10 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 		return this.props.organizationState.organizations.map((org: IOrganization) => {
 			return(
 			<tr key={org.id}>
-			{/* ID Cell */}
 			<td><div>{org.id}</div></td>
-			{/* Name Cell */}
 			<td><div>{org.name}</div></td>
-			{/* Created At Cell */}
-			{<td><div>{org.created}</div></td>}
-			{/* Updates At Cell */}
-			{<td><div>{org.updated}</div></td>}
-			{/* Actions Cell */}
+			<td><div>{org.created}</div></td>
+			<td><div>{org.updated}</div></td>
 			<td>
 				<div>
 				<Button className='btn-secondary' type='submit' onClick={() => this.handleEditClick(org)}>Edit</Button>
@@ -206,7 +206,23 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	 */
 	public render() {
 		return (
-			<div className = 'organizations-container' >
+			<div className = 'organizations-container'>
+				<Navbar className='navbar-container'>
+						<Navbar.Brand className='navbar-brand'>
+								Brand Placeholder
+						</Navbar.Brand>
+					<Nav className='nav-links'>
+						<NavItem eventKey={1} href='#'>
+							Link
+						</NavItem>
+						<NavItem eventKey={2} href='#'>
+							Link
+						</NavItem>
+						<NavItem eventKey={2} href='#'>
+							Link
+						</NavItem>
+					</Nav>
+				</Navbar>
 				<div className='table-buttons'>
 					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
 				</div>
@@ -220,7 +236,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 					</Grid>
 				</div>
 				{this.renderModal()}
-			</div >
+			</div>
 		)
 	}
 }

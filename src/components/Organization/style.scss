@@ -8,3 +8,26 @@
     margin: 10px;
     text-align: right;
 }
+
+.navbar-brand {
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.navbar-container {
+    background-color: none;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+
+.navbar a {
+    color: #495057;
+    flex: 1;
+    margin-right: 20px;
+}
+
