@@ -28,7 +28,7 @@ export default class TableComponent extends React.Component<TableProps, any> {
 
 	public render() {
 		return (
-			<div className=''>
+			<div className='table-responsive'>
 				<div className='table-container'>
 					<Table className='table-content'>
 							<thead>
