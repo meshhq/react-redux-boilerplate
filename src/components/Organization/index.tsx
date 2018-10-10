@@ -201,28 +201,34 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 		)
 	}
 
+	public showNavbar = () => {
+		return (
+			<Navbar className='navbar-container'>
+				<Navbar.Brand className='navbar-brand'>
+					Brand Placeholder
+				</Navbar.Brand>
+				<Nav className='nav-links'>
+					<NavItem eventKey={1} href='#'>
+						Link
+					</NavItem>
+					<NavItem eventKey={2} href='#'>
+						Link
+					</NavItem>
+					<NavItem eventKey={2} href='#'>
+						Link
+					</NavItem>
+				</Nav>
+			</Navbar>
+		)
+	}
+
 	/**
 	 * Render
 	 */
 	public render() {
 		return (
 			<div className = 'organizations-container'>
-				<Navbar className='navbar-container'>
-						<Navbar.Brand className='navbar-brand'>
-								Brand Placeholder
-						</Navbar.Brand>
-					<Nav className='nav-links'>
-						<NavItem eventKey={1} href='#'>
-							Link
-						</NavItem>
-						<NavItem eventKey={2} href='#'>
-							Link
-						</NavItem>
-						<NavItem eventKey={2} href='#'>
-							Link
-						</NavItem>
-					</Nav>
-				</Navbar>
+				{this.showNavbar()}
 				<div className='table-buttons'>
 					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
 				</div>
