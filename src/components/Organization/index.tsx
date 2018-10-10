@@ -154,15 +154,10 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 		return this.props.organizationState.organizations.map((org: IOrganization) => {
 			return(
 			<tr key={org.id}>
-			{/* ID Cell */}
 			<td><div>{org.id}</div></td>
-			{/* Name Cell */}
 			<td><div>{org.name}</div></td>
-			{/* Created At Cell */}
-			{<td><div>{org.created}</div></td>}
-			{/* Updates At Cell */}
-			{<td><div>{org.updated}</div></td>}
-			{/* Actions Cell */}
+			<td><div>{org.created}</div></td>
+			<td><div>{org.updated}</div></td>
 			<td>
 				<div>
 				<Button className='btn-secondary' type='submit' onClick={() => this.handleEditClick(org)}>Edit</Button>
@@ -233,11 +228,6 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 				</div>
 				<div className = 'organizations-table-container' >
 					<Grid>
-						<Row className='table-header'>
-							<Col lg={12}>
-								{ 'Organizations' }
-							</Col>
-						</Row>
 						<Row className='organizations-row-container'>
 							<Col lg={12}>
 								{this.buildOrganizationTable()}
