@@ -207,7 +207,9 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	public render() {
 		return (
 			<div className = 'organizations-container' >
-				<Button bsStyle='primary' type='submit' onClick={this.handleNewClick}>NEW</Button>
+				<div className='table-buttons'>
+					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
+				</div>
 				<div className = 'organizations-table-container' >
 					<Grid>
 						<Row className='organizations-row-container'>

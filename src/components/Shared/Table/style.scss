@@ -57,6 +57,15 @@ td:first-child {
 
 .btn-secondary:last-child {
     &:hover {
-        background-color: red;
+        background-color: #cd201f;
     }
+}
+
+.btn-new {
+    background-color: #4caf50;
+    border-color: rgba(0, 40, 100, 0.14);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 400;
 }

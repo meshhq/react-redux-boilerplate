@@ -2,3 +2,17 @@
     border-collapse: collapse;
     box-sizing: border-box;
 }
+
+.table-buttons {
+    display: block;
+    margin: 10px;
+    text-align: right;
+}
+
+.btn-new {
+    background-color: #ffffff;
+    border-color: rgba(0, 40, 100, 0.14);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    color: #495057;
+    font-weight: 500;
+}
