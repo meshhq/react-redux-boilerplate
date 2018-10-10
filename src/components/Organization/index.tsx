@@ -211,7 +211,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 				<Navbar>
 						<Navbar.Header>
 						<Navbar.Brand>
-								Organizations
+								Brand Placeholder
 						</Navbar.Brand>
  					</Navbar.Header>
 				</Navbar>
@@ -220,6 +220,11 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 				</div>
 				<div className = 'organizations-table-container' >
 					<Grid>
+						<Row className='table-header'>
+							<Col lg={12}>
+								{ 'Organizations' }
+							</Col>
+						</Row>
 						<Row className='organizations-row-container'>
 							<Col lg={12}>
 								{this.buildOrganizationTable()}
