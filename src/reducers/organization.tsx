@@ -4,6 +4,8 @@ import * as orgAction from '../actions/organization'
 export interface IOrganization {
 	id?: number
 	name: string
+	created?: any
+	updated?: any
 }
 
 export interface IOrganizationState {

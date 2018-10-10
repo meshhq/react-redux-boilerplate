@@ -1,0 +1,25 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": [
+        "stylelint-order",
+    ],
+  "rules": {
+    "max-empty-lines": 4,
+    "string-quotes": "single",
+    "color-hex-length": "long",
+    "indentation": null,
+    "font-family-name-quotes": null,
+    "number-leading-zero": null,
+    "max-nesting-depth": 2,
+    "unit-no-unknown": true,
+    "shorthand-property-no-redundant-values": true,
+    "selector-type-no-unknown": true,
+    "function-comma-newline-after": null,
+    "selector-list-comma-newline-after": null,
+    "order/order": [
+            "custom-properties",
+            "declarations"
+        ],
+        "order/properties-alphabetical-order": true,
+  }
+}

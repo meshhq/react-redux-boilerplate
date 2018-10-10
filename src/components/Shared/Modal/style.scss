@@ -1,0 +1,30 @@
+.modal-container {
+    border-radius: 3px;
+    bottom: 40px;
+    font-size: 0.9375rem;
+    left: 40px;
+    padding: 1em;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+
+
+.modal-overlay {
+    background-color: rgba(248, 249, 250, 1);
+    border: 1px solid rgba(0, 40, 100, .12);
+    border-radius: 3px;
+    bottom: 10px;
+    left: 10px;
+    margin: 5% auto;
+    max-height: 300px;
+    max-width: 745px;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}

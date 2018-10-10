@@ -22,8 +22,9 @@ interface IConnectedActions {
 }
 
 interface ModalProps {
-	renderContent: () => JSX.Element
-	renderWarning?: () => JSX.Element
+	showModal: boolean
+	renderContent: JSX.Element | string
+	renderWarning?: JSX.Element
 	handleSave: () => void
 	handleCancel: () => void
 }
@@ -41,25 +42,29 @@ class ModalViewComponent extends React.Component<Props, any> {
 
 	public render() {
 		return (
-			<div>
+			<div id = 'modal-container'>
 				<ReactModal
-				isOpen={true}
+				className='modal-container'
+				overlayClassName='modal-overlay'
+				isOpen={this.props.showModal}
 				>
-				{this.props.renderContent()}
+				{this.props.renderContent}
+				<div className='button-container'>
 				<Button
+					className='btn btn-secondary'
 					onClick={this.props.handleCancel}
-					bsStyle='success'
 					type='submit'
 				>
 				Cancel
 				</Button>
 				<Button
+					className='btn btn-success'
 					onClick={this.props.handleSave}
-					bsStyle='success'
 					type='submit'
 				>
-				Save
+				Submit
 				</Button>
+				</div>
 				</ReactModal>
 			</div>
 		)
