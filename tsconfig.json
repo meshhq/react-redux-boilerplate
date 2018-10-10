@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/", // Configures where transpiled code is output. 
+        "outDir": "./dist/", // Configures where transpiled code is output.
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "sourceMap": true,
@@ -8,7 +8,8 @@
         "module": "none",
         "target": "es6",
         "jsx": "react",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "keyofStringsOnly": true
     },
     "include": [
         "./src/**/*"

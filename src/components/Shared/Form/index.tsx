@@ -5,6 +5,7 @@ import {
 
 interface FormProps {
 	handleInputChange: (e: React.FormEvent<HTMLInputElement>) => void
+	inputValue?: string
 }
 
 type Props = FormProps
@@ -33,6 +34,7 @@ class FormComponent extends React.Component<Props, any> {
 						onChange={this.props.handleInputChange}
 						className='form-control'
 						autoFocus={true}
+						value={this.props.inputValue}
 					/>
 				</div>
 			</div>

@@ -27,6 +27,7 @@ interface IOrganizationViewComponentState {
 	onModalSave: () => void
 	modalContent: JSX.Element | string
 	currentOrgId: number
+	currentName: string
 }
 
 // Actions added to props after connect.
@@ -42,6 +43,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	constructor(props: IOrganizationViewComponentConnectProps) {
 		super(props)
 		this.state = {
+			currentName: null,
 			currentOrgId: null,
 			modalContent: undefined,
 			onModalSave: () => {}, // tslint:disable-line:no-empty
@@ -71,6 +73,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 
 	public handleEditClick = (organization: IOrganization): void => {
 		this.setState({
+			currentName: organization.name,
 			currentOrgId: organization.id,
 			modalContent: this.showForm(),
 			onModalSave: this.editOrg,
@@ -172,6 +175,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	public showForm = () => {
 		return (
 			<Form
+				inputValue={this.nameValue}
 				handleInputChange={this.handleInputChange}
 			/>
 		)
