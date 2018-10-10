@@ -160,8 +160,8 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 			{/* Actions Cell */}
 			<td>
 				<div>
-				<Button bsStyle='primary' type='submit' onClick={() => this.handleEditClick(org)}>EDIT</Button>
-				<Button bsStyle='danger' type='submit' onClick={() => this.handleDeleteClick(org)}>DELETE</Button>
+				<Button className='btn-secondary' type='submit' onClick={() => this.handleEditClick(org)}>Edit</Button>
+				<Button className='btn-secondary' type='submit' onClick={() => this.handleDeleteClick(org)}>Delete</Button>
 				</div>
 			</td>
 			</tr>
@@ -207,7 +207,9 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	public render() {
 		return (
 			<div className = 'organizations-container' >
-				<Button className='float-right' bsStyle='primary' type='submit' onClick={this.handleNewClick}>NEW</Button>
+				<div className='table-buttons'>
+					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
+				</div>
 				<div className = 'organizations-table-container' >
 					<Grid>
 						<Row className='organizations-row-container'>
