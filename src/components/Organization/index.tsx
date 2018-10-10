@@ -39,6 +39,7 @@ interface IOrganizationViewComponentConnectProps {
 class OrganizationViewComponent extends React.Component<IOrganizationViewComponentConnectProps, IOrganizationViewComponentState> {
 
 	public nameValue: string
+	public nameInput: any = React.createRef()
 
 	constructor(props: IOrganizationViewComponentConnectProps) {
 		super(props)
@@ -175,7 +176,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	public showForm = () => {
 		return (
 			<Form
-				inputValue={this.nameValue}
+				nameInput={this.state.currentOrgId}
 				handleInputChange={this.handleInputChange}
 			/>
 		)
