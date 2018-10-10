@@ -7,6 +7,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	Navbar,
 } from 'react-bootstrap'
 
 // Components
@@ -207,6 +208,13 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	public render() {
 		return (
 			<div className = 'organizations-container' >
+				<Navbar>
+						<Navbar.Header>
+						<Navbar.Brand>
+								Organizations
+						</Navbar.Brand>
+ 					</Navbar.Header>
+				</Navbar>
 				<div className='table-buttons'>
 					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
 				</div>
