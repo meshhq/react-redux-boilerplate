@@ -8,6 +8,10 @@ import {
 	Row,
 	Col,
 	Navbar,
+	Nav,
+	NavItem,
+	NavDropdown,
+	MenuItem,
 } from 'react-bootstrap'
 
 // Components
@@ -207,13 +211,22 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 	 */
 	public render() {
 		return (
-			<div className = 'organizations-container' >
-				<Navbar>
-						<Navbar.Header>
-						<Navbar.Brand>
+			<div className = 'organizations-container'>
+				<Navbar className='navbar-container'>
+						<Navbar.Brand className='navbar-brand'>
 								Brand Placeholder
 						</Navbar.Brand>
- 					</Navbar.Header>
+					<Nav className='nav-links'>
+						<NavItem eventKey={1} href='#'>
+							Link
+						</NavItem>
+						<NavItem eventKey={2} href='#'>
+							Link
+						</NavItem>
+						<NavItem eventKey={2} href='#'>
+							Link
+						</NavItem>
+					</Nav>
 				</Navbar>
 				<div className='table-buttons'>
 					<Button className='btn-new' type='submit' onClick={this.handleNewClick}>New</Button>
@@ -233,7 +246,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 					</Grid>
 				</div>
 				{this.renderModal()}
-			</div >
+			</div>
 		)
 	}
 }
