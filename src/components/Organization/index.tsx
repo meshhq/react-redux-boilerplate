@@ -10,8 +10,6 @@ import {
 	Navbar,
 	Nav,
 	NavItem,
-	NavDropdown,
-	MenuItem,
 } from 'react-bootstrap'
 
 // Components
@@ -25,6 +23,7 @@ import { IOrganizationState, IOrganization } from '../../reducers/organization'
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
 import { Modal } from '../Shared/Modal'
 import { Form } from '../Shared/Form'
+import NoResource from '../Shared/NoResource'
 
 // State added to props after connect.
 interface IOrganizationViewComponentState {
@@ -222,6 +221,14 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 		)
 	}
 
+	public renderNoResourceComponent = () => {
+		return(
+			<div>
+				 <NoResource />
+			</div>
+		)
+	}
+
 	/**
 	 * Render
 	 */
@@ -236,7 +243,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 					<Grid>
 						<Row className='organizations-row-container'>
 							<Col lg={12}>
-								{this.buildOrganizationTable()}
+								{this.props.organizationState.organizations.length === 0 ? this.renderNoResourceComponent() : this.buildOrganizationTable()}
 							</Col>
 						</Row>
 					</Grid>
