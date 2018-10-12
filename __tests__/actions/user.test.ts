@@ -35,8 +35,8 @@ describe('User Actions', () => {
 		})
 
 		describe('fetchedUsers()', () => {
-			it('should create an action to fetch users', () => {
-				const testUsers = []
+			it.only('should create an action to fetch users', () => {
+				const testUsers: any  = []
 				const testAction = userActions.UserActions.fetchedUsers(testUsers)
 				const expectedAction: userActions.IFetchedUsersAction = {
 					type: userActions.FETCHED_USERS,
@@ -87,14 +87,14 @@ describe('User Actions', () => {
 		describe('fetchUsers()', () => {
 			it('should fetch users in the Redux store.', async () => {
 							// Mock the API Response
-							const testResponse = [{id: 1, firstName: 'first name', lastName: 'last name'}]
+							const testResponse = [{id: 1, firstName: 'first name', lastName: 'last name', email: 'email@email.com'}]
 							// @ts-ignore this function will be available when Jest mocks the file
 							mockedAPI.__setMockResponses(testResponse)
 						 const expectedActions = [{
 						type: userActions.FETCHED_USERS,
 						users: testResponse,
 				}]
-							const store = mockStore({ organizations: [] })
+							const store = mockStore({ users: [] })
 							await store.dispatch(userActions.UserActions.fetchUsers())
 							expect(store.getActions()).to.have.lengthOf(1)
 							expect(store.getActions()).to.deep.equal(expectedActions)

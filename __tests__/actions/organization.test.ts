@@ -26,7 +26,7 @@ describe('Organization Actions', () => {
 	describe('Action Creators', () => {
 		describe('fetchedOrganizations()', () => {
 			it('should create an action to fetch organizations', () => {
-				const testOrganizations = []
+				const testOrganizations: any = []
 				const testAction = orgActions.OrganizationActions.fetchedOrganizations(testOrganizations)
 				const expectedAction: orgActions.IFetchedOrganizationsAction = {
 					organizations: testOrganizations,
