@@ -1,12 +1,5 @@
 import { AnyAction } from 'redux'
-import {
-	ILoginUserAction,
-	IRegisteredUserAction,
-	AUTHENTICATED_USER,
-	CLEAR_USER,
-	LOGIN_USER_COMPLETE,
-	REGISTERED_USER,
-} from '../actions/user'
+import * as userAction from '../actions/user'
 
 export interface IUser {
 	id?: number
@@ -30,20 +23,26 @@ const defaultState: IUserState = {
 function user(state = defaultState, action: AnyAction): IUserState {
 	let typedAction
 	switch (action.type) {
-		case AUTHENTICATED_USER:
+		case userAction.FETCHED_USERS:
+		const fetchTypedAction = action as userAction.IFetchedUsersAction
+		return {
+				...state,
+				users: fetchTypedAction.users
+			}
+		case userAction.AUTHENTICATED_USER:
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 			})
-		case CLEAR_USER:
+		case userAction.CLEAR_USER:
 			return Object.assign({}, state, defaultState)
-		case LOGIN_USER_COMPLETE:
-			typedAction = action as ILoginUserAction
+		case userAction.LOGIN_USER_COMPLETE:
+			typedAction = action as userAction.ILoginUserAction
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 				user: typedAction.user,
 			})
-		case REGISTERED_USER:
-			typedAction = action as IRegisteredUserAction
+		case userAction.REGISTERED_USER:
+			typedAction = action as userAction.IRegisteredUserAction
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 				user: typedAction.user,

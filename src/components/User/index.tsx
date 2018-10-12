@@ -42,6 +42,19 @@ interface IUserViewComponentConnectProps {
 
 class UserViewComponent extends React.Component<IUserViewComponentConnectProps, IUserViewComponentState> {
 
+	public fakeUserData: any  = [
+		{id: 1, firstName: 'Domingo', lastName: 'Ryan', email: 'Letitia.Nitzsche@gmail.com'},
+		{id: 2, firstName: 'Liliana', lastName: 'Kautzer', email: 'Melyna56@gmail.com'},
+		{id: 3, firstName: 'Zena', lastName: 'Gaylord', email: 'Kirk.Kuhlman39@gmail.com'},
+		{id: 4, firstName: 'Darby', lastName: 'Stamm', email: 'Madonna.Stracke22@hotmail.com'},
+		{id: 5, firstName: 'Eddie', lastName: 'Little', email: 'Alek.Koelpin@gmail.com'},
+		{id: 6, firstName: 'Taryn', lastName: 'Goldner', email: 'Oswald.Friesen71@hotmail.com'},
+		{id: 7, firstName: 'David', lastName: 'Ernser', email: 'Cordelia.Fritsch94@gmail.com'},
+		{id: 8, firstName: 'Gabriel', lastName: 'Considine', email: 'Coralie99@yahoo.com'},
+		{id: 9, firstName: 'Damien', lastName: 'Zemlak', email: 'Vida_Lesch@hotmail.com'},
+		{id: 10, firstName: 'Gus', lastName: 'Kling', email: 'Lucio.OHara@hotmail.com'},
+	]
+
 	public firstNameValue: string
 
 	constructor(props: IUserViewComponentConnectProps) {
@@ -131,13 +144,13 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 				title: 'ID',
 			},
 			{
-				title: 'Name',
+				title: 'First Name',
 			},
 			{
-				title: 'Created',
+				title: 'Last Name',
 			},
 			{
-				title: 'Updated',
+				title: 'Email',
 			},
 			{
 				title: 'Actions',

@@ -1,7 +1,11 @@
 import { ActionCreatorsMapObject, Dispatch, Action } from 'redux'
+import { IUser } from '../reducers/user'
 
 // API Helpers
-import { POST } from '../helpers/api'
+import * as api from '../helpers/api'
+
+// Types
+export const FETCHED_USERS = 'FETCH_USERS'
 
 export const REGISTERING_USER = 'REGISTERING_USER'
 export const REGISTERED_USER = 'REGISTERED_USER'
@@ -15,6 +19,43 @@ export const LOGIN_USER_COMPLETE = 'LOGIN_USER_COMPLETE'
 export const CLEAR_USER = 'CLEAR_USER'
 
 // -----------------------------------------------------------------------------
+// GET Users
+// -----------------------------------------------------------------------------
+
+/**
+ * Gets all users via a call to the `/users` API.
+ */
+const fetchUsers = () => (dispatch: Dispatch<IFetchedUsersAction>) => {
+	return api.GET('/users', {})
+	.then((users: IUser[]) => {dispatch(fetchedUsers(users))})
+	.catch((err: Error) => {
+		// tslint:disable-next-line:no-console
+		console.log('Error during fetching users.', err)
+	})
+}
+
+/**
+ * Builds an `IFetchedUSersAction ` upon successful fetch.
+ * @param users The response from the users API call.
+ * @return The `FetchedUsersAction` instance.
+ */
+const fetchedUsers = (users: IUser[]): IFetchedUsersAction => {
+	const action: IFetchedUsersAction = {
+		type: FETCHED_USERS,
+		users: users,
+	}
+	return action
+}
+
+/**
+ * IFetchedUsersAction is dispatched after users are fethed.
+ */
+export interface IFetchedUsersAction extends Action {
+	type: string,
+	users: IUser[],
+}
+
+// -----------------------------------------------------------------------------
 // User Registration
 // -----------------------------------------------------------------------------
 
@@ -25,7 +66,7 @@ export const CLEAR_USER = 'CLEAR_USER'
  */
 const registerUser = (email: string, password: string) => (dispatch: Dispatch<IRegisteredUserAction>) => {
 	const userPayload = { email, password }
-	return POST('/register', userPayload).then((response: Response) => {
+	return api.POST('/register', userPayload).then((response: Response) => {
 		dispatch(registeredUser(response))
 	}).catch((err) => Promise.reject(err))
 }
@@ -82,7 +123,7 @@ const authenticatedUser = (): Action => {
  */
 const loginUser = (email: string, password: string) => (dispatch: Dispatch<ILoginUserAction>) => {
 	const userPayload = { email, password }
-	return POST('/login', userPayload).then((response: Response) => {
+	return api.POST('/login', userPayload).then((response: Response) => {
 		dispatch(loginUserComplete(response))
 	}).catch((err) => Promise.reject(err))
 }
@@ -129,6 +170,8 @@ const clearedUser = (): Action => {
  * Defines the interface for our UserAction object.
  */
 export interface UserDispatch extends ActionCreatorsMapObject {
+	fetchUsers(): (dispatch: Dispatch<IFetchedUsersAction>) => Promise<void>
+	fetchedUsers(users: IUser[]): IFetchedUsersAction
 	authenticateUser(): (dispatch: Dispatch<Action>) => void
 	authenticatedUser(): Action
 	clearUser(): (dispatch: Dispatch<Action>) => void
@@ -144,6 +187,8 @@ export const UserActions: UserDispatch = {
 	authenticatedUser,
 	clearUser,
 	clearedUser,
+	fetchUsers,
+	fetchedUsers,
 	loginUser,
 	loginUserComplete,
 	registerUser,
