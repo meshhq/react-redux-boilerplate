@@ -43,18 +43,18 @@ function user(state = defaultState, action: AnyAction): IUserState {
 			return{
 				...state,
 				user: updateTypedAction.user,
-				users: state.users.map((user) => {
-					return (user.id === updateTypedAction.user.id) ? updateTypedAction.user : user
+				users: state.users.map((individualUser) => {
+					return (individualUser.id === updateTypedAction.user.id) ? updateTypedAction.user : individualUser
 				})
 			}
 		case userAction.DELETED_USER:
 			const deleteTypedAction = action as userAction.IDeletedUserAction
-			const filteredOrgs = state.users.filter((user) =>  {
-				return user.id !== deleteTypedAction.userID
+			const filteredUsers = state.users.filter((individualUser) =>  {
+				return individualUser.id !== deleteTypedAction.userID
 				})
 			return {
 				...state,
-				users: filteredOrgs
+				users: filteredUsers
 			}
 		case userAction.AUTHENTICATED_USER:
 			return Object.assign({}, state, {
