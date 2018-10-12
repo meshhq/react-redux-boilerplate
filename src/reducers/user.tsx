@@ -8,14 +8,23 @@ import {
 	REGISTERED_USER,
 } from '../actions/user'
 
+export interface IUser {
+	id?: number
+	firstName: string
+	lastName: string
+	email: string
+	isLoggedIn: boolean
+}
+
 export interface IUserState {
-	isLoggedIn: boolean,
-	user: any,
+	user: IUser
+	users: IUser[]
+
 }
 
 const defaultState: IUserState = {
-	isLoggedIn: false,
 	user: null,
+	users: [],
 }
 
 function user(state = defaultState, action: AnyAction): IUserState {
