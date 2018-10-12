@@ -31,7 +31,6 @@ interface IUserViewComponentState {
 	onModalSave: () => void
 	modalContent: JSX.Element | string
 	currentUserId: number
-	currentName: string
 }
 
 // Actions added to props after connect.
@@ -62,7 +61,6 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 	constructor(props: IUserViewComponentConnectProps) {
 		super(props)
 		this.state = {
-			currentName: null,
 			currentUserId: null,
 			modalContent: undefined,
 			onModalSave: () => {}, // tslint:disable-line:no-empty
@@ -99,7 +97,6 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 
 	public handleEditClick = (user: IUser): void => {
 		this.setState({
-			currentName: user.firstName,
 			currentUserId: user.id,
 			modalContent: this.showForm(),
 			onModalSave: this.editUser,

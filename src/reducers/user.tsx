@@ -29,6 +29,33 @@ function user(state = defaultState, action: AnyAction): IUserState {
 				...state,
 				users: fetchTypedAction.users
 			}
+		case userAction.CREATED_USER:
+		const createTypedAction = action as userAction.ICreatedUserAction
+		const users = state.users
+		users.unshift(createTypedAction.user)
+		return {
+				...state,
+				user: createTypedAction.user,
+				users: users
+			}
+		case userAction.UPDATED_USER:
+			const updateTypedAction = action as userAction.IUpdatedUserAction
+			return{
+				...state,
+				user: updateTypedAction.user,
+				users: state.users.map((user) => {
+					return (user.id === updateTypedAction.user.id) ? updateTypedAction.user : user
+				})
+			}
+		case userAction.DELETED_USER:
+			const deleteTypedAction = action as userAction.IDeletedUserAction
+			const filteredOrgs = state.users.filter((user) =>  {
+				return user.id !== deleteTypedAction.userID
+				})
+			return {
+				...state,
+				users: filteredOrgs
+			}
 		case userAction.AUTHENTICATED_USER:
 			return Object.assign({}, state, {
 				isLoggedIn: true,
