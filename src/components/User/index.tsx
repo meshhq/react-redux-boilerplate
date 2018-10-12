@@ -56,6 +56,8 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 	]
 
 	public firstNameValue: string
+	public lastNameValue: string
+	public emailValue: string
 
 	constructor(props: IUserViewComponentConnectProps) {
 		super(props)
@@ -83,6 +85,8 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 
 	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.firstNameValue = e.currentTarget.value.trim()
+		this.lastNameValue = e.currentTarget.value.trim()
+		this.emailValue = e.currentTarget.value.trim()
 	}
 
 	public handleNewClick = (): void => {
@@ -120,12 +124,12 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 	// ---------------------------------------
 
 	public createNewUser = () => {
-		this.props.userActions.createUser(this.firstNameValue)
+		this.props.userActions.createUser(this.firstNameValue, this.lastNameValue, this.emailValue)
 		this.closeModal()
 	}
 
 	public editUser = () => {
-		this.props.userActions.updateUser(this.state.currentUserId, this.firstNameValue)
+		this.props.userActions.updateUser(this.state.currentUserId, this.firstNameValue, this.lastNameValue, this.emailValue)
 		this.closeModal()
 	}
 
