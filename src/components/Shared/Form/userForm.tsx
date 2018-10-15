@@ -31,7 +31,7 @@ class UserFormComponent extends React.Component<Props, any> {
 					</label>
 					<input
 						type='text'
-						name='name'
+						name='first name'
 						placeholder='Enter name'
 						onChange={this.props.handleFirstNameChange}
 						className='form-control'

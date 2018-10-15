@@ -200,8 +200,8 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 		return (
 			<UserForm
 				handleFirstNameChange={this.handleFirstNameChange}
-				handleLastNameChange={this.handleFirstNameChange}
-				handleEmailChange={this.handleFirstNameChange}
+				handleLastNameChange={this.handleLastNameChange}
+				handleEmailChange={this.handleEmailChange}
 			/>
 		)
 	}
