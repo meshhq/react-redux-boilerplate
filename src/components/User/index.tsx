@@ -22,7 +22,7 @@ import { IUser, IUserState } from '../../reducers/user'
 // Actions
 import { UserActions, UserDispatch } from '../../actions/user'
 import { Modal } from '../Shared/Modal'
-import { Form } from '../Shared/Form'
+import { UserForm } from '../Shared/Form/userForm'
 import NoResource from '../Shared/NoResource'
 
 // State added to props after connect.
@@ -81,9 +81,15 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 	// Event Handlers
 	// ---------------------------------------
 
-	public handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
+	public handleFirstNameChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.firstNameValue = e.currentTarget.value.trim()
+	}
+
+	public handleLastNameChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.lastNameValue = e.currentTarget.value.trim()
+	}
+
+	public handleEmailChange = (e: React.FormEvent<HTMLInputElement>): void => {
 		this.emailValue = e.currentTarget.value.trim()
 	}
 
@@ -192,8 +198,10 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 
 	public showForm = () => {
 		return (
-			<Form
-				handleInputChange={this.handleInputChange}
+			<UserForm
+				handleFirstNameChange={this.handleFirstNameChange}
+				handleLastNameChange={this.handleFirstNameChange}
+				handleEmailChange={this.handleFirstNameChange}
 			/>
 		)
 	}

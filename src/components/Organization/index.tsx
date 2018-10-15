@@ -22,7 +22,7 @@ import { IOrganizationState, IOrganization } from '../../reducers/organization'
 // Actions
 import { OrganizationActions, OrganizationDispatch } from '../../actions/organization'
 import { Modal } from '../Shared/Modal'
-import { Form } from '../Shared/Form'
+import { OrgForm } from '../Shared/Form/orgForm'
 import NoResource from '../Shared/NoResource'
 
 // State added to props after connect.
@@ -174,7 +174,7 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 
 	public showForm = () => {
 		return (
-			<Form
+			<OrgForm
 				nameInput={this.state.currentOrgId}
 				handleInputChange={this.handleInputChange}
 			/>
@@ -210,11 +210,11 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 					<NavItem eventKey={1} href='/users'>
 						Users
 					</NavItem>
-					<NavItem eventKey={2} href='/orgaizations'>
+					<NavItem eventKey={2} href='/organizations'>
 						Organizations
 					</NavItem>
 					<NavItem eventKey={2} href='#'>
-						Link
+						{/* addtl link  */}
 					</NavItem>
 				</Nav>
 			</Navbar>

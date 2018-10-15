@@ -14,7 +14,7 @@ type Props = FormProps
 //  Form for New and Edit
 // ---------------------------------
 
-class FormComponent extends React.Component<Props, any> {
+class OrgFormComponent extends React.Component<Props, any> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {}
@@ -41,4 +41,4 @@ class FormComponent extends React.Component<Props, any> {
 	}
 }
 
-export const Form = FormComponent
+export const OrgForm = OrgFormComponent
