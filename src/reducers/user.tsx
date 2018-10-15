@@ -6,7 +6,7 @@ export interface IUser {
 	firstName: string
 	lastName: string
 	email: string
-	isLoggedIn: boolean
+	isLoggedIn?: boolean
 }
 
 export interface IUserState {
@@ -31,16 +31,16 @@ function user(state = defaultState, action: AnyAction): IUserState {
 			}
 		case userAction.CREATED_USER:
 		const createTypedAction = action as userAction.ICreatedUserAction
-		const users = state.users
-		users.unshift(createTypedAction.user)
+		const stateUsers = state.users
+		stateUsers.unshift(createTypedAction.user)
 		return {
 				...state,
 				user: createTypedAction.user,
-				users: users
+				users: stateUsers
 			}
 		case userAction.UPDATED_USER:
 			const updateTypedAction = action as userAction.IUpdatedUserAction
-			return{
+			return {
 				...state,
 				user: updateTypedAction.user,
 				users: state.users.map((individualUser) => {

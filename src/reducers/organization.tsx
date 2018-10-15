@@ -37,7 +37,7 @@ function organization(state = defaultState, action: AnyAction): IOrganizationSta
 			}
 		case orgAction.UPDATED_ORGANIZATION:
 			const updateTypedAction = action as orgAction.IUpdatedOrganizationAction
-			return{
+			return {
 				...state,
 				organization: updateTypedAction.organization,
 				organizations: state.organizations.map((org) => {

@@ -162,8 +162,7 @@ const deleteUser = ( userID: number ) => (dispatch: Dispatch<IDeletedUserAction>
 	return api.DELETE(`/users/${userID}`, {})
 	.then(() => {dispatch(deletedUser(userID))})
 	.catch((err: Error) => {
-		// tslint:disable-next-line:no-console
-		console.log('Error during user delete.', err)
+		console.log('Error during user delete.', err) // tslint:disable-line:no-console
 	})
 }
 
