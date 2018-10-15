@@ -33,7 +33,7 @@ type CustomRouteProps = IRouterProps & IConnectedState & IConnectedActions
 // to the /login route
 const PrivateRouteComponent = ({ component, ...rest }: CustomRouteProps) => {
 	const routeComponent = (props: RouteProps) => (
-		rest.userState.isLoggedIn
+		rest.userState.user.isLoggedIn
 		? React.createElement(component, props)
 		: <Redirect to={{pathname: '/login'}} />
 	)
@@ -80,15 +80,15 @@ const LogoutRedirectRouteComponent = ({ component, ...rest }: CustomRouteProps) 
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
-		userState: state.user,
 		organizationState: state.organization,
+		userState: state.user,
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 	return {
-		userActions: bindActionCreators(UserActions, dispatch),
 		organizationActions: bindActionCreators(OrganizationActions, dispatch),
+		userActions: bindActionCreators(UserActions, dispatch),
 	}
 }
 

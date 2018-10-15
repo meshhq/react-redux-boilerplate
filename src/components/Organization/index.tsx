@@ -204,14 +204,14 @@ class OrganizationViewComponent extends React.Component<IOrganizationViewCompone
 		return (
 			<Navbar className='navbar-container'>
 				<Navbar.Brand className='navbar-brand'>
-					Brand Placeholder
+					Mesh Boilerplate
 				</Navbar.Brand>
 				<Nav className='nav-links'>
-					<NavItem eventKey={1} href='#'>
-						Link
+					<NavItem eventKey={1} href='/users'>
+						Users
 					</NavItem>
-					<NavItem eventKey={2} href='#'>
-						Link
+					<NavItem eventKey={2} href='/orgaizations'>
+						Organizations
 					</NavItem>
 					<NavItem eventKey={2} href='#'>
 						Link

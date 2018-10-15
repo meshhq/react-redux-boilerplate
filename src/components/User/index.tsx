@@ -221,17 +221,17 @@ class UserViewComponent extends React.Component<IUserViewComponentConnectProps, 
 		return (
 			<Navbar className='navbar-container'>
 				<Navbar.Brand className='navbar-brand'>
-					Brand Placeholder
+					Mesh Boilerplate
 				</Navbar.Brand>
 				<Nav className='nav-links'>
-					<NavItem eventKey={1} href='#'>
-						Link
+					<NavItem eventKey={1} href='/users'>
+						Users
+					</NavItem>
+					<NavItem eventKey={2} href='/organizations'>
+						Organizations
 					</NavItem>
 					<NavItem eventKey={2} href='#'>
-						Link
-					</NavItem>
-					<NavItem eventKey={2} href='#'>
-						Link
+					{/* add links as needed */}
 					</NavItem>
 				</Nav>
 			</Navbar>
