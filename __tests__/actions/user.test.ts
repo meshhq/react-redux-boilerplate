@@ -35,7 +35,7 @@ describe('User Actions', () => {
 		})
 
 		describe('fetchedUsers()', () => {
-			it.only('should create an action to fetch users', () => {
+			it('should create an action to fetch users', () => {
 				const testUsers: any  = []
 				const testAction = userActions.UserActions.fetchedUsers(testUsers)
 				const expectedAction: userActions.IFetchedUsersAction = {
