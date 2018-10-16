@@ -49,8 +49,8 @@ Run Style linter with `npm run lint`.
 
 ## Functionality 
 
-This application intentionally contains minimal functionality, as it is meant to be a starting point for a project. The only UI and functionality this application exposes is user registration and login. 
-
+This application intentionally contains minimal functionality, as it is meant to be a starting point for a project. The only UI and functionality this application exposes is user registration and login, as well as CRUD for users and organizations (thse are almost exactly the same).
+ 
 ## Project Structure
 
 This project is built using Mesh's standard `React` `Redux` project structure. It is organized as detailed in the table below:
