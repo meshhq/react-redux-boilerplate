@@ -21,6 +21,7 @@ This project will save developers time and headache when getting started with a 
 * [Webpack](https://webpack.js.org/) - A static module bundler for modern `JavaScript` applications. Its main purpose is to bundle `JavaScript` files for use in a browser. When webpack processes your application, it recursively builds a dependency graph that includes every module your application needs, then packages all of those modules into one or more bundles.
 * [TypeScript](https://www.typescriptlang.org/) - A strongly typed superset of `JavaScript`, that compiles to plain `JavaScript`. Types enable `JavaScript` developers to use highly-productive development tools and practices like static checking and code refactoring.
 * [Jest](https://www.https://jestjs.io/) - A `JavaScript` testing framework that includes powerful mocking capabilities.
+* [Redux Devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) - In `/src/store/index.tsx` you'll find Redux Devtools middleware set up. This is meant to help while working on features. Remove as needed. 
 
 ## Getting Started
 
