@@ -6,13 +6,16 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 // Components
 import { LoginComponent } from '../../components/Login'
 import { OrganizationComponent } from '../../components/Organization'
+import { UserComponent } from '../../components/User/index'
 
 // State
 import { IRootReducerState } from '../../reducers'
 import { IUserState } from '../../reducers/user'
+import { IOrganizationState } from '../../reducers/organization'
 
 interface IConnectedProps {
-	userState: IUserState
+	userState: IUserState,
+	organizationState: IOrganizationState,
 }
 
 type Props = IConnectedProps
@@ -34,9 +37,11 @@ class AppComponent extends React.Component<Props> {
 			<div className='application-root'>
 				<Grid className='application-container'>
 					<Switch>
-						<Route path={'/'} component={OrganizationComponent} />
+						<Route path={'/'} component={UserComponent} exact={true} />
 						<Route path={'/login'} component={LoginComponent} />
 						<Route path={'/register'} component={LoginComponent} />
+						<Route path={'/users'} component={UserComponent} />
+						<Route path={'/organizations'} component={OrganizationComponent} />
 					</Switch>
 				</Grid>
 			</div>
@@ -46,6 +51,7 @@ class AppComponent extends React.Component<Props> {
 
 const mapStateToProps = (state: IRootReducerState) => {
 	return {
+		organizationState: state.organization,
 		userState: state.user,
 	}
 }

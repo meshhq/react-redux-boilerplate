@@ -3,15 +3,7 @@ import configureMockStore, { MockStoreEnhanced, MockStoreCreator } from 'redux-m
 import thunk, { ThunkDispatch } from 'redux-thunk'
 import { Action, Middleware, AnyAction } from 'redux'
 
-import {
-	UserActions,
-	ILoginUserAction,
-	IRegisteredUserAction,
-	AUTHENTICATED_USER,
-	CLEAR_USER,
-	LOGIN_USER_COMPLETE,
-	REGISTERED_USER,
-} from '../../src/actions/user'
+import * as userActions from '../../src/actions/user'
 
 // ----------------------
 // Mocks
@@ -34,9 +26,21 @@ describe('User Actions', () => {
 	describe('Action Creators', () => {
 		describe('authenticatedUser()', () => {
 			it('should create an action to indicate that the user was authenticated.', () => {
-				const testAction = UserActions.authenticatedUser()
+				const testAction = userActions.UserActions.authenticatedUser()
 				const expectedAction: Action = {
-					type: AUTHENTICATED_USER,
+					type: userActions.AUTHENTICATED_USER,
+				}
+				expect(testAction).to.deep.equal(expectedAction)
+			})
+		})
+
+		describe('fetchedUsers()', () => {
+			it('should create an action to fetch users', () => {
+				const testUsers: any  = []
+				const testAction = userActions.UserActions.fetchedUsers(testUsers)
+				const expectedAction: userActions.IFetchedUsersAction = {
+					type: userActions.FETCHED_USERS,
+					users: testUsers,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -44,9 +48,9 @@ describe('User Actions', () => {
 
 		describe('clearedUser()', () => {
 			it('should create an action to indicate that the user was cleared.', () => {
-				const testAction = UserActions.clearedUser()
+				const testAction = userActions.UserActions.clearedUser()
 				const expectedAction: Action = {
-					type: CLEAR_USER,
+					type: userActions.CLEAR_USER,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
 			})
@@ -55,10 +59,10 @@ describe('User Actions', () => {
 		describe('loginUserComplete()', () => {
 			it('should create an action to indicate that the user was logged in.', () => {
 				const testResponse = {} as Response
-				const testAction = UserActions.loginUserComplete(testResponse)
-				const expectedAction: ILoginUserAction = {
+				const testAction = userActions.UserActions.loginUserComplete(testResponse)
+				const expectedAction: userActions.ILoginUserAction = {
 					receivedAt: testDate,
-					type: LOGIN_USER_COMPLETE,
+					type: userActions.LOGIN_USER_COMPLETE,
 					user: testResponse
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -68,10 +72,10 @@ describe('User Actions', () => {
 		describe('registeredUser()', () => {
 			it('should create an action to indicate that the user was registered.', () => {
 				const testResponse = {} as Response
-				const testAction = UserActions.registeredUser(testResponse)
-				const expectedAction: IRegisteredUserAction = {
+				const testAction = userActions.UserActions.registeredUser(testResponse)
+				const expectedAction: userActions.IRegisteredUserAction = {
 					receivedAt: testDate,
-					type: REGISTERED_USER,
+					type: userActions.REGISTERED_USER,
 					user: testResponse,
 				}
 				expect(testAction).to.deep.equal(expectedAction)
@@ -80,13 +84,30 @@ describe('User Actions', () => {
 	})
 
 	describe('Async Action Creators', () => {
+		describe('fetchUsers()', () => {
+			it('should fetch users in the Redux store.', async () => {
+							// Mock the API Response
+							const testResponse = [{id: 1, firstName: 'first name', lastName: 'last name', email: 'email@email.com'}]
+							// @ts-ignore this function will be available when Jest mocks the file
+							mockedAPI.__setMockResponses(testResponse)
+						 const expectedActions = [{
+						type: userActions.FETCHED_USERS,
+						users: testResponse,
+				}]
+							const store = mockStore({ users: [] })
+							await store.dispatch(userActions.UserActions.fetchUsers())
+							expect(store.getActions()).to.have.lengthOf(1)
+							expect(store.getActions()).to.deep.equal(expectedActions)
+			})
+		})
+
 		describe('authenticateUser()', () => {
 			it('should authenticate the user in the Redux store.', () => {
 				const expectedActions = [{
-					type: AUTHENTICATED_USER,
+					type: userActions.AUTHENTICATED_USER,
 				}]
 				const store = mockStore({ user: {} })
-				store.dispatch<any>(UserActions.authenticateUser())
+				store.dispatch<any>(userActions.UserActions.authenticateUser())
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -95,10 +116,10 @@ describe('User Actions', () => {
 		describe('clearUser()', () => {
 			it('should clear the user in the Redux store.', () => {
 				const expectedActions = [{
-					type: CLEAR_USER,
+					type: userActions.CLEAR_USER,
 				}]
 				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ user: {} })
-				store.dispatch(UserActions.clearUser())
+				store.dispatch(userActions.UserActions.clearUser())
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -115,12 +136,12 @@ describe('User Actions', () => {
 
 				const expectedActions = [{
 					receivedAt: testDate,
-					type: LOGIN_USER_COMPLETE,
+					type: userActions.LOGIN_USER_COMPLETE,
 					user: testResponse,
 				}]
 
 				const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ user: {} })
-				await store.dispatch(UserActions.loginUser('test_email@test.com', 'password'))
+				await store.dispatch(userActions.UserActions.loginUser('test_email@test.com', 'password'))
 				expect(store.getActions()).to.have.lengthOf(1)
 				expect(store.getActions()).to.deep.equal(expectedActions)
 			})
@@ -136,12 +157,12 @@ describe('User Actions', () => {
 
 			const expectedActions = [{
 				receivedAt: testDate,
-				type: REGISTERED_USER,
+				type: userActions.REGISTERED_USER,
 				user: testResponse,
 			}]
 
 			const store: MockStoreEnhanced<any, DispatchExts> = mockStore({ user: {} })
-			await store.dispatch(UserActions.registerUser('test_email@test.com', 'password'))
+			await store.dispatch(userActions.UserActions.registerUser('test_email@test.com', 'password'))
 			expect(store.getActions()).to.have.lengthOf(1)
 			expect(store.getActions()).to.deep.equal(expectedActions)
 		})

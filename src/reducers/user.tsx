@@ -1,40 +1,75 @@
 import { AnyAction } from 'redux'
-import {
-	ILoginUserAction,
-	IRegisteredUserAction,
-	AUTHENTICATED_USER,
-	CLEAR_USER,
-	LOGIN_USER_COMPLETE,
-	REGISTERED_USER,
-} from '../actions/user'
+import * as userAction from '../actions/user'
+
+export interface IUser {
+	id?: number
+	firstName: string
+	lastName: string
+	email: string
+	isLoggedIn?: boolean
+}
 
 export interface IUserState {
-	isLoggedIn: boolean,
-	user: any,
+	user: IUser
+	users: IUser[]
+
 }
 
 const defaultState: IUserState = {
-	isLoggedIn: false,
 	user: null,
+	users: [],
 }
 
 function user(state = defaultState, action: AnyAction): IUserState {
 	let typedAction
 	switch (action.type) {
-		case AUTHENTICATED_USER:
+		case userAction.FETCHED_USERS:
+		const fetchTypedAction = action as userAction.IFetchedUsersAction
+		return {
+				...state,
+				users: fetchTypedAction.users
+			}
+		case userAction.CREATED_USER:
+		const createTypedAction = action as userAction.ICreatedUserAction
+		const stateUsers = state.users
+		stateUsers.unshift(createTypedAction.user)
+		return {
+				...state,
+				user: createTypedAction.user,
+				users: stateUsers
+			}
+		case userAction.UPDATED_USER:
+			const updateTypedAction = action as userAction.IUpdatedUserAction
+			return {
+				...state,
+				user: updateTypedAction.user,
+				users: state.users.map((individualUser) => {
+					return (individualUser.id === updateTypedAction.user.id) ? updateTypedAction.user : individualUser
+				})
+			}
+		case userAction.DELETED_USER:
+			const deleteTypedAction = action as userAction.IDeletedUserAction
+			const filteredUsers = state.users.filter((individualUser) =>  {
+				return individualUser.id !== deleteTypedAction.userID
+				})
+			return {
+				...state,
+				users: filteredUsers
+			}
+		case userAction.AUTHENTICATED_USER:
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 			})
-		case CLEAR_USER:
+		case userAction.CLEAR_USER:
 			return Object.assign({}, state, defaultState)
-		case LOGIN_USER_COMPLETE:
-			typedAction = action as ILoginUserAction
+		case userAction.LOGIN_USER_COMPLETE:
+			typedAction = action as userAction.ILoginUserAction
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 				user: typedAction.user,
 			})
-		case REGISTERED_USER:
-			typedAction = action as IRegisteredUserAction
+		case userAction.REGISTERED_USER:
+			typedAction = action as userAction.IRegisteredUserAction
 			return Object.assign({}, state, {
 				isLoggedIn: true,
 				user: typedAction.user,
