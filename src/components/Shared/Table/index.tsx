@@ -32,7 +32,7 @@ export default class TableComponent extends React.Component<TableProps, any> {
 				<div className='table-container'>
 				<Row>
 					<Col className='table-header' lg={12}>
-						{/* { `change to users` } */}
+						{' Resources'}
 					</Col>
 				</Row>
 					<Table className='table-content'>
