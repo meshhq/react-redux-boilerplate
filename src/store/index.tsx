@@ -15,8 +15,8 @@ export default function configureStore(initialState: any) {
 	const middleware = applyMiddleware(thunk)
 	let composeEnhancers = compose
 
-	if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-		composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+	if (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+		composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 	}
 
 	// Creating our store
